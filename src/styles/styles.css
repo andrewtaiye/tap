@@ -163,6 +163,13 @@ input::placeholder {
   color: rgb(var(--grey));
 }
 
+.input__profile__create {
+  width: 400px;
+  height: fit-content;
+  padding-inline: 32px;
+  padding-block: 8px;
+}
+
 /* ------- Header ------- */
 
 .header {
@@ -176,4 +183,12 @@ input::placeholder {
   margin-inline: auto;
   width: 70%;
   justify-content: space-between !important;
+}
+
+/* ------- Sections ------- */
+
+.section__container--light {
+  background-color: rgb(var(--lightBlue100));
+  width: 100%;
+  padding: 32px;
 }
