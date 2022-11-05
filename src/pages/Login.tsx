@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
@@ -14,12 +14,17 @@ const Login = () => {
   const { register, handleSubmit } = useForm<Inputs>();
   const [errorMessage, setErrorMessage] = useState("");
 
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!data.username || !data.password) {
       setErrorMessage("Invalid Username or Password");
+      return;
     } else {
       setErrorMessage("");
     }
+
+    navigate("/assessments");
   };
 
   return (

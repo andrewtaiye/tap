@@ -45,6 +45,7 @@ body {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 /* ======================= */
@@ -58,6 +59,27 @@ a {
 /* ======================= */
 /*       Components        */
 /* ======================= */
+
+/* ------- Generic ------- */
+
+.error {
+  color: rgb(var(--red));
+}
+
+.selected {
+  position: relative;
+}
+
+.selected::after {
+  position: absolute;
+  content: "";
+  left: calc(50% - 3px);
+  bottom: -2px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background-color: rgb(var(--black));
+}
 
 /* ------- Buttons ------- */
 
@@ -141,6 +163,17 @@ input::placeholder {
   color: rgb(var(--grey));
 }
 
-.error {
-  color: rgb(var(--red));
+/* ------- Header ------- */
+
+.header {
+  height: 112px;
+  width: 100%;
+  padding-block: 32px;
+  background-color: rgb(var(--lightBlue200));
+}
+
+.header__container {
+  margin-inline: auto;
+  width: 70%;
+  justify-content: space-between !important;
 }
