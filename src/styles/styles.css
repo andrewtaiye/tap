@@ -43,6 +43,10 @@ body {
   background-color: rgb(var(--lightBlue100));
 }
 
+a {
+  text-decoration: none;
+}
+
 /* ======================= */
 /*         Pages           */
 /* ======================= */
