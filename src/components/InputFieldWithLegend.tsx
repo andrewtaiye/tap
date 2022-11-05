@@ -21,6 +21,7 @@ const InputFieldWithLegend = (props: any) => {
         className={`${props.className}`}
         placeholder={capitaliseFirstLetter(props.inputName)}
         {...props.register(props.inputName)}
+        autoComplete="off"
       />
     </div>
   );
