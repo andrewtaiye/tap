@@ -1,0 +1,142 @@
+/* ======================= */
+/*      Font Imports       */
+/* ======================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* ======================= */
+/*        Variables        */
+/* ======================= */
+
+:root {
+  --white: 252, 252, 252;
+  --black: 16, 16, 16;
+  --darkGrey: 95, 95, 95;
+  --grey: 134, 134, 134;
+  --lightGrey: 191, 191, 191;
+  --darkBlue: 0, 75, 160;
+  --blue400: 25, 118, 210;
+  --lightBlue300: 99, 164, 255;
+  --lightBlue200: 227, 239, 255;
+  --lightBlue100: 243, 248, 255;
+  --red: 237, 0, 0;
+}
+
+/* ======================= */
+/*        Resets           */
+/* ======================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: "Crimson Pro", serif;
+  background-color: rgb(var(--lightBlue100));
+}
+
+/* ======================= */
+/*         Pages           */
+/* ======================= */
+
+.login-register__container {
+  padding-block: 64px;
+}
+
+/* ======================= */
+/*       Components        */
+/* ======================= */
+
+/* ------- Buttons ------- */
+
+button {
+  border-radius: 4px;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 16px;
+  padding-block: 8px;
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.button__active {
+  background-color: rgb(var(--darkBlue));
+  color: rgb(var(--white));
+}
+
+.button__active:hover {
+  background-color: rgb(var(--blue400));
+}
+
+.button__disabled {
+  background-color: rgb(var(--darkBlue));
+  color: rgb(var(--white));
+}
+
+.button__outline {
+  background-color: rgb(var(--white));
+  color: rgb(var(--black));
+  border: 1px solid rgb(var(--black));
+}
+
+.button__outline:hover {
+  background-color: rgb(var(--grey));
+  color: rgb(var(--white));
+}
+
+/* ------- Inputs ------- */
+
+input {
+  font-family: inherit;
+  color: rgb(var(--black));
+  border: 1px solid rgb(var(--black));
+  border-radius: 4px;
+}
+
+input::placeholder {
+  color: rgb(var(--grey));
+}
+
+.input__container {
+  position: relative;
+  width: fit-content;
+  display: inline-block;
+}
+
+.input__login {
+  width: 500px;
+  height: fit-content;
+  padding-inline: 32px;
+  padding-block: 16px;
+  background-color: rgb(var(--white));
+}
+
+.input__login__legend {
+  position: absolute;
+  top: -8px;
+  left: 32px;
+  padding-inline: 8px;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(var(--lightBlue100)) 0 50%,
+    rgb(var(--white)) 50% 100%
+  );
+  color: rgb(var(--grey));
+}
+
+.error {
+  color: rgb(var(--red));
+}
