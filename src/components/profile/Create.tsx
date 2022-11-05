@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import InputFieldWithLabelStacked from "../InputFieldWithLabelStacked";
@@ -16,6 +17,8 @@ const Create = () => {
   const { register, handleSubmit } = useForm<Inputs>();
   const [errorMessage, setErrorMessage] = useState("");
 
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (
       !data["salutation"] ||
@@ -30,6 +33,8 @@ const Create = () => {
     } else {
       setErrorMessage("");
     }
+
+    navigate("/assessments");
   };
 
   return (
