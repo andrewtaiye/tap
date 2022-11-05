@@ -1,12 +1,14 @@
 import React from "react";
 
+import { capitaliseFirstLetter } from "./utility";
+
 import { ReactComponent as Warning } from "../assets/icons/warning.svg";
 
 const InputFieldWithLegend = (props: any) => {
   return (
     <div className="input__container">
       <div className="input__login__legend row gap-8">
-        <span className="">{props.placeholder}</span>
+        <span className="">{capitaliseFirstLetter(props.inputName)}</span>
         {props.warning && (
           <Warning
             className="error"
@@ -17,7 +19,8 @@ const InputFieldWithLegend = (props: any) => {
       <input
         type={`${props.type}`}
         className={`${props.className}`}
-        placeholder={props.placeholder}
+        placeholder={capitaliseFirstLetter(props.inputName)}
+        {...props.register(props.inputName)}
       />
     </div>
   );

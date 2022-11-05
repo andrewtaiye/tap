@@ -1,8 +1,8 @@
 export const capitaliseFirstLetter = (string: string): string => {
   const words = string.split(/ |-/);
-  const newWords = [];
+  const newWords: string[] = [];
   for (let word of words) {
-    const arr = word.split("");
+    const arr: string[] = word.split("");
     arr[0] = arr[0].toUpperCase();
     newWords.push(arr.join(""));
   }
