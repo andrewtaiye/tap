@@ -17,7 +17,6 @@ const Create = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log({ data });
     if (
       !data["salutation"] ||
       !data["full name"] ||
