@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
@@ -14,6 +14,8 @@ const Register = () => {
   }
   const { register, handleSubmit, watch } = useForm<Inputs>();
   const allValues = watch();
+
+  const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -31,6 +33,8 @@ const Register = () => {
     } else {
       setErrorMessage("");
     }
+
+    navigate("/profile");
   };
 
   return (
