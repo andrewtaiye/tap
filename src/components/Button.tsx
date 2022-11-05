@@ -1,6 +1,15 @@
 import React from "react";
 
-const Active = (props: any) => {
+interface Props {
+  children: string;
+  className: string;
+  mode: string;
+  style: {};
+  type: "button" | "submit" | "reset";
+}
+
+const Active = (props: Props) => {
+  console.log(props);
   return (
     <button
       type={props.type}

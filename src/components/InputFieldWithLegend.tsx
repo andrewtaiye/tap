@@ -4,7 +4,15 @@ import { capitaliseFirstLetter } from "./utility";
 
 import { ReactComponent as Warning } from "../assets/icons/warning.svg";
 
-const InputFieldWithLegend = (props: any) => {
+interface Props {
+  className: string;
+  inputName: string;
+  register: any;
+  type: string;
+  warning?: boolean;
+}
+
+const InputFieldWithLegend = (props: Props) => {
   return (
     <div className="input__container">
       <div className="input__login__legend row gap-8">
