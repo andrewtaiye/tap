@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Active = (props: Props) => {
-  console.log(props);
   return (
     <button
       type={props.type}
