@@ -1,21 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
 import InputFieldWithLegend from "../components/InputFieldWithLegend";
 import Button from "../components/Button";
 
 const Register = () => {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm();
+  interface Inputs {
+    username: string;
+    password: string;
+    "confirm password": string;
+  }
+  const { register, handleSubmit, watch } = useForm<Inputs>();
+  const allValues = watch();
 
-  const onSubmit = (data: {}) => {
-    console.log({ data });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (!data["username"] || !data["password"] || !data["confirm password"]) {
+      setErrorMessage("Please fill in all the required fields");
+      return;
+    } else {
+      setErrorMessage("");
+    }
+
+    if (data["password"] !== data["confirm password"]) {
+      setErrorMessage("Passwords do not match");
+      return;
+    } else {
+      setErrorMessage("");
+    }
   };
 
   return (
@@ -31,34 +46,37 @@ const Register = () => {
           type="text"
           className="input__login fs-32 mb-4"
           inputName="username"
-          warning={true}
+          warning={allValues["username"] ? false : true}
           register={register}
         />
         <InputFieldWithLegend
           type="password"
           className="input__login fs-32 mb-4"
           inputName="password"
-          warning={true}
+          warning={allValues["password"] ? false : true}
           register={register}
         />
         <InputFieldWithLegend
           type="password"
           className="input__login fs-32 mb-1"
           inputName="confirm password"
-          warning={true}
+          warning={allValues["confirm password"] ? false : true}
           register={register}
         />
-        <p
-          className="error fs-24 mb-8"
-          style={{ alignSelf: "flex-start", textAlign: "left" }}
-        >
-          Error: Passwords do not match
-        </p>
 
-        <div className="row gap-32">
+        {errorMessage && (
+          <p
+            className="error fs-24"
+            style={{ alignSelf: "flex-start", textAlign: "left" }}
+          >
+            {`Error: ${errorMessage}`}
+          </p>
+        )}
+
+        <div className="row gap-32 mt-8">
           <NavLink to="/login">
             <Button
-              mode="active"
+              mode="outline"
               type="button"
               className="fs-32"
               style={{ width: "136px" }}
@@ -67,7 +85,7 @@ const Register = () => {
             </Button>
           </NavLink>
           <Button
-            mode="outline"
+            mode="active"
             type="submit"
             className="fs-32"
             style={{ width: "136px" }}

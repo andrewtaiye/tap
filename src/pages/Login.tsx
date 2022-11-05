@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
 import InputFieldWithLegend from "../components/InputFieldWithLegend";
 import Button from "../components/Button";
 
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm();
+  interface Inputs {
+    username: string;
+    password: string;
+  }
+  const { register, handleSubmit } = useForm<Inputs>();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const onSubmit = (data: {}) => {
-    console.log({ data });
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (!data.username || !data.password) {
+      setErrorMessage("Invalid Username or Password");
+    } else {
+      setErrorMessage("");
+    }
   };
 
   return (
@@ -39,14 +43,17 @@ const Login = () => {
           inputName="password"
           register={register}
         />
-        <p
-          className="error fs-24 mb-8"
-          style={{ alignSelf: "flex-start", textAlign: "left" }}
-        >
-          Error: Invalid Username or Password
-        </p>
 
-        <div className="row gap-32">
+        {errorMessage && (
+          <p
+            className="error fs-24"
+            style={{ alignSelf: "flex-start", textAlign: "left" }}
+          >
+            {`Error: ${errorMessage}`}
+          </p>
+        )}
+
+        <div className="row gap-32 mt-8">
           <Button
             mode="active"
             type="submit"
