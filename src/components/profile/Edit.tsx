@@ -26,7 +26,6 @@ const Edit = (props: Props) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log({ data });
     if (
       !data["id number"] ||
       !data["date of birth"] ||
