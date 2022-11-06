@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Assessments from "./pages/Assessments";
+import Modal from "./components/generic/Modal";
 
 const App = () => {
   const [userId, setUserId] = useState(1);

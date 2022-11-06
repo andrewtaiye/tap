@@ -49,42 +49,42 @@ const Create = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <InputFieldWithLabelStacked
-          className="input__profile__create fs-24 fw-400 mb-2"
+          className="input__profile-create fs-24 fw-400 mb-2"
           inputName="salutation"
           register={register}
           type="text"
           warning={allValues["salutation"] ? false : true}
         />
         <InputFieldWithLabelStacked
-          className="input__profile__create fs-24 fw-400 mb-2"
+          className="input__profile-create fs-24 fw-400 mb-2"
           inputName="full name"
           register={register}
           type="text"
           warning={allValues["full name"] ? false : true}
         />
         <InputFieldWithLabelStacked
-          className="input__profile__create fs-24 fw-400 mb-2"
+          className="input__profile-create fs-24 fw-400 mb-2"
           inputName="date of birth"
           register={register}
           type="text"
           warning={allValues["date of birth"] ? false : true}
         />
         <InputFieldWithLabelStacked
-          className="input__profile__create fs-24 fw-400 mb-2"
+          className="input__profile-create fs-24 fw-400 mb-2"
           inputName="identification number"
           register={register}
           type="text"
           warning={allValues["identification number"] ? false : true}
         />
         <InputFieldWithLabelStacked
-          className="input__profile__create fs-24 fw-400 mb-1"
+          className="input__profile-create fs-24 fw-400 mb-1"
           inputName="date accepted"
           register={register}
           type="text"
           warning={allValues["date accepted"] ? false : true}
         />
         <InputFieldWithLabelStacked
-          className="input__profile__create fs-24 fw-400 mb-1"
+          className="input__profile-create fs-24 fw-400 mb-1"
           inputName="reporting date"
           register={register}
           type="text"

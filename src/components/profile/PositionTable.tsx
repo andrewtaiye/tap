@@ -3,9 +3,14 @@ import Button from "../generic/Button";
 
 interface Props {
   data: any[];
+  setPositionModal: any;
 }
 
 const PositionTable = (props: Props) => {
+  const handleButtonClick = () => {
+    props.setPositionModal((prevState: boolean) => !prevState);
+  };
+
   return (
     <div className="col">
       <table>
@@ -23,7 +28,12 @@ const PositionTable = (props: Props) => {
             <th colSpan={7} className="px-2 py-2">
               <div className="row justify-sb">
                 <p className="fs-32">Validated Positions</p>
-                <Button mode="active" type="button" className="fs-24">
+                <Button
+                  mode="active"
+                  type="button"
+                  className="fs-24"
+                  onClick={handleButtonClick}
+                >
                   Add Position
                 </Button>
               </div>
