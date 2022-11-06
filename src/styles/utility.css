@@ -273,9 +273,9 @@
   padding-right: 48px !important;
 }
 
-.py-8 {
-  padding-top: 64px !important;
-  padding-bottom: 64px !important;
+.px-8 {
+  padding-left: 64px !important;
+  padding-right: 64px !important;
 }
 
 .py-1 {

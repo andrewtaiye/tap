@@ -11,7 +11,7 @@ import { profiles } from "../../temp/profileData";
 
 interface Props {
   userId: number;
-  setPositionModal: any;
+  setModal: any;
 }
 
 const Main = (props: Props) => {
@@ -44,10 +44,7 @@ const Main = (props: Props) => {
         )}
       </div>
       <div className="section__container-dark">
-        <PositionTable
-          data={positions}
-          setPositionModal={props.setPositionModal}
-        />
+        <PositionTable data={positions} setModal={props.setModal} />
       </div>
       {isEditing && (
         <div className="section__container-light col">

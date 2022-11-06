@@ -110,8 +110,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="id number"
             className="px-4 py-1 fs-24"
-            inputWidth="300px"
             labelWidth="250px"
+            inputWidth="300px"
             type="text"
             register={register}
             warning={allValues["id number"] ? false : true}
@@ -121,8 +121,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="date of birth"
             className="px-4 py-1 fs-24"
-            inputWidth="300px"
             labelWidth="250px"
+            inputWidth="300px"
             type="text"
             register={register}
             warning={allValues["date of birth"] ? false : true}
@@ -134,8 +134,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="date accepted"
             className="px-4 py-1 fs-24"
-            inputWidth="300px"
             labelWidth="250px"
+            inputWidth="300px"
             type="text"
             register={register}
             warning={allValues["date accepted"] ? false : true}
@@ -145,8 +145,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="reporting date"
             className="px-4 py-1 fs-24"
-            inputWidth="300px"
             labelWidth="250px"
+            inputWidth="300px"
             type="text"
             register={register}
             warning={allValues["reporting date"] ? false : true}
@@ -158,8 +158,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="password"
             className="px-4 py-1 fs-24"
-            inputWidth="300px"
             labelWidth="250px"
+            inputWidth="300px"
             type="password"
             register={register}
             warning={allValues["password"] ? false : true}
@@ -169,8 +169,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="confirm password"
             className="px-4 py-1 fs-24"
-            inputWidth="300px"
             labelWidth="250px"
+            inputWidth="300px"
             type="password"
             register={register}
             warning={allValues["confirm password"] ? false : true}

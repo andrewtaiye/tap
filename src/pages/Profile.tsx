@@ -10,22 +10,31 @@ interface Props {
   userId: number;
 }
 
+interface ModalProps {
+  type?: string;
+  subtype?: string;
+  data?: any;
+}
+
 const Profile = (props: Props) => {
-  const [positionModal, setPositionModal] = useState(false);
+  const [positionModal, setPositionModal] = useState<ModalProps>({});
 
   return (
     <>
       <Header />
       {props.hasProfile ? (
-        <Main userId={props.userId} setPositionModal={setPositionModal} />
+        <Main userId={props.userId} setModal={setPositionModal} />
       ) : (
         <Create />
       )}
-      {positionModal && (
-        <>
-          <div id="modal-root"></div>
-          <Modal type="position" setModal={setPositionModal} />
-        </>
+      <div id="modal-root"></div>
+      {positionModal.type && (
+        <Modal
+          type={positionModal.type}
+          subtype={positionModal.subtype}
+          data={positionModal.data}
+          setModal={setPositionModal}
+        />
       )}
     </>
   );

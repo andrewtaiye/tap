@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import Header from "./Header";
+import Position from "../modals/Position";
 
 interface Props {
   setModal: any;
+  subtype?: string;
+  data?: {};
 }
 
 interface Main extends Props {
@@ -15,28 +16,34 @@ const Modal = (props: Main) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <Overlay type={props.type} setModal={props.setModal} />,
+        <Overlay
+          type={props.type}
+          subtype={props.subtype}
+          data={props.data}
+          setModal={props.setModal}
+        />,
         document.querySelector<any>("#modal-root")
       )}
-      <Header />
-      Position
     </>
   );
 };
 
 const Overlay = (props: Main) => {
-  return (
-    <div className="modal-overlay">
-      {props.type === "position" && <Position setModal={props.setModal} />}
-    </div>
-  );
-};
+  const closeModal = (event: any) => {
+    if (event.target === event.currentTarget) {
+      props.setModal("");
+    }
+  };
 
-const Position = (props: Props) => {
   return (
-    <div className="modal__position-container">
-      <p>Add New Position</p>
-      <div className="modal__position-form"></div>
+    <div className="modal-overlay" onClick={closeModal}>
+      {props.type === "position" && (
+        <Position
+          subtype={props.subtype}
+          data={props.data}
+          setModal={props.setModal}
+        />
+      )}
     </div>
   );
 };

@@ -3,12 +3,26 @@ import Button from "../generic/Button";
 
 interface Props {
   data: any[];
-  setPositionModal: any;
+  setModal: any;
 }
 
 const PositionTable = (props: Props) => {
-  const handleButtonClick = () => {
-    props.setPositionModal((prevState: boolean) => !prevState);
+  const handleAddButtonClick = () => {
+    const modal = {
+      type: "position",
+      subtype: "add",
+      data: {},
+    };
+    props.setModal(modal);
+  };
+
+  const handleEditButtonClick = (element: {}) => {
+    const modal = {
+      type: "position",
+      subtype: "edit",
+      data: { ...element },
+    };
+    props.setModal(modal);
   };
 
   return (
@@ -32,7 +46,7 @@ const PositionTable = (props: Props) => {
                   mode="active"
                   type="button"
                   className="fs-24"
-                  onClick={handleButtonClick}
+                  onClick={handleAddButtonClick}
                 >
                   Add Position
                 </Button>
@@ -59,7 +73,14 @@ const PositionTable = (props: Props) => {
                 <td>{element.startDate}</td>
                 <td>{element.endDate}</td>
                 <td>{element.approvalDate}</td>
-                <td>Edit</td>
+                <td>
+                  <p
+                    onClick={() => handleEditButtonClick(element)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Edit
+                  </p>
+                </td>
               </tr>
             );
           })}

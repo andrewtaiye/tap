@@ -82,6 +82,10 @@ a {
   background-color: rgb(var(--black));
 }
 
+.visually-hidden {
+  display: none;
+}
+
 /* ------- Buttons ------- */
 
 button {
@@ -219,7 +223,40 @@ input::placeholder {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(var(--black) / 0.3);
+  background-color: rgba(var(--black), 0.5);
+  z-index: 10;
+}
+
+.modal__position-container {
+  position: fixed;
+  z-index: 15;
+  top: 30vh;
+  left: calc((100% - min(80%, 1000px)) / 2);
+  width: 80%;
+  min-width: 1000px;
+  max-width: 1000px;
+  padding: 32px;
+  background-color: rgb(var(--lightBlue100));
+  border-radius: 16px;
+}
+
+.modal__position-form {
+  width: 800px;
+  display: inline-block;
+}
+
+.modal__position-reval-checkbox {
+  appearance: none;
+  height: 17px;
+  width: 17px;
+  outline: 1px solid rgb(var(--black));
+  outline-offset: 3px;
+  margin-left: 3px;
+  border-radius: 50%;
+}
+
+.modal__position-reval-checkbox:checked {
+  background-color: rgb(var(--grey));
 }
 
 /* ------- Tables ------- */
