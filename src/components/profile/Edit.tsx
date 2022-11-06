@@ -3,10 +3,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import Button from "../Button";
 import InputFieldWithLabelInline from "../InputFieldWithLabelInline";
+import { capitaliseFirstLetter } from "../utility";
 
 interface Props {
   handleButtonClick: any;
   isEditing: boolean;
+  data: any;
 }
 
 const Edit = (props: Props) => {
@@ -20,7 +22,16 @@ const Edit = (props: Props) => {
     "confirm password": string;
     warning: boolean;
   }
-  const { register, handleSubmit, watch } = useForm<Inputs>();
+  const { register, handleSubmit, watch } = useForm<Inputs>({
+    defaultValues: {
+      "id number": props.data.idNumber,
+      "date of birth": props.data.dateOfBirth,
+      "date accepted": props.data.dateAccepted,
+      "reporting date": props.data.reportingDate,
+      password: props.data.password,
+      "confirm password": props.data.password,
+    },
+  });
   const allValues = watch();
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -64,7 +75,7 @@ const Edit = (props: Props) => {
             className="px-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            johndoe
+            {props.data.username}
           </p>
         </div>
         <div className="w-100 row justify-fs">
@@ -78,7 +89,9 @@ const Edit = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            John Doe
+            {`${capitaliseFirstLetter(
+              props.data.salutation
+            )}. ${capitaliseFirstLetter(props.data.fullName)}`}
           </p>
         </div>
       </div>

@@ -1,9 +1,11 @@
 import React from "react";
 import Button from "../Button";
 
-import { positions } from "../../temp/positionData";
+interface Props {
+  data: any[];
+}
 
-const PositionTable = () => {
+const PositionTable = (props: Props) => {
   return (
     <div className="col">
       <table>
@@ -38,7 +40,7 @@ const PositionTable = () => {
             <th>Approval Date</th>
             <th>Edit</th>
           </tr>
-          {positions.map((element) => {
+          {props.data.map((element) => {
             return (
               <tr key={element.id}>
                 <td>{element.id}</td>

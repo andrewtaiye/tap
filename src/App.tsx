@@ -10,6 +10,7 @@ import Profile from "./pages/Profile";
 import Assessments from "./pages/Assessments";
 
 const App = () => {
+  const [userId, setUserId] = useState(1);
   const [hasProfile, setHasProfile] = useState(true);
 
   return (

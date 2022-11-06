@@ -1,10 +1,12 @@
 import React from "react";
 
 import Button from "../Button";
+import { capitaliseFirstLetter } from "../utility";
 
 interface Props {
   handleButtonClick: any;
   isEditing: boolean;
+  data: any;
 }
 
 const Display = (props: Props) => {
@@ -22,7 +24,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            johndoe
+            {props.data.username}
           </p>
         </div>
         <div className="w-100 row justify-fs">
@@ -36,7 +38,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            John Doe
+            {capitaliseFirstLetter(props.data.fullName)}
           </p>
         </div>
       </div>
@@ -52,7 +54,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            123456789
+            {props.data.idNumber}
           </p>
         </div>
         <div className="w-100 row justify-fs">
@@ -66,7 +68,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            00/00/0000
+            {props.data.dateOfBirth}
           </p>
         </div>
       </div>
@@ -82,7 +84,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            00/00/0000
+            {props.data.dateAccepted}
           </p>
         </div>
         <div className="w-100 row justify-fs">
@@ -96,7 +98,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            00/00/0000
+            {props.data.reportingDate}
           </p>
         </div>
       </div>
