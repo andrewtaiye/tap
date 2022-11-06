@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import "./styles/styles.css";
@@ -10,6 +10,8 @@ import Profile from "./pages/Profile";
 import Assessments from "./pages/Assessments";
 
 const App = () => {
+  const [hasProfile, setHasProfile] = useState(true);
+
   return (
     <div className="col">
       <Routes>
@@ -17,7 +19,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/assessments" element={<Assessments />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile hasProfile={hasProfile} />} />
       </Routes>
     </div>
   );
