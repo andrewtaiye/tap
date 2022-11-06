@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
 
-import Button from "../Button";
+import Button from "../generic/Button";
 import Display from "./Display";
 import Edit from "./Edit";
 import PositionTable from "./PositionTable";

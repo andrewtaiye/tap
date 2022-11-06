@@ -2,7 +2,7 @@ import React from "react";
 
 import { capitaliseFirstLetter } from "./utility";
 
-import { ReactComponent as Warning } from "../assets/icons/warning.svg";
+import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 
 interface Props {
   className: string;

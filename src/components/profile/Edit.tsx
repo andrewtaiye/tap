@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import Button from "../Button";
-import InputFieldWithLabelInline from "../InputFieldWithLabelInline";
-import { capitaliseFirstLetter } from "../utility";
+import Button from "../generic/Button";
+import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
+import { capitaliseFirstLetter } from "../generic/utility";
 
 interface Props {
   handleButtonClick: any;

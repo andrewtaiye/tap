@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { ReactComponent as LongLogo } from "../assets/logos/long.svg";
+import { ReactComponent as LongLogo } from "../../assets/logos/long.svg";
 
 const Header = () => {
   const navigate = useNavigate();

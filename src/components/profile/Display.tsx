@@ -1,7 +1,7 @@
 import React from "react";
 
-import Button from "../Button";
-import { capitaliseFirstLetter } from "../utility";
+import Button from "../generic/Button";
+import { capitaliseFirstLetter } from "../generic/utility";
 
 interface Props {
   handleButtonClick: any;

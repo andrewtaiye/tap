@@ -3,8 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
-import InputFieldWithLegend from "../components/InputFieldWithLegend";
-import Button from "../components/Button";
+import InputFieldWithLegend from "../components/generic/InputFieldWithLegend";
+import Button from "../components/generic/Button";
 
 const Login = () => {
   interface Inputs {
