@@ -6,6 +6,7 @@ interface Props {
   mode: string;
   style: {};
   type: "button" | "submit" | "reset";
+  onClick?: any;
 }
 
 const Active = (props: Props) => {
@@ -14,6 +15,7 @@ const Active = (props: Props) => {
       type={props.type}
       className={`button__active ${props.className}`}
       style={props.style}
+      onClick={props.onClick}
     >
       {props.children}
     </button>
@@ -26,6 +28,7 @@ const Disabled = (props: any) => {
       type={props.type}
       className={`button__disabled ${props.className}`}
       style={props.style}
+      onClick={props.onClick}
     >
       {props.children}
     </button>
@@ -38,6 +41,7 @@ const Outline = (props: any) => {
       type={props.type}
       className={`button__outline ${props.className}`}
       style={props.style}
+      onClick={props.onClick}
     >
       {props.children}
     </button>

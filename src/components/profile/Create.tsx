@@ -13,8 +13,11 @@ const Create = () => {
     "identification number": string;
     "date accepted": string;
     "reporting date": string;
+    warning: boolean;
   }
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit, watch } = useForm<Inputs>();
+  const allValues = watch();
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -28,7 +31,7 @@ const Create = () => {
       !data["date accepted"] ||
       !data["reporting date"]
     ) {
-      setErrorMessage("Invalid Username or Password");
+      setErrorMessage("Please fill in all required fields");
       return;
     } else {
       setErrorMessage("");
@@ -38,7 +41,7 @@ const Create = () => {
   };
 
   return (
-    <div className="section__container--light">
+    <div className="section__container-light">
       <p className="bebas fs-48 mb-2">Create Profile</p>
       <form
         className="grid gc-2"
@@ -50,36 +53,42 @@ const Create = () => {
           inputName="salutation"
           register={register}
           type="text"
+          warning={allValues["salutation"] ? false : true}
         />
         <InputFieldWithLabelStacked
           className="input__profile__create fs-24 fw-400 mb-2"
           inputName="full name"
           register={register}
           type="text"
+          warning={allValues["full name"] ? false : true}
         />
         <InputFieldWithLabelStacked
           className="input__profile__create fs-24 fw-400 mb-2"
           inputName="date of birth"
           register={register}
           type="text"
+          warning={allValues["date of birth"] ? false : true}
         />
         <InputFieldWithLabelStacked
           className="input__profile__create fs-24 fw-400 mb-2"
           inputName="identification number"
           register={register}
           type="text"
+          warning={allValues["identification number"] ? false : true}
         />
         <InputFieldWithLabelStacked
           className="input__profile__create fs-24 fw-400 mb-1"
           inputName="date accepted"
           register={register}
           type="text"
+          warning={allValues["date accepted"] ? false : true}
         />
         <InputFieldWithLabelStacked
           className="input__profile__create fs-24 fw-400 mb-1"
           inputName="reporting date"
           register={register}
           type="text"
+          warning={allValues["reporting date"] ? false : true}
         />
 
         {errorMessage && (

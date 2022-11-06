@@ -20,6 +20,10 @@
   align-items: center;
 }
 
+.flex {
+  flex: 1;
+}
+
 .justify-sb {
   justify-content: space-between !important;
 }
@@ -34,6 +38,22 @@
 
 .justify-sa {
   justify-content: space-around !important;
+}
+
+.alignSelf-end {
+  align-self: flex-end;
+}
+
+.alignSelf-start {
+  align-self: flex-start;
+}
+
+.justifySelf-end {
+  justify-self: flex-end;
+}
+
+.justifySelf-start {
+  justify-self: flex-start;
 }
 
 .grid {
@@ -63,6 +83,14 @@
 
 .gap-32 {
   gap: 32px;
+}
+
+.gap-48 {
+  gap: 48px;
+}
+
+.gap-64 {
+  gap: 64px;
 }
 
 .mt-1 {

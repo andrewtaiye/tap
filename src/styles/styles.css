@@ -36,6 +36,7 @@ html,
 body,
 #root {
   height: 100%;
+  max-width: 1366px;
 }
 
 body {
@@ -187,7 +188,7 @@ input::placeholder {
 
 /* ------- Sections ------- */
 
-.section__container--light {
+.section__container-light {
   background-color: rgb(var(--lightBlue100));
   width: 100%;
   padding: 32px;
