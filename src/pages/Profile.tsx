@@ -6,13 +6,14 @@ import Main from "../components/profile/Main";
 
 interface Props {
   hasProfile: boolean;
+  userId: number;
 }
 
 const Profile = (props: Props) => {
   return (
     <>
       <Header />
-      {props.hasProfile ? <Main /> : <Create />}
+      {props.hasProfile ? <Main userId={props.userId} /> : <Create />}
     </>
   );
 };

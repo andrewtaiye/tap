@@ -8,7 +8,17 @@ import { capitaliseFirstLetter } from "../utility";
 interface Props {
   handleButtonClick: any;
   isEditing: boolean;
-  data: any;
+  data: {
+    id: number;
+    username: string;
+    password: string;
+    salutation: string;
+    fullName: string;
+    idNumber: string;
+    dateOfBirth: string;
+    dateAccepted: string;
+    reportingDate: string;
+  };
 }
 
 const Edit = (props: Props) => {
