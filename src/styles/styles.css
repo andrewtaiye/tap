@@ -121,7 +121,7 @@ button {
 .button__outline {
   background-color: rgb(var(--white));
   color: rgb(var(--black));
-  border: 1px solid rgb(var(--black));
+  outline: 1px solid rgb(var(--black));
 }
 
 .button__outline:hover {
@@ -130,7 +130,7 @@ button {
 }
 
 .button__delete {
-  border-color: rgb(var(--red));
+  outline-color: rgb(var(--red));
   color: rgb(var(--red));
 }
 
@@ -141,10 +141,13 @@ button {
 
 /* ------- Inputs ------- */
 
-input {
+input,
+select,
+textarea {
   font-family: inherit;
   color: rgb(var(--black));
-  border: 1px solid rgb(var(--black));
+  outline: 1px solid rgb(var(--black));
+  border: none;
   border-radius: 4px;
 }
 
@@ -257,6 +260,27 @@ input::placeholder {
 
 .modal__position-reval-checkbox:checked {
   background-color: rgb(var(--grey));
+}
+
+.modal__assessments-container {
+  position: fixed;
+  z-index: 15;
+  top: 20vh;
+  left: calc((100% - 1250px) / 2);
+  width: 80%;
+  height: 60%;
+  min-width: 1250px;
+  max-width: 1250px;
+  padding: 32px;
+  background-color: rgb(var(--lightBlue100));
+  border-radius: 16px;
+}
+
+.modal__assessments-scrollarea {
+  height: 100%;
+  width: 100%;
+  padding: 1px;
+  overflow: hidden scroll;
 }
 
 /* ------- Tables ------- */

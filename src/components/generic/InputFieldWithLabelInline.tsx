@@ -7,7 +7,7 @@ import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 interface Props {
   className: string;
   inputName: string;
-  inputWidth: string;
+  inputWidth: {};
   labelWidth: string;
   register: any;
   type: string;
@@ -16,7 +16,7 @@ interface Props {
 
 const InputFieldWithLabelInline = (props: Props) => {
   return (
-    <div className="row input__container">
+    <div className="row">
       <div
         className="row justify-fe gap-8 pr-4 py-1"
         style={{ textAlign: "right", width: props.labelWidth }}
@@ -31,13 +31,15 @@ const InputFieldWithLabelInline = (props: Props) => {
         )}
       </div>
 
-      <input
-        type={props.type}
-        style={{ textAlign: "left", width: props.inputWidth }}
-        className={`${props.className}`}
-        {...props.register(props.inputName)}
-        autoComplete="off"
-      />
+      <span style={{ display: "block", ...props.inputWidth }}>
+        <input
+          type={props.type}
+          style={{ textAlign: "left", width: "100%" }}
+          className={`${props.className}`}
+          {...props.register(props.inputName)}
+          autoComplete="off"
+        />
+      </span>
     </div>
   );
 };

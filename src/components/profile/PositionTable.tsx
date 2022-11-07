@@ -1,9 +1,11 @@
 import React from "react";
 import Button from "../generic/Button";
 
+import { ModalState } from "../generic/Modal";
+
 interface Props {
   data: any[];
-  setModal: any;
+  setModal: (state: ModalState) => void;
 }
 
 const PositionTable = (props: Props) => {

@@ -6,12 +6,14 @@ import Display from "./Display";
 import Edit from "./Edit";
 import PositionTable from "./PositionTable";
 
+import { ModalState } from "../generic/Modal";
+
 import { positions } from "../../temp/positionData";
 import { profiles } from "../../temp/profileData";
 
 interface Props {
   userId: number;
-  setModal: any;
+  setModal: (state: ModalState) => void;
 }
 
 const Main = (props: Props) => {

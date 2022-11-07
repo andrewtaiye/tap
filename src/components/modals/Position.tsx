@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../generic/Button";
 
+import { ModalState } from "../generic/Modal";
+
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
 
 interface Props {
-  setModal: any;
+  setModal: (state: ModalState) => void;
   subtype?: string;
   data?: any;
 }
@@ -45,11 +47,11 @@ const Position = (props: Props) => {
       setErrorMessage("");
     }
 
-    props.setModal("");
+    props.setModal({});
   };
 
   const onDelete = () => {
-    props.setModal("");
+    props.setModal({});
   };
 
   return (

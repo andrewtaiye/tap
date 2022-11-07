@@ -6,7 +6,7 @@ interface Props {
   mode: string;
   style: {};
   type: "button" | "submit" | "reset";
-  onClick?: any;
+  onClick?: () => void;
 }
 
 const Active = (props: Props) => {
