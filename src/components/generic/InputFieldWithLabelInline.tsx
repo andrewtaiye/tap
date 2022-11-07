@@ -8,7 +8,7 @@ interface Props {
   className: string;
   inputName: string;
   inputWidth: {};
-  labelWidth: string;
+  labelWidth: {};
   register: any;
   type: string;
   warning?: boolean;
@@ -19,7 +19,7 @@ const InputFieldWithLabelInline = (props: Props) => {
     <div className="row">
       <div
         className="row justify-fe gap-8 pr-4 py-1"
-        style={{ textAlign: "right", width: props.labelWidth }}
+        style={{ textAlign: "right", ...props.labelWidth }}
       >
         <p className="fs-24 fw-600">{capitaliseFirstLetter(props.inputName)}</p>
 

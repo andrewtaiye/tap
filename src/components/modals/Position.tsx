@@ -64,8 +64,8 @@ const Position = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="position"
             className="px-4 py-1 fs-24"
-            labelWidth="176px"
-            inputWidth="624px"
+            labelWidth={{ width: "176px" }}
+            inputWidth={{ width: "624px" }}
             type="text"
             register={register}
             warning={allValues["position"] ? false : true}
@@ -75,8 +75,8 @@ const Position = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="start date"
             className="px-4 py-1 fs-24"
-            labelWidth="176px"
-            inputWidth="192px"
+            labelWidth={{ width: "176px" }}
+            inputWidth={{ width: "192px" }}
             type="text"
             register={register}
             warning={allValues["start date"] ? false : true}
@@ -84,8 +84,8 @@ const Position = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="end date"
             className="px-4 py-1 fs-24"
-            labelWidth="176px"
-            inputWidth="192px"
+            labelWidth={{ width: "176px" }}
+            inputWidth={{ width: "192px" }}
             type="text"
             register={register}
           />
@@ -94,8 +94,8 @@ const Position = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="approval date"
             className="px-4 py-1 fs-24"
-            labelWidth="176px"
-            inputWidth="192px"
+            labelWidth={{ width: "176px" }}
+            inputWidth={{ width: "192px" }}
             type="text"
             register={register}
           />

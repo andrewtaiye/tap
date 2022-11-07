@@ -155,6 +155,10 @@ input::placeholder {
   color: rgb(var(--grey));
 }
 
+textarea {
+  resize: none;
+}
+
 .input__container {
   position: relative;
   width: fit-content;
