@@ -43,7 +43,13 @@ const Register = () => {
 
       // User Create API Call
       const url = `http://127.0.0.1:5001/user/create`;
-      const res = await fetchCall(url, "PUT");
+      const body = {
+        username: data["username"],
+        password: data["password"],
+        confirmPassword: data["confirm password"],
+      };
+      console.log("fetching", body);
+      const res = await fetchCall(url, "PUT", body);
 
       if (res.status === "ok") {
         console.log(res);
