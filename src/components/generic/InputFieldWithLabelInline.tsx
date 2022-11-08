@@ -12,6 +12,7 @@ interface Props {
   register: any;
   type: string;
   warning?: boolean;
+  selected?: boolean;
 }
 
 const InputFieldWithLabelInline = (props: Props) => {

@@ -8,3 +8,18 @@ export const capitaliseFirstLetter = (string: string): string => {
   }
   return newWords.join(" ");
 };
+
+export const fetchCall = async (
+  url: string,
+  method: string = "GET",
+  body: any = null
+) => {
+  const res = await fetch(url, {
+    method: method,
+    body: body === null ? null : JSON.stringify(body),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  const response = await res.json();
+  return response;
+};

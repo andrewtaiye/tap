@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { ReactComponent as Logo } from "../assets/logos/image.svg";
+import GlobalVariables from "../context/GlobalVariables";
+import { fetchCall } from "../components/generic/utility";
+
 import InputFieldWithLegend from "../components/generic/InputFieldWithLegend";
 import Button from "../components/generic/Button";
 
+import { ReactComponent as Logo } from "../assets/logos/image.svg";
+
 const Register = () => {
+  const { setUserId } = useContext(GlobalVariables);
+
   interface Inputs {
     username: string;
     password: string;
@@ -19,22 +25,36 @@ const Register = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (!data["username"] || !data["password"] || !data["confirm password"]) {
-      setErrorMessage("Please fill in all the required fields");
-      return;
-    } else {
-      setErrorMessage("");
-    }
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      if (!data["username"] || !data["password"] || !data["confirm password"]) {
+        setErrorMessage("Please fill in all the required fields");
+        return;
+      } else {
+        setErrorMessage("");
+      }
 
-    if (data["password"] !== data["confirm password"]) {
-      setErrorMessage("Passwords do not match");
-      return;
-    } else {
-      setErrorMessage("");
-    }
+      if (data["password"] !== data["confirm password"]) {
+        setErrorMessage("Passwords do not match");
+        return;
+      } else {
+        setErrorMessage("");
+      }
 
-    navigate("/profile");
+      // User Create API Call
+      const url = `http://127.0.0.1:5001/user/create`;
+      const res = await fetchCall(url, "PUT");
+
+      if (res.status === "ok") {
+        console.log(res);
+        setUserId?.(1);
+        navigate("/profile");
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (

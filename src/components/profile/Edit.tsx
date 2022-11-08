@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
+import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
+
 import Button from "../generic/Button";
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
-import { capitaliseFirstLetter } from "../generic/utility";
 
 interface Props {
-  handleButtonClick: any;
+  toggleModal: () => void;
   isEditing: boolean;
   data: {
     id: number;
@@ -46,29 +47,42 @@ const Edit = (props: Props) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (
-      !data["id number"] ||
-      !data["date of birth"] ||
-      !data["date accepted"] ||
-      !data["reporting date"] ||
-      !data["password"] ||
-      !data["confirm password"]
-    ) {
-      setErrorMessage("Please fill in all required fields");
-      return;
-    } else {
-      setErrorMessage("");
-    }
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      if (
+        !data["id number"] ||
+        !data["date of birth"] ||
+        !data["date accepted"] ||
+        !data["reporting date"] ||
+        !data["password"] ||
+        !data["confirm password"]
+      ) {
+        setErrorMessage("Please fill in all required fields");
+        return;
+      } else {
+        setErrorMessage("");
+      }
 
-    if (data["password"] !== data["confirm password"]) {
-      setErrorMessage("Passwords do not match");
-      return;
-    } else {
-      setErrorMessage("");
-    }
+      if (data["password"] !== data["confirm password"]) {
+        setErrorMessage("Passwords do not match");
+        return;
+      } else {
+        setErrorMessage("");
+      }
 
-    props.handleButtonClick();
+      // Profile Update API Call
+      const url = `http://127.0.0.1:5001/profile/update`;
+      const res = await fetchCall(url, "PATCH");
+
+      if (res.status === "ok") {
+        console.log(res);
+        props.toggleModal();
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (
@@ -110,8 +124,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="id number"
             className="px-4 py-1 fs-24"
-            labelWidth="250px"
-            inputWidth="300px"
+            labelWidth={{ width: "250px" }}
+            inputWidth={{ width: "300px" }}
             type="text"
             register={register}
             warning={allValues["id number"] ? false : true}
@@ -121,8 +135,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="date of birth"
             className="px-4 py-1 fs-24"
-            labelWidth="250px"
-            inputWidth="300px"
+            labelWidth={{ width: "250px" }}
+            inputWidth={{ width: "300px" }}
             type="text"
             register={register}
             warning={allValues["date of birth"] ? false : true}
@@ -134,8 +148,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="date accepted"
             className="px-4 py-1 fs-24"
-            labelWidth="250px"
-            inputWidth="300px"
+            labelWidth={{ width: "250px" }}
+            inputWidth={{ width: "300px" }}
             type="text"
             register={register}
             warning={allValues["date accepted"] ? false : true}
@@ -145,8 +159,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="reporting date"
             className="px-4 py-1 fs-24"
-            labelWidth="250px"
-            inputWidth="300px"
+            labelWidth={{ width: "250px" }}
+            inputWidth={{ width: "300px" }}
             type="text"
             register={register}
             warning={allValues["reporting date"] ? false : true}
@@ -158,8 +172,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="password"
             className="px-4 py-1 fs-24"
-            labelWidth="250px"
-            inputWidth="300px"
+            labelWidth={{ width: "250px" }}
+            inputWidth={{ width: "300px" }}
             type="password"
             register={register}
             warning={allValues["password"] ? false : true}
@@ -169,8 +183,8 @@ const Edit = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="confirm password"
             className="px-4 py-1 fs-24"
-            labelWidth="250px"
-            inputWidth="300px"
+            labelWidth={{ width: "250px" }}
+            inputWidth={{ width: "300px" }}
             type="password"
             register={register}
             warning={allValues["confirm password"] ? false : true}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../generic/Button";
 
+import { fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
 
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
@@ -39,19 +40,50 @@ const Position = (props: Props) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const onSubmit: SubmitHandler<PositionInputs> = (data) => {
-    if (!data["position"] || !data["start date"]) {
-      setErrorMessage("Please fill in all required fields");
-      return;
-    } else {
-      setErrorMessage("");
-    }
+  const onSubmit: SubmitHandler<PositionInputs> = async (data) => {
+    try {
+      if (!data["position"] || !data["start date"]) {
+        setErrorMessage("Please fill in all required fields");
+        return;
+      } else {
+        setErrorMessage("");
+      }
 
-    props.setModal({});
+      // Position Create and Update API Call
+      const url = `http://127.0.0.1:5001/position/${
+        props.subtype === "edit" ? "update" : "create"
+      }`;
+      const res = await fetchCall(
+        url,
+        `${props.subtype === "edit" ? "PATCH" : "PUT"}`
+      );
+
+      if (res.status === "ok") {
+        console.log(res);
+        props.setModal({});
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
-  const onDelete = () => {
-    props.setModal({});
+  const onDelete = async () => {
+    try {
+      // Position Delete API Call
+      const url = `http://127.0.0.1:5001/position/delete`;
+      const res = await fetchCall(url, "DELETE");
+
+      if (res.status === "ok") {
+        console.log(res);
+        props.setModal({});
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (
@@ -124,7 +156,7 @@ const Position = (props: Props) => {
           </p>
           <div className="row gap-32">
             <Button mode="active" type="submit" className="fs-24">
-              Submit
+              {props.subtype === "edit" ? "Update" : "Submit"}
             </Button>
             {props.subtype === "edit" && (
               <Button

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
+import { fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
 
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
@@ -72,39 +73,71 @@ const Assessment = (props: Props) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const onSubmit: SubmitHandler<PositionInputs> = (data) => {
-    if (
-      !data["position"] ||
-      !data["assessment no"] ||
-      !data["instructor"] ||
-      !data["date"] ||
-      !data["intensity"] ||
-      !data["objective1"] ||
-      !data["a"] ||
-      !data["b"] ||
-      !data["c"] ||
-      !data["d"] ||
-      !data["e"] ||
-      !data["f"] ||
-      !data["g"] ||
-      !data["h"] ||
-      !data["i"] ||
-      !data["j"] ||
-      !data["safety"] ||
-      !data["remarks"]
-    ) {
-      setErrorMessage("Please fill in all required fields");
-      return;
-    } else {
-      setErrorMessage("");
+  const onSubmit: SubmitHandler<PositionInputs> = async (data) => {
+    try {
+      if (
+        !data["position"] ||
+        !data["assessment no"] ||
+        !data["instructor"] ||
+        !data["date"] ||
+        !data["intensity"] ||
+        !data["objective1"] ||
+        !data["a"] ||
+        !data["b"] ||
+        !data["c"] ||
+        !data["d"] ||
+        !data["e"] ||
+        !data["f"] ||
+        !data["g"] ||
+        !data["h"] ||
+        !data["i"] ||
+        !data["j"] ||
+        !data["safety"] ||
+        !data["remarks"]
+      ) {
+        setErrorMessage("Please fill in all required fields");
+        return;
+      } else {
+        setErrorMessage("");
+      }
+
+      // Assessment Create and Update API Call
+      const url = `http://127.0.0.1:5001/assessment/${
+        props.subtype === "edit" ? "update" : "create"
+      }`;
+      const res = await fetchCall(
+        url,
+        `${props.subtype === "edit" ? "PATCH" : "PUT"}`
+      );
+
+      if (res.status === "ok") {
+        console.log(res);
+        props.setModal({});
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
     }
-
-    props.setModal({});
   };
 
-  const onDelete = () => {
-    props.setModal({});
+  const onDelete = async () => {
+    try {
+      // Assessment Delete API Call
+      const url = `http://127.0.0.1:5001/assessment/delete`;
+      const res = await fetchCall(url, "DELETE");
+
+      if (res.status === "ok") {
+        console.log(res);
+        props.setModal({});
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
+
   return (
     <div className="modal__assessments-container">
       <div className="modal__assessments-scrollarea">
@@ -119,7 +152,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="position"
               className="px-4 py-1 fs-24"
-              labelWidth="164px"
+              labelWidth={{ width: "164px" }}
               inputWidth={{ width: "496px" }}
               type="text"
               register={register}
@@ -128,7 +161,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="assessment no"
               className="px-4 py-1 fs-24"
-              labelWidth="215px"
+              labelWidth={{ width: "215px" }}
               inputWidth={{ width: "192px" }}
               type="text"
               register={register}
@@ -139,7 +172,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="instructor"
               className="px-4 py-1 fs-24"
-              labelWidth="164px"
+              labelWidth={{ width: "164px" }}
               inputWidth={{ width: "496px" }}
               type="text"
               register={register}
@@ -148,7 +181,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="date"
               className="px-4 py-1 fs-24"
-              labelWidth="215px"
+              labelWidth={{ width: "215px" }}
               inputWidth={{ width: "192px" }}
               type="text"
               register={register}
@@ -159,7 +192,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="intensity"
               className="px-4 py-1 fs-24"
-              labelWidth="215px"
+              labelWidth={{ width: "215px" }}
               inputWidth={{ width: "192px" }}
               type="text"
               register={register}
@@ -169,7 +202,7 @@ const Assessment = (props: Props) => {
           <InputFieldWithLabelInline
             inputName="objective1"
             className="px-4 py-1 fs-24 mb-2"
-            labelWidth="164px"
+            labelWidth={{ width: "164px" }}
             inputWidth={{ flex: "1 1 auto" }}
             type="text"
             register={register}
@@ -197,7 +230,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="a"
               className="px-4 py-1 fs-24"
-              labelWidth="164px"
+              labelWidth={{ width: "164px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -206,7 +239,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="b"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -215,7 +248,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="c"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -224,7 +257,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="d"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -233,7 +266,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="e"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -244,7 +277,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="f"
               className="px-4 py-1 fs-24"
-              labelWidth="164px"
+              labelWidth={{ width: "164px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -253,7 +286,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="g"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -262,7 +295,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="h"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -271,7 +304,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="i"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}
@@ -280,7 +313,7 @@ const Assessment = (props: Props) => {
             <InputFieldWithLabelInline
               inputName="j"
               className="px-4 py-1 fs-24"
-              labelWidth="74px"
+              labelWidth={{ width: "74px" }}
               inputWidth={{ width: "86px" }}
               type="text"
               register={register}

@@ -2,7 +2,12 @@ import React from "react";
 
 import Button from "../generic/Button";
 
-const Summary = () => {
+interface Props {
+  userPositions: string[];
+  setSelectedPosition: (position: string) => void;
+}
+
+const Summary = (props: Props) => {
   return (
     <>
       <p className="fs-24 mb-2">

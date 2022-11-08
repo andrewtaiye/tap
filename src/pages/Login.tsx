@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { ReactComponent as Logo } from "../assets/logos/image.svg";
+import { fetchCall } from "../components/generic/utility";
+import GlobalVariables from "../context/GlobalVariables";
+
 import InputFieldWithLegend from "../components/generic/InputFieldWithLegend";
 import Button from "../components/generic/Button";
 
+import { ReactComponent as Logo } from "../assets/logos/image.svg";
+
 const Login = () => {
+  const { setUserId, setHasProfile } = useContext(GlobalVariables);
+
   interface Inputs {
     username: string;
     password: string;
@@ -16,15 +22,30 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (!data.username || !data.password) {
-      setErrorMessage("Invalid Username or Password");
-      return;
-    } else {
-      setErrorMessage("");
-    }
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      if (!data.username || !data.password) {
+        setErrorMessage("Invalid Username or Password");
+        return;
+      } else {
+        setErrorMessage("");
+      }
 
-    navigate("/assessments");
+      // User Login API Call
+      const url = `http://127.0.0.1:5001/user/login`;
+      const res = await fetchCall(url, "POST");
+
+      if (res.status === "ok") {
+        console.log(res);
+        setUserId?.(1);
+        setHasProfile?.(true);
+        navigate("/assessments");
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (

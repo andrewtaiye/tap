@@ -4,7 +4,7 @@ import Button from "../generic/Button";
 import { capitaliseFirstLetter } from "../generic/utility";
 
 interface Props {
-  handleButtonClick: any;
+  toggleModal: () => void;
   isEditing: boolean;
   data: {
     id: number;
@@ -48,7 +48,9 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {capitaliseFirstLetter(props.data.fullName)}
+            {`${capitaliseFirstLetter(
+              props.data.salutation
+            )}. ${capitaliseFirstLetter(props.data.fullName)}`}
           </p>
         </div>
       </div>
@@ -117,7 +119,7 @@ const Display = (props: Props) => {
           mode="active"
           type="button"
           className="fs-24"
-          onClick={props.handleButtonClick}
+          onClick={props.toggleModal}
         >
           Edit Profile
         </Button>

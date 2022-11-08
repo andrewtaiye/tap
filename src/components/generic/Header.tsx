@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+
+import GlobalVariables from "../../context/GlobalVariables";
 
 import { ReactComponent as LongLogo } from "../../assets/logos/long.svg";
 
 const Header = () => {
+  const { setUserId, setHasProfile } = useContext(GlobalVariables);
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setUserId?.(0);
+    setHasProfile?.(false);
     navigate("/login");
   };
 

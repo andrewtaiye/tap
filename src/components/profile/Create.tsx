@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+
+import GlobalVariables from "../../context/GlobalVariables";
+import { fetchCall } from "../generic/utility";
 
 import InputFieldWithLabelStacked from "../generic/InputFieldWithLabelStacked";
 import Button from "../generic/Button";
 
 const Create = () => {
+  const { setHasProfile } = useContext(GlobalVariables);
   interface Inputs {
     salutation: string;
     "full name": string;
@@ -20,24 +23,35 @@ const Create = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      if (
+        !data["salutation"] ||
+        !data["full name"] ||
+        !data["date of birth"] ||
+        !data["identification number"] ||
+        !data["date accepted"] ||
+        !data["reporting date"]
+      ) {
+        setErrorMessage("Please fill in all required fields");
+        return;
+      } else {
+        setErrorMessage("");
+      }
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    if (
-      !data["salutation"] ||
-      !data["full name"] ||
-      !data["date of birth"] ||
-      !data["identification number"] ||
-      !data["date accepted"] ||
-      !data["reporting date"]
-    ) {
-      setErrorMessage("Please fill in all required fields");
-      return;
-    } else {
-      setErrorMessage("");
+      // Profile Create API Call
+      const url = `http://127.0.0.1:5001/profile/create`;
+      const res = await fetchCall(url, "PUT");
+
+      if (res.status === "ok") {
+        console.log(res);
+        setHasProfile?.(true);
+      } else {
+        console.error(res);
+      }
+    } catch (err: any) {
+      console.error(err.message);
     }
-
-    navigate("/assessments");
   };
 
   return (
