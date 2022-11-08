@@ -48,12 +48,11 @@ const Register = () => {
         password: data["password"],
         confirmPassword: data["confirm password"],
       };
-      console.log("fetching", body);
       const res = await fetchCall(url, "PUT", body);
 
       if (res.status === "ok") {
         console.log(res);
-        setUserId?.(1);
+        setUserId?.(res.userId);
         navigate("/profile");
       } else {
         console.error(res);

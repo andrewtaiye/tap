@@ -32,21 +32,33 @@ const Login = () => {
       }
 
       // User Login API Call
-      const url = `http://127.0.0.1:5001/user/login`;
-      const body = {
+      let url = `http://127.0.0.1:5001/user/login`;
+      let body = {
         username: data["username"],
         password: data["password"],
       };
-      const res = await fetchCall(url, "POST", body);
+      let res = await fetchCall(url, "POST", body);
 
-      if (res.status === "ok") {
-        console.log(res);
-        setUserId?.(1);
-        setHasProfile?.(true);
-        navigate("/assessments");
-      } else {
+      if (res.status !== "ok") {
         console.error(res);
+        setErrorMessage(res.message);
+        return;
       }
+
+      setUserId?.(res.userId);
+
+      // Profile Get API Call
+      url = `http://127.0.0.1:5001/profile/get/${res.userId}`;
+      res = await fetchCall(url);
+
+      if (res.status !== "ok") {
+        console.error(res);
+        setErrorMessage(res.message);
+        return;
+      }
+
+      setHasProfile?.(true);
+      navigate("/assessments");
     } catch (err: any) {
       console.error(err.message);
     }
