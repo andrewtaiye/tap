@@ -33,7 +33,11 @@ const Login = () => {
 
       // User Login API Call
       const url = `http://127.0.0.1:5001/user/login`;
-      const res = await fetchCall(url, "POST");
+      const body = {
+        username: data["username"],
+        password: data["password"],
+      };
+      const res = await fetchCall(url, "POST", body);
 
       if (res.status === "ok") {
         console.log(res);
