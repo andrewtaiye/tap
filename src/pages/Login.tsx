@@ -24,7 +24,9 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      if (errorMessage) return;
+      if (!data["username"] || !data["password"]) {
+        setErrorMessage("Invalid Username or Password");
+      }
 
       // User Login API Call
       let url = `http://127.0.0.1:5001/user/login`;
@@ -40,8 +42,9 @@ const Login = () => {
         return;
       }
 
-      setUserId?.(res.userId);
-      setHasProfile?.(res.hasProfile);
+      setErrorMessage("");
+      setUserId?.(res.data.userId);
+      setHasProfile?.(res.data.hasProfile);
       navigate("/assessments");
     } catch (err: any) {
       console.error(err.message);

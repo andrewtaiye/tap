@@ -14,34 +14,9 @@ interface Props {
   setModal: (state: ModalState) => void;
 }
 
-export interface UserProfile {
-  user_id?: string;
-  username?: string;
-  rank?: string;
-  full_name?: string;
-  date_of_birth?: string;
-  id_number?: string;
-  date_accepted?: string;
-  reporting_date?: string;
-  flight?: string;
-  cat?: string;
-}
-
-export interface UserPositions {
-  id?: string;
-  user_id?: string;
-  position?: string;
-  start_date?: string;
-  end_date?: string;
-  approval_date?: string;
-  is_revalidation?: boolean;
-  is_instructor?: boolean;
-}
-
 const Main = (props: Props) => {
-  const { userId } = useContext(GlobalVariables);
-  const [userProfile, setUserProfile] = useState<UserProfile>({});
-  const [userPositions, setUserPositions] = useState<Array<UserPositions>>([]);
+  const { userId, setUserProfile, setUserPositions } =
+    useContext(GlobalVariables);
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleModal = () => {
@@ -58,7 +33,7 @@ const Main = (props: Props) => {
         console.error(res.message);
         return;
       }
-      setUserProfile(res.data);
+      setUserProfile?.(res.data);
     })();
 
     (async () => {
@@ -73,7 +48,7 @@ const Main = (props: Props) => {
 
       if (!res.data) return;
 
-      setUserPositions(res.data);
+      setUserPositions?.(res.data);
     })();
   }, [userId]);
 
@@ -99,24 +74,13 @@ const Main = (props: Props) => {
       <div className="section__container-light">
         <p className="bebas fs-48 mb-2">Profile</p>
         {isEditing ? (
-          <Edit
-            data={userProfile}
-            isEditing={isEditing}
-            toggleModal={toggleModal}
-          />
+          <Edit isEditing={isEditing} toggleModal={toggleModal} />
         ) : (
-          <Display
-            data={userProfile}
-            isEditing={isEditing}
-            toggleModal={toggleModal}
-          />
+          <Display isEditing={isEditing} toggleModal={toggleModal} />
         )}
       </div>
       <div className="section__container-dark">
-        <PositionTable
-          userPositions={userPositions}
-          setModal={props.setModal}
-        />
+        <PositionTable setModal={props.setModal} />
       </div>
       {isEditing && (
         <div className="section__container-light col">

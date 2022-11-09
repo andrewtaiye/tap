@@ -4,9 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../generic/Button";
 
 import { fetchCall } from "../generic/utility";
-import GlobalVariables from "../../context/GlobalVariables";
+import GlobalVariables, { UserPositions } from "../../context/GlobalVariables";
 import { ModalState } from "../generic/Modal";
-import { UserPositions } from "../profile/Main";
 
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
 import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
@@ -18,13 +17,14 @@ interface Props {
 }
 
 const Position = (props: Props) => {
-  const { userId, positions } = useContext(GlobalVariables);
+  const { userId, positions, setUserPositions } = useContext(GlobalVariables);
+
   interface PositionInputs {
     position: string;
     "start date": string;
     "end date"?: string;
     "approval date"?: string;
-    revalidation?: boolean;
+    revalidation: boolean;
   }
 
   let defaultValues = {};
@@ -48,7 +48,10 @@ const Position = (props: Props) => {
   useEffect(() => {
     if (!allValues["position"] || !allValues["start date"]) {
       setErrorMessage("Please fill in all required fields");
+      return;
     }
+
+    setErrorMessage("");
   }, [allValues["position"], allValues["start date"]]);
 
   const onSubmit: SubmitHandler<PositionInputs> = async (data) => {
@@ -59,9 +62,9 @@ const Position = (props: Props) => {
       const url = `http://127.0.0.1:5001/position/${
         props.subtype === "edit" ? `update/${props.data?.id}` : "create"
       }`;
-      const body = {
+      const body: UserPositions = {
         user_id: userId,
-        postion: data["position"],
+        position: data["position"],
         start_date: data["start date"],
         end_date: data["end date"],
         approval_date: data["approval date"],
@@ -75,8 +78,16 @@ const Position = (props: Props) => {
 
       if (res.status !== "ok") {
         console.error(res);
+        return;
       }
-      console.log(res);
+
+      body.id = res.data.id;
+      body.is_instructor = false;
+
+      setUserPositions?.((prevState: UserPositions[]) => {
+        return [...prevState, body];
+      });
+
       props.setModal({});
     } catch (err: any) {
       console.error(err.message);

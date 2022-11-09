@@ -40,6 +40,8 @@ const Register = () => {
       setErrorMessage("Passwords do not match");
       return;
     }
+
+    setErrorMessage("");
   }, [
     allValues["username"],
     allValues["password"],
@@ -59,14 +61,15 @@ const Register = () => {
       };
       const res = await fetchCall(url, "PUT", body);
 
-      if (res.status === "ok") {
-        console.log(res);
-        setErrorMessage("");
-        setUserId?.(res.userId);
-        navigate("/profile");
-      } else {
+      if (res.status !== "ok") {
         console.error(res);
+        setErrorMessage(res.message);
+        return;
       }
+
+      setErrorMessage("");
+      setUserId?.(res.data.userId);
+      navigate("/profile");
     } catch (err: any) {
       console.error(err.message);
     }

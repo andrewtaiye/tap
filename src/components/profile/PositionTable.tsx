@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../generic/Button";
 
 import { ModalState } from "../generic/Modal";
-import { UserPositions } from "./Main";
+import GlobalVariables from "../../context/GlobalVariables";
 
 interface Props {
-  userPositions: Array<UserPositions>;
   setModal: (state: ModalState) => void;
 }
 
 const PositionTable = (props: Props) => {
+  const { userPositions } = useContext(GlobalVariables);
+
   const handleAddButtonClick = () => {
     const modal = {
       type: "position",
@@ -58,7 +59,7 @@ const PositionTable = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          {props.userPositions.length === 0 ? (
+          {userPositions?.length === 0 ? (
             <>
               <tr>
                 <th colSpan={7}>
@@ -77,7 +78,7 @@ const PositionTable = (props: Props) => {
                 <th>Approval Date</th>
                 <th>Edit</th>
               </tr>
-              {props.userPositions.map((element, index) => {
+              {userPositions?.map((element, index) => {
                 return (
                   <tr key={element.id}>
                     <td>{index + 1}</td>

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { UserProfile } from "./Main";
 import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
 import GlobalVariables from "../../context/GlobalVariables";
 
@@ -12,11 +11,10 @@ import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 interface Props {
   toggleModal: () => void;
   isEditing: boolean;
-  data: UserProfile;
 }
 
 const Edit = (props: Props) => {
-  const { flights, cats } = useContext(GlobalVariables);
+  const { flights, cats, userProfile } = useContext(GlobalVariables);
   interface Inputs {
     "full name": string;
     "date of birth": string;
@@ -31,12 +29,12 @@ const Edit = (props: Props) => {
   }
   const { register, handleSubmit, watch } = useForm<Inputs>({
     defaultValues: {
-      "id number": props.data.id_number,
-      "date of birth": props.data.date_of_birth?.split("T")[0],
-      "date accepted": props.data.date_accepted?.split("T")[0],
-      "reporting date": props.data.reporting_date?.split("T")[0],
-      flight: props.data.flight,
-      cat: props.data.cat,
+      "id number": userProfile?.id_number,
+      "date of birth": userProfile?.date_of_birth?.split("T")[0],
+      "date accepted": userProfile?.date_accepted?.split("T")[0],
+      "reporting date": userProfile?.reporting_date?.split("T")[0],
+      flight: userProfile?.flight,
+      cat: userProfile?.cat,
     },
   });
   const allValues = watch();
@@ -96,7 +94,7 @@ const Edit = (props: Props) => {
             className="px-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.username}
+            {userProfile?.username}
           </p>
         </div>
 
@@ -112,8 +110,8 @@ const Edit = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {`${capitaliseFirstLetter(props.data.rank)}
-            ${capitaliseFirstLetter(props.data.full_name)}`}
+            {`${capitaliseFirstLetter(userProfile?.rank)}
+            ${capitaliseFirstLetter(userProfile?.full_name)}`}
           </p>
         </div>
       </div>

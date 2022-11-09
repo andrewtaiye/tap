@@ -5,7 +5,10 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import "./styles/styles.css";
 import "./styles/utility.css";
 
-import GlobalVariables from "./context/GlobalVariables";
+import GlobalVariables, {
+  UserProfile,
+  UserPositions,
+} from "./context/GlobalVariables";
 import { fetchCall } from "./components/generic/utility";
 
 import Login from "./pages/Login";
@@ -14,8 +17,10 @@ import Profile from "./pages/Profile";
 import Assessments from "./pages/Assessments";
 
 const App = () => {
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState("");
   const [hasProfile, setHasProfile] = useState(false);
+  const [userProfile, setUserProfile] = useState<UserProfile>({});
+  const [userPositions, setUserPositions] = useState<UserPositions[]>([]);
   const [ranks, setRanks] = useState<string[]>([]);
   const [flights, setFlights] = useState<string[]>([]);
   const [cats, setCats] = useState<string[]>([]);
@@ -38,7 +43,7 @@ const App = () => {
       setPositions(res.data.positions);
     })();
 
-    if (userId === 0) {
+    if (!userId) {
       navigate("/login");
       return;
     }
@@ -52,13 +57,17 @@ const App = () => {
     <GlobalVariables.Provider
       value={{
         userId,
-        setUserId,
         hasProfile,
-        setHasProfile,
+        userProfile,
+        userPositions,
         ranks,
         flights,
         cats,
         positions,
+        setUserId,
+        setHasProfile,
+        setUserProfile,
+        setUserPositions,
       }}
     >
       <div className="col">

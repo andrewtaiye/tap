@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { UserProfile } from "./Main";
+import GlobalVariables from "../../context/GlobalVariables";
 import { capitaliseFirstLetter } from "../generic/utility";
 
 import Button from "../generic/Button";
@@ -8,10 +8,11 @@ import Button from "../generic/Button";
 interface Props {
   toggleModal: () => void;
   isEditing: boolean;
-  data: UserProfile;
 }
 
 const Display = (props: Props) => {
+  const { userProfile } = useContext(GlobalVariables);
+
   return (
     <>
       <div className="row justify-sb gap-64 px-8 mb-2">
@@ -26,7 +27,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.username}
+            {userProfile?.username}
           </p>
         </div>
         <div className="w-100 row">
@@ -40,8 +41,8 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {`${capitaliseFirstLetter(props.data.rank)}
-            ${capitaliseFirstLetter(props.data.full_name)}`}
+            {`${capitaliseFirstLetter(userProfile?.rank)}
+            ${capitaliseFirstLetter(userProfile?.full_name)}`}
           </p>
         </div>
       </div>
@@ -57,7 +58,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.id_number}
+            {userProfile?.id_number}
           </p>
         </div>
         <div className="w-100 row">
@@ -71,7 +72,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.date_of_birth
+            {userProfile?.date_of_birth
               ?.split("T")[0]
               .split("-")
               .reverse()
@@ -91,7 +92,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.date_accepted
+            {userProfile?.date_accepted
               ?.split("T")[0]
               .split("-")
               .reverse()
@@ -109,7 +110,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.reporting_date
+            {userProfile?.reporting_date
               ?.split("T")[0]
               .split("-")
               .reverse()
@@ -129,7 +130,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {capitaliseFirstLetter(props.data.flight?.toLowerCase())}
+            {capitaliseFirstLetter(userProfile?.flight?.toLowerCase())}
           </p>
         </div>
         <div className="w-100 row">
@@ -143,7 +144,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.cat}
+            {userProfile?.cat}
           </p>
         </div>
       </div>
