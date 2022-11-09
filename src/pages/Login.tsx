@@ -24,12 +24,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      if (!data.username || !data.password) {
-        setErrorMessage("Invalid Username or Password");
-        return;
-      } else {
-        setErrorMessage("");
-      }
+      if (errorMessage) return;
 
       // User Login API Call
       let url = `http://127.0.0.1:5001/user/login`;

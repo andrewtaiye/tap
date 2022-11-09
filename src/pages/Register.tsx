@@ -34,15 +34,11 @@ const Register = () => {
     ) {
       setErrorMessage("Please fill in all the required fields");
       return;
-    } else {
-      setErrorMessage("");
     }
 
     if (allValues["password"] !== allValues["confirm password"]) {
       setErrorMessage("Passwords do not match");
       return;
-    } else {
-      setErrorMessage("");
     }
   }, [
     allValues["username"],
@@ -52,6 +48,8 @@ const Register = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
+      if (errorMessage) return;
+
       // User Create API Call
       const url = `http://127.0.0.1:5001/user/create`;
       const body = {

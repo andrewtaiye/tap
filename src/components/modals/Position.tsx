@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Button from "../generic/Button";
 
 import { fetchCall } from "../generic/utility";
+import GlobalVariables from "../../context/GlobalVariables";
 import { ModalState } from "../generic/Modal";
+import { UserPositions } from "../profile/Main";
 
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
+import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 
 interface Props {
   setModal: (state: ModalState) => void;
   subtype?: string;
-  data?: any;
+  data?: UserPositions;
 }
 
 const Position = (props: Props) => {
+  const { userId, positions } = useContext(GlobalVariables);
   interface PositionInputs {
     position: string;
     "start date": string;
@@ -25,11 +30,11 @@ const Position = (props: Props) => {
   let defaultValues = {};
   if (props.subtype === "edit") {
     defaultValues = {
-      position: props.data.position,
-      "start date": props.data.startDate,
-      "end date": props.data.endDate,
-      "approval date": props.data.approvalDate,
-      revalidation: props.data.revalidation,
+      position: props.data?.position,
+      "start date": props.data?.start_date,
+      "end date": props.data?.end_date,
+      "approval date": props.data?.approval_date,
+      revalidation: props.data?.is_revalidation,
     };
   }
 
@@ -40,30 +45,39 @@ const Position = (props: Props) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    if (!allValues["position"] || !allValues["start date"]) {
+      setErrorMessage("Please fill in all required fields");
+    }
+  }, [allValues["position"], allValues["start date"]]);
+
   const onSubmit: SubmitHandler<PositionInputs> = async (data) => {
     try {
-      if (!data["position"] || !data["start date"]) {
-        setErrorMessage("Please fill in all required fields");
-        return;
-      } else {
-        setErrorMessage("");
-      }
+      if (errorMessage) return;
 
       // Position Create and Update API Call
       const url = `http://127.0.0.1:5001/position/${
-        props.subtype === "edit" ? "update" : "create"
+        props.subtype === "edit" ? `update/${props.data?.id}` : "create"
       }`;
+      const body = {
+        user_id: userId,
+        postion: data["position"],
+        start_date: data["start date"],
+        end_date: data["end date"],
+        approval_date: data["approval date"],
+        is_revalidation: data["revalidation"],
+      };
       const res = await fetchCall(
         url,
-        `${props.subtype === "edit" ? "PATCH" : "PUT"}`
+        `${props.subtype === "edit" ? "PATCH" : "PUT"}`,
+        body
       );
 
-      if (res.status === "ok") {
-        console.log(res);
-        props.setModal({});
-      } else {
+      if (res.status !== "ok") {
         console.error(res);
       }
+      console.log(res);
+      props.setModal({});
     } catch (err: any) {
       console.error(err.message);
     }
@@ -92,54 +106,99 @@ const Position = (props: Props) => {
         {props.subtype === "edit" ? "Edit Position" : "Add New Position"}
       </p>
       <form className="modal__position-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="row mb-2">
-          <InputFieldWithLabelInline
-            inputName="position"
-            className="px-4 py-1 fs-24"
-            labelWidth={{ width: "176px" }}
-            inputWidth={{ width: "624px" }}
-            type="text"
-            register={register}
-            warning={allValues["position"] ? false : true}
-          />
+        <div className="row mb-2 px-4">
+          <div
+            className="row justify-fe gap-8 pr-4 py-1"
+            style={{ textAlign: "right", width: "176px" }}
+          >
+            <p className="fs-24 fw-600">Position</p>
+
+            {(allValues["position"] === "default" ||
+              !allValues["position"]) && (
+              <Warning
+                className="error"
+                style={{ width: "20px", height: "20px" }}
+              />
+            )}
+          </div>
+          <span style={{ display: "inline-block", flex: "1 1 auto" }}>
+            <select
+              className={`fs-24 px-4 py-1${
+                allValues["position"] === "default" || !allValues["position"]
+                  ? " placeholder"
+                  : ""
+              }`}
+              style={{
+                width: "100%",
+                textAlign: "left",
+                appearance: "none",
+              }}
+              {...register("position")}
+              defaultValue="default"
+            >
+              <option value="default" disabled>
+                - Select Position -
+              </option>
+              {positions?.map((element, index) => {
+                return (
+                  <option key={index} value={element}>
+                    {element}
+                  </option>
+                );
+              })}
+            </select>
+          </span>
         </div>
-        <div className="row gap-64 mb-2">
+        <div className="row justify-sb gap-64 mb-2 px-4">
           <InputFieldWithLabelInline
             inputName="start date"
-            className="px-4 py-1 fs-24"
+            className={`px-4 py-1 fs-24${
+              allValues["start date"] === "default" || !allValues["start date"]
+                ? " placeholder"
+                : ""
+            }`}
             labelWidth={{ width: "176px" }}
-            inputWidth={{ width: "192px" }}
-            type="text"
+            inputWidth={{ width: "278px", height: "52px" }}
+            type="date"
             register={register}
             warning={allValues["start date"] ? false : true}
           />
           <InputFieldWithLabelInline
             inputName="end date"
-            className="px-4 py-1 fs-24"
+            className={`px-4 py-1 fs-24${
+              allValues["end date"] === "default" || !allValues["end date"]
+                ? " placeholder"
+                : ""
+            }`}
             labelWidth={{ width: "176px" }}
-            inputWidth={{ width: "192px" }}
-            type="text"
+            inputWidth={{ width: "278px", height: "52px" }}
+            type="date"
             register={register}
           />
         </div>
-        <div className="row gap-64 mb-2">
+        <div className="row justify-sb gap-64 mb-2 px-4">
           <InputFieldWithLabelInline
             inputName="approval date"
-            className="px-4 py-1 fs-24"
+            className={`px-4 py-1 fs-24${
+              allValues["approval date"] === "default" ||
+              !allValues["approval date"]
+                ? " placeholder"
+                : ""
+            }`}
             labelWidth={{ width: "176px" }}
-            inputWidth={{ width: "192px" }}
-            type="text"
+            inputWidth={{ width: "278px", height: "52px" }}
+            type="date"
             register={register}
           />
 
-          <div className="row">
+          <div className="row w-100">
             <p
               className="fs-24 fw-600 py-1 pr-4"
               style={{ width: "176px", textAlign: "right" }}
             >
               Revalidation
             </p>
-            <div className="row justify-fs" style={{ width: "192px" }}>
+            <div className="row justify-fs" style={{ flex: "1 1 auto" }}>
               <label htmlFor="reval-checkbox" className="visually-hidden" />
               <input
                 type="checkbox"
@@ -150,7 +209,7 @@ const Position = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="row justify-sb">
+        <div className="row justify-sb px-4">
           <p className="error fs-24" style={{ paddingLeft: "176px" }}>
             {errorMessage ? `Error: ${errorMessage}` : null}
           </p>

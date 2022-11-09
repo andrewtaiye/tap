@@ -17,7 +17,7 @@ interface Props {
 
 const InputFieldWithLabelInline = (props: Props) => {
   return (
-    <div className="row">
+    <div className="row w-100">
       <div
         className="row justify-fe gap-8 pr-4 py-1"
         style={{ textAlign: "right", ...props.labelWidth }}

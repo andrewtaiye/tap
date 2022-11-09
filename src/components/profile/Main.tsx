@@ -10,14 +10,12 @@ import GlobalVariables from "../../context/GlobalVariables";
 import { fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
 
-import { positions } from "../../temp/positionData";
-
 interface Props {
   setModal: (state: ModalState) => void;
 }
 
 export interface UserProfile {
-  userId?: string;
+  user_id?: string;
   username?: string;
   rank?: string;
   full_name?: string;
@@ -29,9 +27,21 @@ export interface UserProfile {
   cat?: string;
 }
 
+export interface UserPositions {
+  id?: string;
+  user_id?: string;
+  position?: string;
+  start_date?: string;
+  end_date?: string;
+  approval_date?: string;
+  is_revalidation?: boolean;
+  is_instructor?: boolean;
+}
+
 const Main = (props: Props) => {
   const { userId } = useContext(GlobalVariables);
   const [userProfile, setUserProfile] = useState<UserProfile>({});
+  const [userPositions, setUserPositions] = useState<Array<UserPositions>>([]);
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleModal = () => {
@@ -49,20 +59,22 @@ const Main = (props: Props) => {
         return;
       }
       setUserProfile(res.data);
-      console.log(res.data);
     })();
-    // (async () => {
-    //   // Position Get API Call
-    //   const url = `http://127.0.0.1:5001/position/get/${userId}`;
-    //   const res = await fetchCall(url);
 
-    //   if (res.status === "ok") {
-    //     // setUserProfile(res.data)
-    //     console.log(res);
-    //   } else {
-    //     console.error(res);
-    //   }
-    // })();
+    (async () => {
+      // Position Get API Call
+      const url = `http://127.0.0.1:5001/position/get/${userId}`;
+      const res = await fetchCall(url);
+
+      if (res.status !== "ok") {
+        console.error(res);
+        return;
+      }
+
+      if (!res.data) return;
+
+      setUserPositions(res.data);
+    })();
   }, [userId]);
 
   const onDelete = async () => {
@@ -76,34 +88,6 @@ const Main = (props: Props) => {
         return;
       }
 
-      // Profile Delete API Call
-      const urlProfile = `http://127.0.0.1:5001/profile/delete`;
-      const resProfile = await fetchCall(urlProfile, "DELETE");
-
-      if (resProfile.status !== "ok") {
-        console.error(resProfile);
-        return;
-      }
-
-      // Position Delete API Call
-      const urlPosition = `http://127.0.0.1:5001/position/delete`;
-      const resPosition = await fetchCall(urlPosition, "DELETE");
-
-      if (resPosition.status !== "ok") {
-        console.error(resPosition);
-        return;
-      }
-
-      // Assessment Delete API Call
-      const urlAssessment = `http://127.0.0.1:5001/assessment/delete`;
-      const resAssessment = await fetchCall(urlAssessment, "DELETE");
-
-      if (resAssessment.status !== "ok") {
-        console.error(resAssessment);
-        return;
-      }
-
-      console.log({ resUser, resProfile, resPosition, resAssessment });
       props.setModal({});
     } catch (err: any) {
       console.error(err.message);
@@ -129,11 +113,19 @@ const Main = (props: Props) => {
         )}
       </div>
       <div className="section__container-dark">
-        <PositionTable data={positions} setModal={props.setModal} />
+        <PositionTable
+          userPositions={userPositions}
+          setModal={props.setModal}
+        />
       </div>
       {isEditing && (
         <div className="section__container-light col">
-          <Button mode="outline" type="button" className="button__delete fs-24">
+          <Button
+            mode="outline"
+            type="button"
+            className="button__delete fs-24"
+            onClick={onDelete}
+          >
             Delete User
           </Button>
         </div>

@@ -15,7 +15,7 @@ const Display = (props: Props) => {
   return (
     <>
       <div className="row justify-sb gap-64 px-8 mb-2">
-        <div className="w-100 row justify-fe">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -29,7 +29,7 @@ const Display = (props: Props) => {
             {props.data.username}
           </p>
         </div>
-        <div className="w-100 row justify-fs">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -46,7 +46,7 @@ const Display = (props: Props) => {
         </div>
       </div>
       <div className="row justify-sb gap-64 px-8 mb-2">
-        <div className="w-100 row justify-fe">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -60,7 +60,7 @@ const Display = (props: Props) => {
             {props.data.id_number}
           </p>
         </div>
-        <div className="w-100 row justify-fs">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -80,7 +80,7 @@ const Display = (props: Props) => {
         </div>
       </div>
       <div className="row justify-sb gap-64 px-8 mb-2">
-        <div className="w-100 row justify-fe">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -98,7 +98,7 @@ const Display = (props: Props) => {
               .join(".")}
           </p>
         </div>
-        <div className="w-100 row justify-fs">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -118,7 +118,7 @@ const Display = (props: Props) => {
         </div>
       </div>
       <div className="row justify-sb gap-64 px-8">
-        <div className="w-100 row justify-fe">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -132,7 +132,7 @@ const Display = (props: Props) => {
             {capitaliseFirstLetter(props.data.flight?.toLowerCase())}
           </p>
         </div>
-        <div className="w-100 row justify-fs">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}

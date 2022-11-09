@@ -85,7 +85,7 @@ const Edit = (props: Props) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row justify-sb gap-64 px-8 mb-2">
         {/* Username Display */}
-        <div className="w-100 row justify-fe">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -101,7 +101,7 @@ const Edit = (props: Props) => {
         </div>
 
         {/* Rank and Name Display */}
-        <div className="w-100 row justify-fs">
+        <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
             style={{ textAlign: "right", width: "250px" }}
@@ -176,14 +176,14 @@ const Edit = (props: Props) => {
 
       <div className="row justify-sb gap-64 px-8">
         {/* Flight Input */}
-        <div className="w-100 row justify-fe">
+        <div className="w-100 row">
           <div
             className="row justify-fe gap-8 pr-4 py-1"
             style={{ textAlign: "right", width: "250px" }}
           >
             <p className="fs-24 fw-600">Flight</p>
 
-            {(allValues["flight"] === "default" || !allValues["cat"]) && (
+            {(allValues["flight"] === "default" || !allValues["flight"]) && (
               <Warning
                 className="error"
                 style={{ width: "20px", height: "20px" }}
@@ -193,7 +193,7 @@ const Edit = (props: Props) => {
           <span style={{ display: "inline-block", width: "300px" }}>
             <select
               className={`fs-24 px-4 py-1${
-                allValues["flight"] === "default" || !allValues["cat"]
+                allValues["flight"] === "default" || !allValues["flight"]
                   ? " placeholder"
                   : ""
               }`}
@@ -220,7 +220,7 @@ const Edit = (props: Props) => {
         </div>
 
         {/* CAT Input */}
-        <div className="w-100 row justify-fs">
+        <div className="w-100 row">
           <div
             className="row justify-fe gap-8 pr-4 py-1"
             style={{ textAlign: "right", width: "250px" }}

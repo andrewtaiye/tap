@@ -2,9 +2,10 @@ import React from "react";
 import Button from "../generic/Button";
 
 import { ModalState } from "../generic/Modal";
+import { UserPositions } from "./Main";
 
 interface Props {
-  data: any[];
+  userPositions: Array<UserPositions>;
   setModal: (state: ModalState) => void;
 }
 
@@ -57,35 +58,47 @@ const PositionTable = (props: Props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>S/N</th>
-            <th>Position</th>
-            <th>Revalidation</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Approval Date</th>
-            <th>Edit</th>
-          </tr>
-          {props.data.map((element) => {
-            return (
-              <tr key={element.id}>
-                <td>{element.id}</td>
-                <td>{element.position}</td>
-                <td>{element.revalidation ? "Yes" : "No"}</td>
-                <td>{element.startDate}</td>
-                <td>{element.endDate}</td>
-                <td>{element.approvalDate}</td>
-                <td>
-                  <p
-                    onClick={() => handleEditButtonClick(element)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    Edit
-                  </p>
-                </td>
+          {props.userPositions.length === 0 ? (
+            <>
+              <tr>
+                <th colSpan={7}>
+                  <p className="fs-16">You have no positions</p>
+                </th>
               </tr>
-            );
-          })}
+            </>
+          ) : (
+            <>
+              <tr>
+                <th>S/N</th>
+                <th>Position</th>
+                <th>Revalidation</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Approval Date</th>
+                <th>Edit</th>
+              </tr>
+              {props.userPositions.map((element, index) => {
+                return (
+                  <tr key={element.id}>
+                    <td>{index + 1}</td>
+                    <td>{element.position}</td>
+                    <td>{element.is_revalidation ? "Yes" : "No"}</td>
+                    <td>{element.start_date}</td>
+                    <td>{element.end_date}</td>
+                    <td>{element.approval_date}</td>
+                    <td>
+                      <p
+                        onClick={() => handleEditButtonClick(element)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        Edit
+                      </p>
+                    </td>
+                  </tr>
+                );
+              })}
+            </>
+          )}
         </tbody>
       </table>
     </div>

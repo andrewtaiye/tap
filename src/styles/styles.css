@@ -160,10 +160,6 @@ input[type="date"] {
   height: 100%;
 }
 
-input[type="date"]::-webkit-inner-spin-button {
-  height: auto;
-}
-
 input::placeholder {
   color: rgb(var(--grey));
 }
@@ -251,17 +247,17 @@ textarea {
   position: fixed;
   z-index: 15;
   top: 30vh;
-  left: calc((100% - min(80%, 1000px)) / 2);
+  left: calc((100% - 1100px) / 2);
   width: 80%;
-  min-width: 1000px;
-  max-width: 1000px;
+  min-width: 1100px;
+  max-width: 1100px;
   padding: 32px;
   background-color: rgb(var(--lightBlue100));
   border-radius: 16px;
 }
 
 .modal__position-form {
-  width: 800px;
+  width: 100%;
   display: inline-block;
 }
 
