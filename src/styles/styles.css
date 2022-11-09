@@ -86,6 +86,10 @@ a {
   display: none;
 }
 
+.placeholder {
+  color: rgb(var(--grey));
+}
+
 /* ------- Buttons ------- */
 
 button {

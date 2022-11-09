@@ -42,18 +42,18 @@ const Main = (props: Props) => {
         console.error(res);
       }
     })();
-    (async () => {
-      // Position Get API Call
-      const url = `http://127.0.0.1:5001/position/get/${userId}`;
-      const res = await fetchCall(url);
+    // (async () => {
+    //   // Position Get API Call
+    //   const url = `http://127.0.0.1:5001/position/get/${userId}`;
+    //   const res = await fetchCall(url);
 
-      if (res.status === "ok") {
-        // setUserData(res.data)
-        console.log(res);
-      } else {
-        console.error(res);
-      }
-    })();
+    //   if (res.status === "ok") {
+    //     // setUserData(res.data)
+    //     console.log(res);
+    //   } else {
+    //     console.error(res);
+    //   }
+    // })();
   }, [userId]);
 
   const onDelete = async () => {

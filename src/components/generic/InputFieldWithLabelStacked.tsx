@@ -27,6 +27,7 @@ const InputFieldWithLabelStacked = (props: Props) => {
       <input
         type={props.type}
         className={`${props.className}`}
+        placeholder={`- ${capitaliseFirstLetter(props.inputName)} -`}
         {...props.register(props.inputName)}
         autoComplete="off"
       />
