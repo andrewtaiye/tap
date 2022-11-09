@@ -46,18 +46,7 @@ const Login = () => {
       }
 
       setUserId?.(res.userId);
-
-      // Profile Get API Call
-      url = `http://127.0.0.1:5001/profile/get/${res.userId}`;
-      res = await fetchCall(url);
-
-      if (res.status !== "ok") {
-        console.error(res);
-        setErrorMessage(res.message);
-        return;
-      }
-
-      setHasProfile?.(true);
+      setHasProfile?.(res.hasProfile);
       navigate("/assessments");
     } catch (err: any) {
       console.error(err.message);

@@ -10,7 +10,7 @@ interface Props {
     id: number;
     username: string;
     password: string;
-    salutation: string;
+    rank: string;
     fullName: string;
     idNumber: string;
     dateOfBirth: string;
@@ -49,7 +49,7 @@ const Display = (props: Props) => {
             style={{ textAlign: "left", width: "300px" }}
           >
             {`${capitaliseFirstLetter(
-              props.data.salutation
+              props.data.rank
             )}. ${capitaliseFirstLetter(props.data.fullName)}`}
           </p>
         </div>

@@ -10,7 +10,7 @@ import Button from "../generic/Button";
 const Create = () => {
   const { setHasProfile } = useContext(GlobalVariables);
   interface Inputs {
-    salutation: string;
+    rank: string;
     "full name": string;
     "date of birth": string;
     "identification number": string;
@@ -26,7 +26,7 @@ const Create = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       if (
-        !data["salutation"] ||
+        !data["rank"] ||
         !data["full name"] ||
         !data["date of birth"] ||
         !data["identification number"] ||
@@ -64,10 +64,10 @@ const Create = () => {
       >
         <InputFieldWithLabelStacked
           className="input__profile-create fs-24 fw-400 mb-2"
-          inputName="salutation"
+          inputName="rank"
           register={register}
           type="text"
-          warning={allValues["salutation"] ? false : true}
+          warning={allValues["rank"] ? false : true}
         />
         <InputFieldWithLabelStacked
           className="input__profile-create fs-24 fw-400 mb-2"
