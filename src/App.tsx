@@ -47,11 +47,12 @@ const App = () => {
       navigate("/login");
       return;
     }
+
     if (hasProfile === false) {
       navigate("/profile");
       return;
     }
-  }, []);
+  }, [userId, hasProfile]);
 
   return (
     <GlobalVariables.Provider

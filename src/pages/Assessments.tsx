@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import GlobalVariables from "../context/GlobalVariables";
+import Modal, { ModalState } from "../components/generic/Modal";
 
 import Header from "../components/generic/Header";
 import Main from "../components/assessments/Main";
 
-import Modal, { ModalState } from "../components/generic/Modal";
-
 const Assessments = () => {
+  const { userId, hasProfile } = useContext(GlobalVariables);
   const [assessmentModal, setAssessmentModal] = useState<ModalState>({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
+    if (hasProfile === false) {
+      navigate("/profile");
+      return;
+    }
+  }, [userId, hasProfile]);
 
   return (
     <>

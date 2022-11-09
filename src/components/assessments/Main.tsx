@@ -25,7 +25,6 @@ const Main = (props: Props) => {
 
       if (res.status === "ok") {
         // setUserPositions(res.data)
-        console.log(res);
       } else {
         console.error(res);
       }

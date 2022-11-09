@@ -81,7 +81,6 @@ const Create = () => {
         cat: data["cat"],
       };
 
-      console.log(body.date_of_birth);
       const res = await fetchCall(url, "PUT", body);
 
       if (res.status !== "ok") {
