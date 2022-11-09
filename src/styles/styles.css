@@ -153,6 +153,15 @@ textarea {
   outline: 1px solid rgb(var(--black));
   border: none;
   border-radius: 4px;
+  background-color: rgb(var(--white));
+}
+
+input[type="date"] {
+  height: 100%;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+  height: auto;
 }
 
 input::placeholder {

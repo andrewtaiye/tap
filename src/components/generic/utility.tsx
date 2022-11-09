@@ -1,5 +1,6 @@
-export const capitaliseFirstLetter = (string: string): string => {
-  const words = string.split(/ |-/);
+export const capitaliseFirstLetter = (string?: string): string => {
+  if (!string) return "";
+  const words: string[] = string?.split(/ |-/);
   const newWords: string[] = [];
   for (let word of words) {
     const arr: string[] = word.split("");

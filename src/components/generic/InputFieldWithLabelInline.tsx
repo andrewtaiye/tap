@@ -35,7 +35,10 @@ const InputFieldWithLabelInline = (props: Props) => {
       <span style={{ display: "block", ...props.inputWidth }}>
         <input
           type={props.type}
-          style={{ textAlign: "left", width: "100%" }}
+          style={{
+            textAlign: "left",
+            width: "100%",
+          }}
           className={`${props.className}`}
           {...props.register(props.inputName)}
           autoComplete="off"

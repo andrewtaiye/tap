@@ -1,28 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
+import { UserProfile } from "./Main";
 import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
+import GlobalVariables from "../../context/GlobalVariables";
 
 import Button from "../generic/Button";
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
+import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 
 interface Props {
   toggleModal: () => void;
   isEditing: boolean;
-  data: {
-    id: number;
-    username: string;
-    password: string;
-    rank: string;
-    fullName: string;
-    idNumber: string;
-    dateOfBirth: string;
-    dateAccepted: string;
-    reportingDate: string;
-  };
+  data: UserProfile;
 }
 
 const Edit = (props: Props) => {
+  const { flights, cats } = useContext(GlobalVariables);
   interface Inputs {
     "full name": string;
     "date of birth": string;
@@ -32,15 +26,17 @@ const Edit = (props: Props) => {
     password: string;
     "confirm password": string;
     warning: boolean;
+    flight: string;
+    cat: string;
   }
   const { register, handleSubmit, watch } = useForm<Inputs>({
     defaultValues: {
-      "id number": props.data.idNumber,
-      "date of birth": props.data.dateOfBirth,
-      "date accepted": props.data.dateAccepted,
-      "reporting date": props.data.reportingDate,
-      password: props.data.password,
-      "confirm password": props.data.password,
+      "id number": props.data.id_number,
+      "date of birth": props.data.date_of_birth?.split("T")[0],
+      "date accepted": props.data.date_accepted?.split("T")[0],
+      "reporting date": props.data.reporting_date?.split("T")[0],
+      flight: props.data.flight,
+      cat: props.data.cat,
     },
   });
   const allValues = watch();
@@ -88,6 +84,7 @@ const Edit = (props: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row justify-sb gap-64 px-8 mb-2">
+        {/* Username Display */}
         <div className="w-100 row justify-fe">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -102,6 +99,8 @@ const Edit = (props: Props) => {
             {props.data.username}
           </p>
         </div>
+
+        {/* Rank and Name Display */}
         <div className="w-100 row justify-fs">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -113,13 +112,14 @@ const Edit = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {`${capitaliseFirstLetter(
-              props.data.rank
-            )}. ${capitaliseFirstLetter(props.data.fullName)}`}
+            {`${capitaliseFirstLetter(props.data.rank)}
+            ${capitaliseFirstLetter(props.data.full_name)}`}
           </p>
         </div>
       </div>
+
       <div className="row justify-sb gap-64 px-8 mb-2">
+        {/* ID Number Input */}
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
             inputName="id number"
@@ -131,43 +131,141 @@ const Edit = (props: Props) => {
             warning={allValues["id number"] ? false : true}
           />
         </div>
+
+        {/* DOB Input */}
         <div className="w-100 row justify-fs">
           <InputFieldWithLabelInline
             inputName="date of birth"
             className="px-4 py-1 fs-24"
             labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px" }}
-            type="text"
+            inputWidth={{ width: "300px", height: "52px" }}
+            type="date"
             register={register}
             warning={allValues["date of birth"] ? false : true}
           />
         </div>
       </div>
-      <div className="row justify-sb gap-64 px-8">
+
+      <div className="row justify-sb gap-64 px-8 mb-2">
+        {/* Enlistment Date Input */}
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
             inputName="date accepted"
             className="px-4 py-1 fs-24"
             labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px" }}
-            type="text"
+            inputWidth={{ width: "300px", height: "52px" }}
+            type="date"
             register={register}
             warning={allValues["date accepted"] ? false : true}
           />
         </div>
+
+        {/* Post-In Date Input */}
         <div className="w-100 row justify-fs">
           <InputFieldWithLabelInline
             inputName="reporting date"
             className="px-4 py-1 fs-24"
             labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px" }}
-            type="text"
+            inputWidth={{ width: "300px", height: "52px" }}
+            type="date"
             register={register}
             warning={allValues["reporting date"] ? false : true}
           />
         </div>
       </div>
+
+      <div className="row justify-sb gap-64 px-8">
+        {/* Flight Input */}
+        <div className="w-100 row justify-fe">
+          <div
+            className="row justify-fe gap-8 pr-4 py-1"
+            style={{ textAlign: "right", width: "250px" }}
+          >
+            <p className="fs-24 fw-600">Flight</p>
+
+            {(allValues["flight"] === "default" || !allValues["cat"]) && (
+              <Warning
+                className="error"
+                style={{ width: "20px", height: "20px" }}
+              />
+            )}
+          </div>
+          <span style={{ display: "inline-block", width: "300px" }}>
+            <select
+              className={`fs-24 px-4 py-1${
+                allValues["flight"] === "default" || !allValues["cat"]
+                  ? " placeholder"
+                  : ""
+              }`}
+              style={{
+                width: "100%",
+                textAlign: "left",
+                appearance: "none",
+              }}
+              {...register("flight")}
+              defaultValue="default"
+            >
+              <option value="default" disabled>
+                - Select Flight -
+              </option>
+              {flights?.map((element, index) => {
+                return (
+                  <option key={index} value={element}>
+                    {capitaliseFirstLetter(element.toLowerCase())}
+                  </option>
+                );
+              })}
+            </select>
+          </span>
+        </div>
+
+        {/* CAT Input */}
+        <div className="w-100 row justify-fs">
+          <div
+            className="row justify-fe gap-8 pr-4 py-1"
+            style={{ textAlign: "right", width: "250px" }}
+          >
+            <p className="fs-24 fw-600">Ops CAT</p>
+
+            {(allValues["cat"] === "default" || !allValues["cat"]) && (
+              <Warning
+                className="error"
+                style={{ width: "20px", height: "20px" }}
+              />
+            )}
+          </div>
+          <span style={{ display: "inline-block", width: "300px" }}>
+            <select
+              className={`fs-24 px-4 py-1${
+                allValues["cat"] === "default" || !allValues["cat"]
+                  ? " placeholder"
+                  : ""
+              }`}
+              style={{
+                width: "100%",
+                textAlign: "left",
+                appearance: "none",
+              }}
+              {...register("cat")}
+              defaultValue="default"
+            >
+              <option value="default" disabled>
+                - Select CAT -
+              </option>
+              {cats?.map((element, index) => {
+                return (
+                  <option key={index} value={element}>
+                    {element}
+                  </option>
+                );
+              })}
+            </select>
+          </span>
+        </div>
+      </div>
+
       <div className="row justify-sb gap-64 px-8 mt-2">
+        {/* Password Input */}
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
             inputName="password"
@@ -179,6 +277,8 @@ const Edit = (props: Props) => {
             warning={allValues["password"] ? false : true}
           />
         </div>
+
+        {/* Confirm Password Input */}
         <div className="w-100 row justify-fs">
           <InputFieldWithLabelInline
             inputName="confirm password"

@@ -1,22 +1,14 @@
 import React from "react";
 
-import Button from "../generic/Button";
+import { UserProfile } from "./Main";
 import { capitaliseFirstLetter } from "../generic/utility";
+
+import Button from "../generic/Button";
 
 interface Props {
   toggleModal: () => void;
   isEditing: boolean;
-  data: {
-    id: number;
-    username: string;
-    password: string;
-    rank: string;
-    fullName: string;
-    idNumber: string;
-    dateOfBirth: string;
-    dateAccepted: string;
-    reportingDate: string;
-  };
+  data: UserProfile;
 }
 
 const Display = (props: Props) => {
@@ -48,9 +40,8 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {`${capitaliseFirstLetter(
-              props.data.rank
-            )}. ${capitaliseFirstLetter(props.data.fullName)}`}
+            {`${capitaliseFirstLetter(props.data.rank)}
+            ${capitaliseFirstLetter(props.data.full_name)}`}
           </p>
         </div>
       </div>
@@ -66,7 +57,7 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.idNumber}
+            {props.data.id_number}
           </p>
         </div>
         <div className="w-100 row justify-fs">
@@ -80,11 +71,15 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.dateOfBirth}
+            {props.data.date_of_birth
+              ?.split("T")[0]
+              .split("-")
+              .reverse()
+              .join(".")}
           </p>
         </div>
       </div>
-      <div className="row justify-sb gap-64 px-8">
+      <div className="row justify-sb gap-64 px-8 mb-2">
         <div className="w-100 row justify-fe">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -96,7 +91,11 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.dateAccepted}
+            {props.data.date_accepted
+              ?.split("T")[0]
+              .split("-")
+              .reverse()
+              .join(".")}
           </p>
         </div>
         <div className="w-100 row justify-fs">
@@ -110,7 +109,41 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {props.data.reportingDate}
+            {props.data.reporting_date
+              ?.split("T")[0]
+              .split("-")
+              .reverse()
+              .join(".")}
+          </p>
+        </div>
+      </div>
+      <div className="row justify-sb gap-64 px-8">
+        <div className="w-100 row justify-fe">
+          <p
+            className="pr-4 py-1 fs-24 fw-600"
+            style={{ textAlign: "right", width: "250px" }}
+          >
+            Flight
+          </p>
+          <p
+            className="pl-4 py-1 fs-24"
+            style={{ textAlign: "left", width: "300px" }}
+          >
+            {capitaliseFirstLetter(props.data.flight?.toLowerCase())}
+          </p>
+        </div>
+        <div className="w-100 row justify-fs">
+          <p
+            className="pr-4 py-1 fs-24 fw-600"
+            style={{ textAlign: "right", width: "250px" }}
+          >
+            Ops CAT
+          </p>
+          <p
+            className="pl-4 py-1 fs-24"
+            style={{ textAlign: "left", width: "300px" }}
+          >
+            {props.data.cat}
           </p>
         </div>
       </div>

@@ -11,18 +11,27 @@ import { fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
 
 import { positions } from "../../temp/positionData";
-import { profiles } from "../../temp/profileData";
 
 interface Props {
   setModal: (state: ModalState) => void;
 }
 
+export interface UserProfile {
+  userId?: string;
+  username?: string;
+  rank?: string;
+  full_name?: string;
+  date_of_birth?: string;
+  id_number?: string;
+  date_accepted?: string;
+  reporting_date?: string;
+  flight?: string;
+  cat?: string;
+}
+
 const Main = (props: Props) => {
   const { userId } = useContext(GlobalVariables);
-  const [userData, setUserData] = useState(() => {
-    const data = profiles.find((element) => element.id === userId);
-    return data;
-  });
+  const [userProfile, setUserProfile] = useState<UserProfile>({});
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleModal = () => {
@@ -35,12 +44,12 @@ const Main = (props: Props) => {
       const url = `http://127.0.0.1:5001/profile/get/${userId}`;
       const res = await fetchCall(url);
 
-      if (res.status === "ok") {
-        // setUserData(res.data)
-        console.log(res);
-      } else {
-        console.error(res);
+      if (res.status !== "ok") {
+        console.error(res.message);
+        return;
       }
+      setUserProfile(res.data);
+      console.log(res.data);
     })();
     // (async () => {
     //   // Position Get API Call
@@ -48,7 +57,7 @@ const Main = (props: Props) => {
     //   const res = await fetchCall(url);
 
     //   if (res.status === "ok") {
-    //     // setUserData(res.data)
+    //     // setUserProfile(res.data)
     //     console.log(res);
     //   } else {
     //     console.error(res);
@@ -107,13 +116,13 @@ const Main = (props: Props) => {
         <p className="bebas fs-48 mb-2">Profile</p>
         {isEditing ? (
           <Edit
-            data={userData}
+            data={userProfile}
             isEditing={isEditing}
             toggleModal={toggleModal}
           />
         ) : (
           <Display
-            data={userData}
+            data={userProfile}
             isEditing={isEditing}
             toggleModal={toggleModal}
           />

@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -25,22 +26,32 @@ const Register = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    if (
+      !allValues["username"] ||
+      !allValues["password"] ||
+      !allValues["confirm password"]
+    ) {
+      setErrorMessage("Please fill in all the required fields");
+      return;
+    } else {
+      setErrorMessage("");
+    }
+
+    if (allValues["password"] !== allValues["confirm password"]) {
+      setErrorMessage("Passwords do not match");
+      return;
+    } else {
+      setErrorMessage("");
+    }
+  }, [
+    allValues["username"],
+    allValues["password"],
+    allValues["confirm password"],
+  ]);
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      if (!data["username"] || !data["password"] || !data["confirm password"]) {
-        setErrorMessage("Please fill in all the required fields");
-        return;
-      } else {
-        setErrorMessage("");
-      }
-
-      if (data["password"] !== data["confirm password"]) {
-        setErrorMessage("Passwords do not match");
-        return;
-      } else {
-        setErrorMessage("");
-      }
-
       // User Create API Call
       const url = `http://127.0.0.1:5001/user/create`;
       const body = {
@@ -52,6 +63,7 @@ const Register = () => {
 
       if (res.status === "ok") {
         console.log(res);
+        setErrorMessage("");
         setUserId?.(res.userId);
         navigate("/profile");
       } else {

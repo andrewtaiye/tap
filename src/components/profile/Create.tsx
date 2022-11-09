@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import GlobalVariables from "../../context/GlobalVariables";
@@ -27,54 +28,66 @@ const Create = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    if (
+      !allValues["rank"] ||
+      !allValues["full name"] ||
+      !allValues["date of birth"] ||
+      !allValues["identification number"] ||
+      !allValues["date accepted"] ||
+      !allValues["reporting date"] ||
+      !allValues["flight"] ||
+      !allValues["cat"]
+    ) {
+      setErrorMessage("Please fill in all required fields");
+      return;
+    } else {
+      setErrorMessage("");
+    }
+
+    if (allValues["date accepted"] < allValues["date of birth"]) {
+      setErrorMessage("Date Accepted cannot be before Date of Birth");
+      return;
+    }
+
+    if (allValues["reporting date"] < allValues["date accepted"]) {
+      setErrorMessage("Reporting Date cannot be before Date Accepted");
+      return;
+    }
+  }, [
+    allValues["rank"],
+    allValues["full name"],
+    allValues["date of birth"],
+    allValues["identification number"],
+    allValues["date accepted"],
+    allValues["reporting date"],
+    allValues["flight"],
+    allValues["cat"],
+  ]);
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      if (
-        !data["rank"] ||
-        !data["full name"] ||
-        !data["date of birth"] ||
-        !data["identification number"] ||
-        !data["date accepted"] ||
-        !data["reporting date"] ||
-        !data["flight"] ||
-        !data["cat"]
-      ) {
-        setErrorMessage("Please fill in all required fields");
-        return;
-      } else {
-        setErrorMessage("");
-      }
-
-      if (data["date accepted"] < data["date of birth"]) {
-        setErrorMessage("Date Accepted cannot be before Date of Birth");
-        return;
-      }
-
-      if (data["reporting date"] < data["date accepted"]) {
-        setErrorMessage("Reporting Date cannot be before Date Accepted");
-        return;
-      }
-
       // Profile Create API Call
       const url = `http://127.0.0.1:5001/profile/create`;
       const body = {
         userId: userId,
         rank: data["rank"],
-        fullName: data["full name"],
-        dateOfBirth: data["date of birth"],
-        idNumber: data["identification number"],
+        full_name: data["full name"],
+        date_of_birth: data["date of birth"],
+        id_number: data["identification number"],
         enlistmentDate: data["date accepted"],
         postInDate: data["reporting date"],
         flight: data["flight"],
         cat: data["cat"],
       };
 
-      console.log(body.dateOfBirth);
+      console.log(body.date_of_birth);
       const res = await fetchCall(url, "PUT", body);
 
       if (res.status !== "ok") {
         console.error(res);
       }
+      setErrorMessage("");
       setHasProfile?.(true);
     } catch (err: any) {
       console.error(err.message);
@@ -108,7 +121,7 @@ const Create = () => {
             className={`fs-24 px-4 py-1 mb-2${
               allValues["rank"] === "default" || !allValues["rank"]
                 ? " placeholder"
-                : null
+                : ""
             }`}
             style={{
               width: "100%",
@@ -143,7 +156,7 @@ const Create = () => {
         {/* DOB Input */}
         <InputFieldWithLabelStacked
           className={`input__profile-create fs-24 fw-400 mb-2${
-            !allValues["date of birth"] && " placeholder"
+            !allValues["date of birth"] ? " placeholder" : ""
           }`}
           inputName="date of birth"
           register={register}
@@ -163,7 +176,7 @@ const Create = () => {
         {/* Enlistment Date Input */}
         <InputFieldWithLabelStacked
           className={`input__profile-create fs-24 fw-400 mb-2${
-            !allValues["date accepted"] && " placeholder"
+            !allValues["date accepted"] ? " placeholder" : ""
           }`}
           inputName="date accepted"
           register={register}
@@ -174,7 +187,7 @@ const Create = () => {
         {/* Post-In Date Input */}
         <InputFieldWithLabelStacked
           className={`input__profile-create fs-24 fw-400 mb-2${
-            !allValues["reporting date"] && " placeholder"
+            !allValues["reporting date"] ? " placeholder" : ""
           }`}
           inputName="reporting date"
           register={register}
@@ -198,7 +211,7 @@ const Create = () => {
             className={`fs-24 px-4 py-1 mb-2${
               allValues["flight"] === "default" || !allValues["flight"]
                 ? " placeholder"
-                : null
+                : ""
             }`}
             style={{
               width: "100%",
@@ -237,7 +250,7 @@ const Create = () => {
             className={`fs-24 px-4 py-1 mb-2${
               allValues["cat"] === "default" || !allValues["cat"]
                 ? " placeholder"
-                : null
+                : ""
             }`}
             style={{
               width: "100%",
