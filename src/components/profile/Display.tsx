@@ -7,7 +7,7 @@ import { capitaliseFirstLetter } from "../generic/utility";
 import Button from "../generic/Button";
 
 interface Props {
-  toggleModal: () => void;
+  toggleMode: () => void;
   isEditing: boolean;
 }
 
@@ -148,7 +148,7 @@ const Display = (props: Props) => {
           mode="active"
           type="button"
           className="fs-24"
-          onClick={props.toggleModal}
+          onClick={props.toggleMode}
         >
           Edit Profile
         </Button>

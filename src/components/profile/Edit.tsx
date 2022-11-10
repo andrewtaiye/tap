@@ -1,21 +1,23 @@
-import React, { useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import dayjs from "dayjs";
 
 import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
-import GlobalVariables from "../../context/GlobalVariables";
+import GlobalVariables, { UserProfile } from "../../context/GlobalVariables";
 
 import Button from "../generic/Button";
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
 import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 
 interface Props {
-  toggleModal: () => void;
+  toggleMode: () => void;
   isEditing: boolean;
 }
 
 const Edit = (props: Props) => {
-  const { flights, cats, userProfile } = useContext(GlobalVariables);
+  const { userId, flights, cats, userProfile, setUserProfile } =
+    useContext(GlobalVariables);
   interface Inputs {
     "full name": string;
     "date of birth": string;
@@ -48,39 +50,67 @@ const Edit = (props: Props) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    if (
+      !allValues["id number"] ||
+      !allValues["date of birth"] ||
+      !allValues["date accepted"] ||
+      !allValues["reporting date"] ||
+      !allValues["flight"] ||
+      !allValues["cat"] ||
+      !allValues["password"] ||
+      !allValues["confirm password"]
+    ) {
+      setErrorMessage("Please fill in all required fields");
+      return;
+    }
+
+    if (allValues["password"] !== allValues["confirm password"]) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+
+    setErrorMessage("");
+  }, [
+    allValues["id number"],
+    allValues["date of birth"],
+    allValues["date accepted"],
+    allValues["reporting date"],
+    allValues["flight"],
+    allValues["cat"],
+    allValues["password"],
+    allValues["confirm password"],
+  ]);
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      if (
-        !data["id number"] ||
-        !data["date of birth"] ||
-        !data["date accepted"] ||
-        !data["reporting date"] ||
-        !data["password"] ||
-        !data["confirm password"]
-      ) {
-        setErrorMessage("Please fill in all required fields");
-        return;
-      } else {
-        setErrorMessage("");
-      }
-
-      if (data["password"] !== data["confirm password"]) {
-        setErrorMessage("Passwords do not match");
-        return;
-      } else {
-        setErrorMessage("");
-      }
+      if (errorMessage) return;
 
       // Profile Update API Call
-      const url = `http://127.0.0.1:5001/profile/update`;
-      const res = await fetchCall(url, "PATCH");
+      const url = `http://127.0.0.1:5001/profile/update/${userId}`;
+      const body: UserProfile = {
+        date_of_birth: dayjs(data["date of birth"]).unix(),
+        id_number: data["id number"],
+        date_accepted: dayjs(data["date accepted"]).unix(),
+        reporting_date: dayjs(data["reporting date"]).unix(),
+        flight: data["flight"],
+        cat: data["cat"],
+      };
+      const res = await fetchCall(url, "PATCH", {
+        ...body,
+        password: data["password"],
+        confirm_password: data["confirm password"],
+      });
 
-      if (res.status === "ok") {
-        console.log(res);
-        props.toggleModal();
-      } else {
+      if (res.status !== "ok") {
         console.error(res);
+        return;
       }
+
+      setUserProfile?.((prevState) => {
+        return { ...prevState, ...body };
+      });
+      props.toggleMode();
     } catch (err: any) {
       console.error(err.message);
     }

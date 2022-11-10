@@ -57,7 +57,7 @@ const Register = () => {
       const body = {
         username: data["username"],
         password: data["password"],
-        confirmPassword: data["confirm password"],
+        confirm_password: data["confirm password"],
       };
       const res = await fetchCall(url, "PUT", body);
 

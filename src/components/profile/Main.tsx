@@ -19,7 +19,7 @@ const Main = (props: Props) => {
     useContext(GlobalVariables);
   const [isEditing, setIsEditing] = useState(false);
 
-  const toggleModal = () => {
+  const toggleMode = () => {
     setIsEditing(!isEditing);
   };
 
@@ -74,9 +74,9 @@ const Main = (props: Props) => {
       <div className="section__container-light">
         <p className="bebas fs-48 mb-2">Profile</p>
         {isEditing ? (
-          <Edit isEditing={isEditing} toggleModal={toggleModal} />
+          <Edit isEditing={isEditing} toggleMode={toggleMode} />
         ) : (
-          <Display isEditing={isEditing} toggleModal={toggleModal} />
+          <Display isEditing={isEditing} toggleMode={toggleMode} />
         )}
       </div>
       <div className="section__container-dark">
