@@ -84,9 +84,27 @@ const PositionTable = (props: Props) => {
                     <td>{index + 1}</td>
                     <td>{element.position}</td>
                     <td>{element.is_revalidation ? "Yes" : "No"}</td>
-                    <td>{element.start_date}</td>
-                    <td>{element.end_date}</td>
-                    <td>{element.approval_date}</td>
+                    <td>
+                      {element.start_date
+                        ?.split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join(".")}
+                    </td>
+                    <td>
+                      {element.end_date
+                        ?.split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join(".")}
+                    </td>
+                    <td>
+                      {element.approval_date
+                        ?.split("T")[0]
+                        .split("-")
+                        .reverse()
+                        .join(".")}
+                    </td>
                     <td>
                       <p
                         onClick={() => handleEditButtonClick(element)}

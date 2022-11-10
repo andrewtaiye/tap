@@ -46,13 +46,44 @@ const Position = (props: Props) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (!allValues["position"] || !allValues["start date"]) {
+    if (
+      !allValues["position"] ||
+      allValues["position"] === "default" ||
+      !allValues["start date"]
+    ) {
       setErrorMessage("Please fill in all required fields");
       return;
     }
 
+    if (
+      allValues["end date"] &&
+      allValues["end date"] < allValues["start date"]
+    ) {
+      setErrorMessage("End Date cannot be before Start Date");
+      return;
+    }
+
+    if (allValues["approval date"] && !allValues["end date"]) {
+      setErrorMessage("End Date must be specified if Approval Date is entered");
+      return;
+    }
+
+    if (
+      allValues["approval date"] &&
+      allValues["end date"] &&
+      allValues["approval date"] < allValues["end date"]
+    ) {
+      setErrorMessage("Approval Date cannot be before End Date");
+      return;
+    }
+
     setErrorMessage("");
-  }, [allValues["position"], allValues["start date"]]);
+  }, [
+    allValues["position"],
+    allValues["start date"],
+    allValues["end date"],
+    allValues["approval date"],
+  ]);
 
   const onSubmit: SubmitHandler<PositionInputs> = async (data) => {
     try {
