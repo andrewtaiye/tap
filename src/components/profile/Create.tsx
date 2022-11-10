@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import dayjs from "dayjs";
 
 import GlobalVariables from "../../context/GlobalVariables";
 import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
@@ -30,13 +31,16 @@ const Create = () => {
 
   useEffect(() => {
     if (
+      allValues["rank"] === "default" ||
       !allValues["rank"] ||
       !allValues["full name"] ||
       !allValues["date of birth"] ||
       !allValues["identification number"] ||
       !allValues["date accepted"] ||
       !allValues["reporting date"] ||
+      allValues["flight"] === "default" ||
       !allValues["flight"] ||
+      allValues["cat"] === "default" ||
       !allValues["cat"]
     ) {
       setErrorMessage("Please fill in all required fields");
@@ -73,14 +77,14 @@ const Create = () => {
         userId: userId,
         rank: data["rank"],
         full_name: data["full name"],
-        date_of_birth: data["date of birth"],
+        date_of_birth: dayjs(data["date of birth"]).unix(),
         id_number: data["identification number"],
-        enlistmentDate: data["date accepted"],
-        postInDate: data["reporting date"],
+        enlistmentDate: dayjs(data["date accepted"]).unix(),
+        postInDate: dayjs(data["reporting date"]).unix(),
         flight: data["flight"],
         cat: data["cat"],
       };
-
+      console.log({ body });
       const res = await fetchCall(url, "PUT", body);
 
       if (res.status !== "ok") {

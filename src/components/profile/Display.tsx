@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import dayjs from "dayjs";
 
 import GlobalVariables from "../../context/GlobalVariables";
 import { capitaliseFirstLetter } from "../generic/utility";
@@ -72,11 +73,9 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {userProfile?.date_of_birth
-              ?.split("T")[0]
-              .split("-")
-              .reverse()
-              .join(".")}
+            {dayjs
+              .unix(userProfile?.date_of_birth as number)
+              .format("DD.MM.YYYY")}
           </p>
         </div>
       </div>
@@ -92,11 +91,9 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {userProfile?.date_accepted
-              ?.split("T")[0]
-              .split("-")
-              .reverse()
-              .join(".")}
+            {dayjs
+              .unix(userProfile?.date_accepted as number)
+              .format("DD.MM.YYYY")}
           </p>
         </div>
         <div className="w-100 row">
@@ -110,11 +107,9 @@ const Display = (props: Props) => {
             className="pl-4 py-1 fs-24"
             style={{ textAlign: "left", width: "300px" }}
           >
-            {userProfile?.reporting_date
-              ?.split("T")[0]
-              .split("-")
-              .reverse()
-              .join(".")}
+            {dayjs
+              .unix(userProfile?.reporting_date as number)
+              .format("DD.MM.YYYY")}
           </p>
         </div>
       </div>

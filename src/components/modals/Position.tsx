@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Button from "../generic/Button";
+import dayjs from "dayjs";
 
 import { fetchCall } from "../generic/utility";
 import GlobalVariables, { UserPositions } from "../../context/GlobalVariables";
@@ -9,11 +9,16 @@ import { ModalState } from "../generic/Modal";
 
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
 import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
+import Button from "../generic/Button";
+
+interface Data extends UserPositions {
+  index?: number;
+}
 
 interface Props {
   setModal: (state: ModalState) => void;
   subtype?: string;
-  data?: UserPositions;
+  data?: Data;
 }
 
 const Position = (props: Props) => {
@@ -31,9 +36,15 @@ const Position = (props: Props) => {
   if (props.subtype === "edit") {
     defaultValues = {
       position: props.data?.position,
-      "start date": props.data?.start_date,
-      "end date": props.data?.end_date,
-      "approval date": props.data?.approval_date,
+      "start date": dayjs
+        .unix(props.data?.start_date as number)
+        .format("YYYY-MM-DD"),
+      "end date": props.data?.end_date
+        ? dayjs.unix(props.data?.end_date as number).format("YYYY-MM-DD")
+        : null,
+      "approval date": props.data?.approval_date
+        ? dayjs.unix(props.data?.approval_date as number).format("YYYY-MM-DD")
+        : null,
       revalidation: props.data?.is_revalidation,
     };
   }
@@ -89,35 +100,59 @@ const Position = (props: Props) => {
     try {
       if (errorMessage) return;
 
-      // Position Create and Update API Call
-      const url = `http://127.0.0.1:5001/position/${
-        props.subtype === "edit" ? `update/${props.data?.id}` : "create"
-      }`;
-      const body: UserPositions = {
-        user_id: userId,
-        position: data["position"],
-        start_date: data["start date"],
-        end_date: data["end date"],
-        approval_date: data["approval date"],
-        is_revalidation: data["revalidation"],
-      };
-      const res = await fetchCall(
-        url,
-        `${props.subtype === "edit" ? "PATCH" : "PUT"}`,
-        body
-      );
+      if (props.subtype === "add") {
+        // Position Create API Call
+        const url = `http://127.0.0.1:5001/position/create`;
+        const body: UserPositions = {
+          user_id: userId,
+          position: data["position"],
+          start_date: dayjs(data["start date"]).unix(),
+          end_date: dayjs(data["end date"]).unix(),
+          approval_date: dayjs(data["approval date"]).unix(),
+          is_revalidation: data["revalidation"],
+        };
+        const res = await fetchCall(url, "PUT", body);
 
-      if (res.status !== "ok") {
-        console.error(res);
-        return;
+        if (res.status !== "ok") {
+          console.error(res);
+          return;
+        }
+
+        body.id = res.data.id;
+        body.is_instructor = false;
+
+        setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
+          return [...prevState, body];
+        });
       }
 
-      body.id = res.data.id;
-      body.is_instructor = false;
+      if (props.subtype === "edit") {
+        // Position Update API Call
+        const url = `http://127.0.0.1:5001/position/update/${props.data?.id}`;
+        const body: UserPositions = {
+          id: props.data?.id,
+          user_id: userId,
+          position: data["position"],
+          start_date: dayjs(data["start date"]).unix(),
+          end_date: dayjs(data["end date"]).unix(),
+          approval_date: dayjs(data["approval date"]).unix(),
+          is_revalidation: data["revalidation"],
+        };
+        const res = await fetchCall(url, "PATCH", body);
 
-      setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
-        return [...prevState, body];
-      });
+        if (res.status !== "ok") {
+          console.error(res);
+          return;
+        }
+
+        setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
+          const array = prevState;
+          if (typeof props.data?.index === "number") {
+            array.splice(props.data?.index, 1, body);
+          }
+          return [...array];
+        });
+      }
 
       props.setModal({});
     } catch (err: any) {

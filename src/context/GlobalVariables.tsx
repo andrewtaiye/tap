@@ -5,10 +5,10 @@ export interface UserProfile {
   username?: string;
   rank?: string;
   full_name?: string;
-  date_of_birth?: string;
+  date_of_birth?: number;
   id_number?: string;
-  date_accepted?: string;
-  reporting_date?: string;
+  date_accepted?: number;
+  reporting_date?: number;
   flight?: string;
   cat?: string;
 }
@@ -17,9 +17,9 @@ export interface UserPositions {
   id?: string;
   user_id?: string;
   position?: string;
-  start_date?: string;
-  end_date?: string;
-  approval_date?: string;
+  start_date?: number;
+  end_date?: number;
+  approval_date?: number;
   is_revalidation?: boolean;
   is_instructor?: boolean;
 }

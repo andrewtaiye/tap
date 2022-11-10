@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import dayjs from "dayjs";
 
 import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
 import GlobalVariables from "../../context/GlobalVariables";
@@ -30,9 +31,15 @@ const Edit = (props: Props) => {
   const { register, handleSubmit, watch } = useForm<Inputs>({
     defaultValues: {
       "id number": userProfile?.id_number,
-      "date of birth": userProfile?.date_of_birth?.split("T")[0],
-      "date accepted": userProfile?.date_accepted?.split("T")[0],
-      "reporting date": userProfile?.reporting_date?.split("T")[0],
+      "date of birth": dayjs
+        .unix(userProfile?.date_of_birth as number)
+        .format("YYYY-MM-DD"),
+      "date accepted": dayjs
+        .unix(userProfile?.date_accepted as number)
+        .format("YYYY-MM-DD"),
+      "reporting date": dayjs
+        .unix(userProfile?.reporting_date as number)
+        .format("YYYY-MM-DD"),
       flight: userProfile?.flight,
       cat: userProfile?.cat,
     },

@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-import Button from "../generic/Button";
+import dayjs from "dayjs";
 
 import { ModalState } from "../generic/Modal";
 import GlobalVariables from "../../context/GlobalVariables";
+
+import Button from "../generic/Button";
 
 interface Props {
   setModal: (state: ModalState) => void;
@@ -20,11 +22,11 @@ const PositionTable = (props: Props) => {
     props.setModal(modal);
   };
 
-  const handleEditButtonClick = (element: {}) => {
+  const handleEditButtonClick = (element: {}, index: number) => {
     const modal = {
       type: "position",
       subtype: "edit",
-      data: { ...element },
+      data: { ...element, index: index },
     };
     props.setModal(modal);
   };
@@ -85,29 +87,27 @@ const PositionTable = (props: Props) => {
                     <td>{element.position}</td>
                     <td>{element.is_revalidation ? "Yes" : "No"}</td>
                     <td>
-                      {element.start_date
-                        ?.split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join(".")}
+                      {dayjs
+                        .unix(element.start_date as number)
+                        .format("YYYY.MM.DD")}
                     </td>
                     <td>
                       {element.end_date
-                        ?.split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join(".")}
+                        ? dayjs
+                            .unix(element.end_date as number)
+                            .format("YYYY.MM.DD")
+                        : "-"}
                     </td>
                     <td>
                       {element.approval_date
-                        ?.split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join(".")}
+                        ? dayjs
+                            .unix(element.approval_date as number)
+                            .format("YYYY.MM.DD")
+                        : "-"}
                     </td>
                     <td>
                       <p
-                        onClick={() => handleEditButtonClick(element)}
+                        onClick={() => handleEditButtonClick(element, index)}
                         style={{ cursor: "pointer" }}
                       >
                         Edit
