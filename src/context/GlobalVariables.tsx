@@ -36,7 +36,9 @@ export interface GlobalVariableType {
   setUserId?: (userId: string) => void;
   setHasProfile?: (boolean: boolean) => void;
   setUserProfile?: (object: UserProfile) => void;
-  setUserPositions?: (array: any) => void; // why does this not work when I put it as Array<UserPositions>
+  setUserPositions?: (
+    callback: (array: UserPositions[]) => UserPositions[]
+  ) => void; // why does this not work when I put it as Array<UserPositions>
 }
 
 const GlobalVariables = React.createContext<GlobalVariableType>({});

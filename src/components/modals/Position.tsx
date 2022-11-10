@@ -84,7 +84,7 @@ const Position = (props: Props) => {
       body.id = res.data.id;
       body.is_instructor = false;
 
-      setUserPositions?.((prevState: UserPositions[]) => {
+      setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
         return [...prevState, body];
       });
 
