@@ -122,7 +122,20 @@ const Position = (props: Props) => {
         body.is_instructor = false;
 
         setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
-          return [...prevState, body];
+          const array: UserPositions[] = [...prevState, body];
+          array.sort((a, b) => {
+            if (a.start_date! < b.start_date!) {
+              return -1;
+            }
+
+            if (a.start_date! > b.start_date!) {
+              return 1;
+            }
+
+            return 0;
+          });
+
+          return array;
         });
       }
 
@@ -130,7 +143,6 @@ const Position = (props: Props) => {
         // Position Update API Call
         const url = `http://127.0.0.1:5001/position/update/${props.data?.id}`;
         const body: UserPositions = {
-          id: props.data?.id,
           user_id: userId,
           position: data["position"],
           start_date: dayjs(data["start date"]).unix(),
@@ -144,6 +156,9 @@ const Position = (props: Props) => {
           console.error(res);
           return;
         }
+
+        body.id = props.data?.id;
+        body.is_instructor = props.data?.is_instructor;
 
         setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
           const array = prevState;
@@ -163,15 +178,22 @@ const Position = (props: Props) => {
   const onDelete = async () => {
     try {
       // Position Delete API Call
-      const url = `http://127.0.0.1:5001/position/delete`;
+      const url = `http://127.0.0.1:5001/position/delete/${props.data?.id}`;
       const res = await fetchCall(url, "DELETE");
 
-      if (res.status === "ok") {
-        console.log(res);
-        props.setModal({});
-      } else {
+      if (res.status !== "ok") {
         console.error(res);
       }
+
+      setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
+        const array = prevState;
+        if (typeof props.data?.index === "number") {
+          array.splice(props.data?.index, 1);
+        }
+        return [...array];
+      });
+
+      props.setModal({});
     } catch (err: any) {
       console.error(err.message);
     }

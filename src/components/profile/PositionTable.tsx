@@ -47,7 +47,7 @@ const PositionTable = (props: Props) => {
           <tr>
             <th colSpan={7} className="px-2 py-2">
               <div className="row justify-sb">
-                <p className="fs-32">Validated Positions</p>
+                <p className="fs-32">Positions</p>
                 <Button
                   mode="active"
                   type="button"
