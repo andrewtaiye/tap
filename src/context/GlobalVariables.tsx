@@ -56,6 +56,7 @@ export interface GlobalVariableType {
   userProfile?: UserProfile;
   userPositions?: UserPositions[];
   positionAssessments?: PositionAssessment[];
+  isInstructor?: boolean;
   ranks?: string[];
   flights?: string[];
   cats?: string[];
@@ -73,6 +74,7 @@ export interface GlobalVariableType {
       | PositionAssessment[]
       | ((array: PositionAssessment[]) => PositionAssessment[])
   ) => void;
+  setIsInstructor?: (boolean: boolean) => void;
 }
 
 const GlobalVariables = React.createContext<GlobalVariableType>({});

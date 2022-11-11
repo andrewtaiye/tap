@@ -25,6 +25,7 @@ const App = () => {
   const [positionAssessments, setPositionAssessments] = useState<
     PositionAssessment[]
   >([]);
+  const [isInstructor, setIsInstructor] = useState(false);
   const [ranks, setRanks] = useState<string[]>([]);
   const [flights, setFlights] = useState<string[]>([]);
   const [cats, setCats] = useState<string[]>([]);
@@ -66,6 +67,7 @@ const App = () => {
         userProfile,
         userPositions,
         positionAssessments,
+        isInstructor,
         ranks,
         flights,
         cats,
@@ -75,6 +77,7 @@ const App = () => {
         setUserProfile,
         setUserPositions,
         setPositionAssessments,
+        setIsInstructor,
       }}
     >
       <div className="col">
