@@ -12,14 +12,17 @@ export const capitaliseFirstLetter = (string?: string): string => {
 
 export const fetchCall = async (
   url: string,
+  header: string = "",
   method: string = "GET",
-  body: any = null,
-  header: string = ""
+  body: any = null
 ) => {
   const res = await fetch(url, {
     method: method,
     body: body === null ? null : JSON.stringify(body),
-    headers: { "Content-Type": "application/json", Authorization: header },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + header,
+    },
   });
 
   const response = await res.json();

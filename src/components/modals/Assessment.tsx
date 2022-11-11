@@ -22,7 +22,7 @@ interface Props {
 }
 
 const Assessment = (props: Props) => {
-  const { setPositionAssessments } = useContext(GlobalVariables);
+  const { accessToken, setPositionAssessments } = useContext(GlobalVariables);
 
   interface PositionInputs {
     position: string;
@@ -184,7 +184,7 @@ const Assessment = (props: Props) => {
           is_simulator: data["simulator"],
           remarks: data["remarks"],
         };
-        const res = await fetchCall(url, "PUT", body);
+        const res = await fetchCall(url, accessToken, "PUT", body);
 
         if (res.status !== "ok") {
           console.error(res);
@@ -240,7 +240,7 @@ const Assessment = (props: Props) => {
           is_simulator: data["simulator"],
           remarks: data["remarks"],
         };
-        const res = await fetchCall(url, "PATCH", body);
+        const res = await fetchCall(url, accessToken, "PATCH", body);
 
         if (res.status !== "ok") {
           console.error(res);

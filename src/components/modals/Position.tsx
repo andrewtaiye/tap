@@ -22,7 +22,8 @@ interface Props {
 }
 
 const Position = (props: Props) => {
-  const { userId, positions, setUserPositions } = useContext(GlobalVariables);
+  const { accessToken, userId, positions, setUserPositions } =
+    useContext(GlobalVariables);
 
   interface PositionInputs {
     position: string;
@@ -111,7 +112,7 @@ const Position = (props: Props) => {
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
         };
-        const res = await fetchCall(url, "PUT", body);
+        const res = await fetchCall(url, accessToken, "PUT", body);
 
         if (res.status !== "ok") {
           console.error(res);
@@ -150,7 +151,7 @@ const Position = (props: Props) => {
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
         };
-        const res = await fetchCall(url, "PATCH", body);
+        const res = await fetchCall(url, accessToken, "PATCH", body);
 
         if (res.status !== "ok") {
           console.error(res);

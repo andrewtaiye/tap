@@ -11,7 +11,7 @@ import Button from "../generic/Button";
 import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 
 const Create = () => {
-  const { setHasProfile, userId, ranks, flights, cats } =
+  const { accessToken, setHasProfile, userId, ranks, flights, cats } =
     useContext(GlobalVariables);
   interface Inputs {
     rank: string;
@@ -84,7 +84,7 @@ const Create = () => {
         flight: data["flight"],
         cat: data["cat"],
       };
-      const res = await fetchCall(url, "PUT", body);
+      const res = await fetchCall(url, accessToken, "PUT", body);
 
       if (res.status !== "ok") {
         console.error(res);

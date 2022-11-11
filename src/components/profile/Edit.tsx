@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Edit = (props: Props) => {
-  const { userId, flights, cats, userProfile, setUserProfile } =
+  const { accessToken, userId, flights, cats, userProfile, setUserProfile } =
     useContext(GlobalVariables);
   interface Inputs {
     "full name": string;
@@ -96,7 +96,7 @@ const Edit = (props: Props) => {
         flight: data["flight"],
         cat: data["cat"],
       };
-      const res = await fetchCall(url, "PATCH", {
+      const res = await fetchCall(url, accessToken, "PATCH", {
         ...body,
         password: data["password"],
         confirm_password: data["confirm password"],

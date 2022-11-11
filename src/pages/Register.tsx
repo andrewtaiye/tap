@@ -59,7 +59,7 @@ const Register = () => {
         password: data["password"],
         confirm_password: data["confirm password"],
       };
-      const res = await fetchCall(url, "PUT", body);
+      const res = await fetchCall(url, "", "PUT", body);
 
       if (res.status !== "ok") {
         console.error(res);

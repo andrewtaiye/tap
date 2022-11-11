@@ -16,7 +16,7 @@ interface Props {
 const Main = (props: Props) => {
   const [selectedPosition, setSelectedPosition] = useState<string>("");
 
-  const { userId, setUserPositions, setPositionAssessments } =
+  const { accessToken, userId, setUserPositions, setPositionAssessments } =
     useContext(GlobalVariables);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Main = (props: Props) => {
     (async () => {
       // Position Get API Call
       const url = `http://127.0.0.1:5001/position/get/${userId}`;
-      const res = await fetchCall(url);
+      const res = await fetchCall(url, accessToken, "GET");
 
       if (res.status !== "ok") {
         console.error(res);
@@ -54,7 +54,7 @@ const Main = (props: Props) => {
     (async () => {
       // Assessment Get API Call
       const url = `http://127.0.0.1:5001/assessment/get/${selectedPosition}`;
-      const res = await fetchCall(url);
+      const res = await fetchCall(url, accessToken, "GET");
 
       if (res.status !== "ok") {
         console.error(res);

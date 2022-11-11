@@ -27,6 +27,7 @@ export interface LoginToken {
 }
 
 const App = () => {
+  const [accessToken, setAccessToken] = useState("");
   const [userId, setUserId] = useState("");
   const [hasProfile, setHasProfile] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile>({});
@@ -61,10 +62,11 @@ const App = () => {
       if (localStorage.refreshToken) {
         const url = `http://127.0.0.1:5001/misc/refresh`;
         const body = { refresh: localStorage.refreshToken };
-        const res = await fetchCall(url, "POST", body);
+        const res = await fetchCall(url, "", "POST", body);
 
         if (res.status !== "ok") return;
 
+        setAccessToken(res.data.access);
         const decoded: LoginToken = jwt_decode(res.data.access);
 
         console.log(decoded);
@@ -89,6 +91,7 @@ const App = () => {
   return (
     <GlobalVariables.Provider
       value={{
+        accessToken,
         userId,
         hasProfile,
         userProfile,
@@ -99,6 +102,7 @@ const App = () => {
         flights,
         cats,
         positions,
+        setAccessToken,
         setUserId,
         setHasProfile,
         setUserProfile,
