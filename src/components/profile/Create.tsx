@@ -84,7 +84,6 @@ const Create = () => {
         flight: data["flight"],
         cat: data["cat"],
       };
-      console.log({ body });
       const res = await fetchCall(url, "PUT", body);
 
       if (res.status !== "ok") {

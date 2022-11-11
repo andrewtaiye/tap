@@ -303,7 +303,6 @@ const Assessment = (props: Props) => {
         return array;
       });
 
-      console.log(res);
       props.setModal({});
     } catch (err: any) {
       console.error(err.message);

@@ -57,7 +57,10 @@ const Main = (props: Props) => {
         console.error(res);
       }
 
-      if (!res.data) return;
+      if (!res.data) {
+        setPositionAssessments?.([]);
+        return;
+      }
 
       res.data.sort((a: PositionAssessment, b: PositionAssessment) => {
         if (a.date! < b.date!) {

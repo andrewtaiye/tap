@@ -16,8 +16,14 @@ interface Props {
 }
 
 const Main = (props: Props) => {
-  const { userId, setUserId, setHasProfile, setUserProfile, setUserPositions } =
-    useContext(GlobalVariables);
+  const {
+    userId,
+    setUserId,
+    setHasProfile,
+    setUserProfile,
+    setUserPositions,
+    setPositionAssessments,
+  } = useContext(GlobalVariables);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -48,7 +54,10 @@ const Main = (props: Props) => {
         return;
       }
 
-      if (!res.data) return;
+      if (!res.data) {
+        setUserPositions?.([]);
+        return;
+      }
 
       setUserPositions?.(res.data);
     })();
@@ -69,6 +78,7 @@ const Main = (props: Props) => {
       setHasProfile?.(false);
       setUserProfile?.({});
       setUserPositions?.([]);
+      setPositionAssessments?.([]);
       toggleMode();
       navigate("/login");
     } catch (err: any) {

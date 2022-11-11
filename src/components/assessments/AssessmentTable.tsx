@@ -18,7 +18,6 @@ const AssessmentTable = (props: Props) => {
   const position = userPositions?.find(
     (element) => element.id === props.selectedPosition
   );
-
   const handleAddButtonClick = () => {
     const modal = {
       type: "assessment",
