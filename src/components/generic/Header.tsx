@@ -16,6 +16,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem("refreshToken");
     setUserId?.("");
     setHasProfile?.(false);
     setUserProfile?.({});

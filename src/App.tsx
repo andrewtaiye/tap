@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 import "./styles/styles.css";
 import "./styles/utility.css";
@@ -16,6 +17,14 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Assessments from "./pages/Assessments";
+
+export interface LoginToken {
+  exp: number;
+  hasProfile: boolean;
+  iat: number;
+  jti: string;
+  userId: string;
+}
 
 const App = () => {
   const [userId, setUserId] = useState("");
@@ -34,7 +43,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const url = `http://127.0.0.1:5001/enum`;
+      const url = `http://127.0.0.1:5001/misc/enum`;
       const res = await fetchCall(url);
 
       if (res.status !== "ok") {
@@ -46,6 +55,24 @@ const App = () => {
       setFlights(res.data.flights);
       setCats(res.data.cats);
       setPositions(res.data.positions);
+    })();
+
+    (async () => {
+      if (localStorage.refreshToken) {
+        const url = `http://127.0.0.1:5001/misc/refresh`;
+        const body = { refresh: localStorage.refreshToken };
+        const res = await fetchCall(url, "POST", body);
+
+        if (res.status !== "ok") return;
+
+        const decoded: LoginToken = jwt_decode(res.data.access);
+
+        console.log(decoded);
+        setUserId?.(decoded.userId);
+        setHasProfile?.(decoded.hasProfile);
+        navigate("/assessments");
+        return;
+      }
     })();
 
     if (!userId) {

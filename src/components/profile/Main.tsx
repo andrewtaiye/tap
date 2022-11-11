@@ -74,6 +74,7 @@ const Main = (props: Props) => {
         return;
       }
 
+      localStorage.removeItem("refreshToken");
       setUserId?.("");
       setHasProfile?.(false);
       setUserProfile?.({});
