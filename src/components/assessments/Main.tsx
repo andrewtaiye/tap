@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 
-import { fetchCall } from "../generic/utility";
 import GlobalVariables, { UserPositions } from "../../context/GlobalVariables";
+import { PositionAssessment } from "../../context/GlobalVariables";
+import { fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
 
 import Summary from "./Summary";
@@ -14,8 +15,9 @@ interface Props {
 
 const Main = (props: Props) => {
   const [selectedPosition, setSelectedPosition] = useState<string>("");
-  const [positionAssessments, setPositionAssessments] = useState<string[]>([]);
-  const { userId, setUserPositions } = useContext(GlobalVariables);
+
+  const { userId, setUserPositions, setPositionAssessments } =
+    useContext(GlobalVariables);
 
   useEffect(() => {
     if (!userId) return;
@@ -54,8 +56,22 @@ const Main = (props: Props) => {
       if (res.status !== "ok") {
         console.error(res);
       }
-      // setUserPositions(res.data)
-      console.log(res);
+
+      if (!res.data) return;
+
+      res.data.sort((a: PositionAssessment, b: PositionAssessment) => {
+        if (a.date! < b.date!) {
+          return -1;
+        }
+
+        if (a.date! > b.date!) {
+          return 1;
+        }
+
+        return 0;
+      });
+
+      setPositionAssessments?.(res.data);
     })();
   }, [selectedPosition]);
 
@@ -63,12 +79,20 @@ const Main = (props: Props) => {
     <>
       <div className="section__container-light">
         <p className="bebas fs-48 mb-2">Assessments</p>
-        <Summary setSelectedPosition={setSelectedPosition} />
+        <Summary
+          selectedPosition={selectedPosition}
+          setSelectedPosition={setSelectedPosition}
+        />
       </div>
 
-      <div className="section__container-dark">
-        <AssessmentTable setModal={props.setModal} />
-      </div>
+      {selectedPosition && (
+        <div className="section__container-dark">
+          <AssessmentTable
+            setModal={props.setModal}
+            selectedPosition={selectedPosition}
+          />
+        </div>
+      )}
     </>
   );
 };

@@ -122,7 +122,7 @@ const Position = (props: Props) => {
         body.is_instructor = false;
 
         setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
-          const array: UserPositions[] = [...prevState, body];
+          const array = [...prevState, body];
           array.sort((a, b) => {
             if (a.start_date! < b.start_date!) {
               return -1;
@@ -161,11 +161,11 @@ const Position = (props: Props) => {
         body.is_instructor = props.data?.is_instructor;
 
         setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
-          const array = prevState;
+          const array = [...prevState];
           if (typeof props.data?.index === "number") {
             array.splice(props.data?.index, 1, body);
           }
-          return [...array];
+          return array;
         });
       }
 
@@ -186,11 +186,11 @@ const Position = (props: Props) => {
       }
 
       setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
-        const array = prevState;
+        const array = [...prevState];
         if (typeof props.data?.index === "number") {
           array.splice(props.data?.index, 1);
         }
-        return [...array];
+        return array;
       });
 
       props.setModal({});

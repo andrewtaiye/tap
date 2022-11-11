@@ -160,6 +160,12 @@ input[type="date"] {
   height: 100%;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 input::placeholder {
   color: rgb(var(--grey));
 }
@@ -294,6 +300,17 @@ textarea {
   width: 100%;
   padding: 1px;
   overflow: hidden scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.modal__assessments-scrollarea::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.modal__assessments-scrollarea {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* ------- Tables ------- */

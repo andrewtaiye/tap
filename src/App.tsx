@@ -9,6 +9,7 @@ import GlobalVariables, {
   UserProfile,
   UserPositions,
 } from "./context/GlobalVariables";
+import { PositionAssessment } from "./context/GlobalVariables";
 import { fetchCall } from "./components/generic/utility";
 
 import Login from "./pages/Login";
@@ -21,6 +22,9 @@ const App = () => {
   const [hasProfile, setHasProfile] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile>({});
   const [userPositions, setUserPositions] = useState<UserPositions[]>([]);
+  const [positionAssessments, setPositionAssessments] = useState<
+    PositionAssessment[]
+  >([]);
   const [ranks, setRanks] = useState<string[]>([]);
   const [flights, setFlights] = useState<string[]>([]);
   const [cats, setCats] = useState<string[]>([]);
@@ -61,6 +65,7 @@ const App = () => {
         hasProfile,
         userProfile,
         userPositions,
+        positionAssessments,
         ranks,
         flights,
         cats,
@@ -69,6 +74,7 @@ const App = () => {
         setHasProfile,
         setUserProfile,
         setUserPositions,
+        setPositionAssessments,
       }}
     >
       <div className="col">

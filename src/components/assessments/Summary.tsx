@@ -5,6 +5,7 @@ import GlobalVariables from "../../context/GlobalVariables";
 import Button from "../generic/Button";
 
 interface Props {
+  selectedPosition: string;
   setSelectedPosition: (position: string) => void;
 }
 
@@ -41,21 +42,24 @@ const Summary = (props: Props) => {
           );
         })}
       </select>
-      <div className="col">
+      <div className="row">
         <Button mode="outline" type="button" className="fs-24">
           New Position
         </Button>
+      </div>
+      {props.selectedPosition && (
         <div
           className="row mt-2"
           style={{
             width: "700px",
             height: "400px",
             border: "1px solid rgb(var(--black))",
+            marginInline: "auto",
           }}
         >
           Assessment Grade Chart
         </div>
-      </div>
+      )}
     </>
   );
 };

@@ -24,11 +24,38 @@ export interface UserPositions {
   is_instructor?: boolean;
 }
 
+export interface PositionAssessment {
+  id?: string;
+  user_position_id: string;
+  assessment_number: number;
+  instructor: string;
+  date: number;
+  intensity: number;
+  objective1: string;
+  objective2: string | undefined;
+  objective3: string | undefined;
+  a: number;
+  b: number;
+  c: number;
+  d: number;
+  e: number;
+  f: number;
+  g: number;
+  h: number;
+  i: number;
+  j: number;
+  safety: boolean;
+  grade?: number;
+  remarks: string;
+  is_simulator: boolean;
+}
+
 export interface GlobalVariableType {
   userId?: string;
   hasProfile?: boolean;
   userProfile?: UserProfile;
   userPositions?: UserPositions[];
+  positionAssessments?: PositionAssessment[];
   ranks?: string[];
   flights?: string[];
   cats?: string[];
@@ -40,7 +67,12 @@ export interface GlobalVariableType {
   ) => void;
   setUserPositions?: (
     callback: UserPositions[] | ((array: UserPositions[]) => UserPositions[])
-  ) => void; // why does this not work when I put it as Array<UserPositions>
+  ) => void;
+  setPositionAssessments?: (
+    callback:
+      | PositionAssessment[]
+      | ((array: PositionAssessment[]) => PositionAssessment[])
+  ) => void;
 }
 
 const GlobalVariables = React.createContext<GlobalVariableType>({});
