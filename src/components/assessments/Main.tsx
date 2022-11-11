@@ -29,7 +29,10 @@ const Main = (props: Props) => {
 
       if (res.status !== "ok") {
         console.error(res);
+        return;
       }
+
+      if (!res.data) return;
 
       res.data.sort((a: UserPositions, b: UserPositions) => {
         if (a.position! < b.position!) {
