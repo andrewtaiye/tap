@@ -35,9 +35,11 @@ export interface GlobalVariableType {
   positions?: string[];
   setUserId?: (userId: string) => void;
   setHasProfile?: (boolean: boolean) => void;
-  setUserProfile?: (callback: (object: UserProfile) => UserProfile) => void;
+  setUserProfile?: (
+    callback: UserProfile | ((object: UserProfile) => UserProfile)
+  ) => void;
   setUserPositions?: (
-    callback: (array: UserPositions[]) => UserPositions[]
+    callback: UserPositions[] | ((array: UserPositions[]) => UserPositions[])
   ) => void; // why does this not work when I put it as Array<UserPositions>
 }
 

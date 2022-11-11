@@ -6,12 +6,15 @@ import GlobalVariables from "../../context/GlobalVariables";
 import { ReactComponent as LongLogo } from "../../assets/logos/long.svg";
 
 const Header = () => {
-  const { setUserId, setHasProfile } = useContext(GlobalVariables);
+  const { setUserId, setHasProfile, setUserProfile, setUserPositions } =
+    useContext(GlobalVariables);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     setUserId?.("");
     setHasProfile?.(false);
+    setUserProfile?.({});
+    setUserPositions?.([]);
     navigate("/login");
   };
 

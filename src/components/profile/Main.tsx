@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../generic/Button";
 import Display from "./Display";
@@ -15,8 +16,9 @@ interface Props {
 }
 
 const Main = (props: Props) => {
-  const { userId, setUserProfile, setUserPositions } =
+  const { userId, setUserId, setHasProfile, setUserProfile, setUserPositions } =
     useContext(GlobalVariables);
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleMode = () => {
@@ -63,7 +65,12 @@ const Main = (props: Props) => {
         return;
       }
 
-      props.setModal({});
+      setUserId?.("");
+      setHasProfile?.(false);
+      setUserProfile?.({});
+      setUserPositions?.([]);
+      toggleMode();
+      navigate("/login");
     } catch (err: any) {
       console.error(err.message);
     }
