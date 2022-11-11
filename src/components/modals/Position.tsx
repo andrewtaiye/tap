@@ -112,7 +112,7 @@ const Position = (props: Props) => {
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
         };
-        const res = await fetchCall(url, accessToken, "PUT", body);
+        const res = await fetchCall(url, accessToken.current, "PUT", body);
 
         if (res.status !== "ok") {
           console.error(res);
@@ -151,7 +151,7 @@ const Position = (props: Props) => {
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
         };
-        const res = await fetchCall(url, accessToken, "PATCH", body);
+        const res = await fetchCall(url, accessToken.current, "PATCH", body);
 
         if (res.status !== "ok") {
           console.error(res);

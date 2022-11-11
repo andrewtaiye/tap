@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -27,7 +27,7 @@ export interface LoginToken {
 }
 
 const App = () => {
-  const [accessToken, setAccessToken] = useState("");
+  const accessToken = useRef("");
   const [userId, setUserId] = useState("");
   const [hasProfile, setHasProfile] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile>({});
@@ -41,6 +41,18 @@ const App = () => {
   const [cats, setCats] = useState<string[]>([]);
   const [positions, setPositions] = useState<string[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userId) {
+      navigate("/login");
+      return;
+    }
+
+    if (hasProfile === false) {
+      navigate("/profile");
+      return;
+    }
+  }, [userId, hasProfile]);
 
   useEffect(() => {
     (async () => {
@@ -66,27 +78,16 @@ const App = () => {
 
         if (res.status !== "ok") return;
 
-        setAccessToken(res.data.access);
+        accessToken.current = res.data.access;
         const decoded: LoginToken = jwt_decode(res.data.access);
 
-        console.log(decoded);
         setUserId?.(decoded.userId);
         setHasProfile?.(decoded.hasProfile);
         navigate("/assessments");
         return;
       }
     })();
-
-    if (!userId) {
-      navigate("/login");
-      return;
-    }
-
-    if (hasProfile === false) {
-      navigate("/profile");
-      return;
-    }
-  }, [userId, hasProfile]);
+  }, []);
 
   return (
     <GlobalVariables.Provider
@@ -102,7 +103,6 @@ const App = () => {
         flights,
         cats,
         positions,
-        setAccessToken,
         setUserId,
         setHasProfile,
         setUserProfile,

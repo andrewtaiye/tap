@@ -36,7 +36,7 @@ const Main = (props: Props) => {
     (async () => {
       // Profile Get API Call
       const url = `http://127.0.0.1:5001/profile/get/${userId}`;
-      const res = await fetchCall(url, accessToken, "GET");
+      const res = await fetchCall(url, accessToken.current, "GET");
 
       if (res.status !== "ok") {
         console.error(res.message);
@@ -48,7 +48,7 @@ const Main = (props: Props) => {
     (async () => {
       // Position Get API Call
       const url = `http://127.0.0.1:5001/position/get/${userId}`;
-      const res = await fetchCall(url, accessToken, "GET");
+      const res = await fetchCall(url, accessToken.current, "GET");
 
       if (res.status !== "ok") {
         console.error(res);

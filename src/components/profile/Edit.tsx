@@ -96,7 +96,7 @@ const Edit = (props: Props) => {
         flight: data["flight"],
         cat: data["cat"],
       };
-      const res = await fetchCall(url, accessToken, "PATCH", {
+      const res = await fetchCall(url, accessToken.current, "PATCH", {
         ...body,
         password: data["password"],
         confirm_password: data["confirm password"],

@@ -13,8 +13,7 @@ import Button from "../components/generic/Button";
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
 
 const Login = () => {
-  const { setAccessToken, setUserId, setHasProfile } =
-    useContext(GlobalVariables);
+  const { accessToken, setUserId, setHasProfile } = useContext(GlobalVariables);
 
   interface Inputs {
     username: string;
@@ -46,7 +45,7 @@ const Login = () => {
       }
 
       localStorage.setItem("refreshToken", res.data.refresh);
-      setAccessToken?.(res.data.access);
+      accessToken.current = res.data.access;
       const decoded: LoginToken = jwt_decode(res.data.access);
 
       setErrorMessage("");

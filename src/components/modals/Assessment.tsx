@@ -184,7 +184,7 @@ const Assessment = (props: Props) => {
           is_simulator: data["simulator"],
           remarks: data["remarks"],
         };
-        const res = await fetchCall(url, accessToken, "PUT", body);
+        const res = await fetchCall(url, accessToken.current, "PUT", body);
 
         if (res.status !== "ok") {
           console.error(res);
@@ -240,7 +240,7 @@ const Assessment = (props: Props) => {
           is_simulator: data["simulator"],
           remarks: data["remarks"],
         };
-        const res = await fetchCall(url, accessToken, "PATCH", body);
+        const res = await fetchCall(url, accessToken.current, "PATCH", body);
 
         if (res.status !== "ok") {
           console.error(res);

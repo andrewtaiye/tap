@@ -51,7 +51,7 @@ export interface PositionAssessment {
 }
 
 export interface GlobalVariableType {
-  accessToken?: string;
+  accessToken?: any;
   userId?: string;
   hasProfile?: boolean;
   userProfile?: UserProfile;
@@ -62,7 +62,6 @@ export interface GlobalVariableType {
   flights?: string[];
   cats?: string[];
   positions?: string[];
-  setAccessToken?: (token: string) => void;
   setUserId?: (userId: string) => void;
   setHasProfile?: (boolean: boolean) => void;
   setUserProfile?: (
