@@ -57,11 +57,11 @@ const Main = (props: Props) => {
   const onDelete = async () => {
     try {
       // User Delete API Call
-      const urlUser = `http://127.0.0.1:5001/user/delete`;
-      const resUser = await fetchCall(urlUser, "DELETE");
+      const url = `http://127.0.0.1:5001/user/delete/${userId}`;
+      const res = await fetchCall(url, "DELETE");
 
-      if (resUser.status !== "ok") {
-        console.error(resUser);
+      if (res.status !== "ok") {
+        console.error(res);
         return;
       }
 
