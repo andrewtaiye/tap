@@ -46,18 +46,6 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userId) {
-      navigate("/login");
-      return;
-    }
-
-    if (hasProfile === false) {
-      navigate("/profile");
-      return;
-    }
-  }, [userId, hasProfile]);
-
-  useEffect(() => {
     (async () => {
       const url = process.env.REACT_APP_API_ENDPOINT + `misc/enum`;
       const res = await fetchCall(url);
@@ -87,7 +75,7 @@ const App = () => {
         setUserId(decoded.userId);
         setHasProfile(decoded.hasProfile);
         setIsAdmin(decoded.is_admin);
-        navigate("/assessments");
+        navigate("/");
         return;
       }
     })();
@@ -119,7 +107,10 @@ const App = () => {
     >
       <div className="col">
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route
+            path="/"
+            element={<Navigate to={userId ? "/assessments" : "/login"} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/assessments" element={<Assessments />} />

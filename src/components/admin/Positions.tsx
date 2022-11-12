@@ -14,7 +14,7 @@ const Positions = () => {
     (async () => {
       try {
         const url = process.env.REACT_APP_API_ENDPOINT + `admin/get/positions`;
-        const res = await fetchCall(url, accessToken);
+        const res = await fetchCall(url, accessToken.current);
 
         if (!res.data) {
           setPositions([]);
