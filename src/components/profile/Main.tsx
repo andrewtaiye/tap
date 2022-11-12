@@ -24,6 +24,7 @@ const Main = (props: Props) => {
     setUserProfile,
     setUserPositions,
     setPositionAssessments,
+    setIsAdmin,
   } = useContext(GlobalVariables);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -81,6 +82,8 @@ const Main = (props: Props) => {
       setUserProfile?.({});
       setUserPositions?.([]);
       setPositionAssessments?.([]);
+      setIsAdmin?.(false);
+
       toggleMode();
       navigate("/login");
     } catch (err: any) {

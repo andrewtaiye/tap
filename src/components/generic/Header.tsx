@@ -14,6 +14,7 @@ const Header = () => {
     setUserProfile,
     setUserPositions,
     setPositionAssessments,
+    setIsAdmin,
   } = useContext(GlobalVariables);
   const navigate = useNavigate();
 
@@ -33,6 +34,8 @@ const Header = () => {
       setUserProfile?.({});
       setUserPositions?.([]);
       setPositionAssessments?.([]);
+      setIsAdmin?.(false);
+
       navigate("/login");
     } catch (err: any) {
       console.error(err.message);
