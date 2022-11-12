@@ -193,6 +193,10 @@
   padding-top: 64px !important;
 }
 
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
 .pb-1 {
   padding-bottom: 8px !important;
 }

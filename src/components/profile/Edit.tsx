@@ -87,7 +87,8 @@ const Edit = (props: Props) => {
       if (errorMessage) return;
 
       // Profile Update API Call
-      const url = `http://127.0.0.1:5001/profile/update/${userId}`;
+      const url =
+        process.env.REACT_APP_API_ENDPOINT + `profile/update/${userId}`;
       const body: UserProfile = {
         date_of_birth: dayjs(data["date of birth"]).unix(),
         id_number: data["id number"],

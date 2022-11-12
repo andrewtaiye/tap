@@ -57,6 +57,16 @@ a {
   padding-block: 64px;
 }
 
+.admin__navBar__container > .button__nav:hover {
+  background-color: rgb(var(--lightBlue200));
+  color: rgb(var(--black));
+}
+
+.admin__navBar__container > .button__nav.selected {
+  background-color: rgb(var(--lightBlue100));
+  color: rgb(var(--black));
+}
+
 /* ======================= */
 /*       Components        */
 /* ======================= */
@@ -65,21 +75,6 @@ a {
 
 .error {
   color: rgb(var(--red));
-}
-
-.selected {
-  position: relative;
-}
-
-.selected::after {
-  position: absolute;
-  content: "";
-  left: calc(50% - 3px);
-  bottom: -2px;
-  height: 6px;
-  width: 6px;
-  border-radius: 50%;
-  background-color: rgb(var(--black));
 }
 
 .visually-hidden {
@@ -126,6 +121,13 @@ button {
   background-color: rgb(var(--white));
   color: rgb(var(--black));
   outline: 1px solid rgb(var(--black));
+}
+
+.button__nav {
+  background-color: transparent;
+  color: inherit;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .button__outline:hover {
@@ -223,6 +225,21 @@ textarea {
   justify-content: space-between !important;
 }
 
+.header__navBar__container > .selected {
+  position: relative;
+}
+
+.header__navBar__container > .selected::after {
+  position: absolute;
+  content: "";
+  left: calc(50% - 3px);
+  bottom: -2px;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background-color: rgb(var(--black));
+}
+
 /* ------- Sections ------- */
 
 .section__container-light {
@@ -233,6 +250,13 @@ textarea {
 
 .section__container-dark {
   background-color: rgb(var(--lightBlue200));
+  width: 100%;
+  padding: 32px;
+}
+
+.section__container-darker {
+  background-color: rgb(var(--lightBlue300));
+  color: rgb(var(--white));
   width: 100%;
   padding: 32px;
 }

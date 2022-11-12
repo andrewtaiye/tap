@@ -103,7 +103,7 @@ const Position = (props: Props) => {
 
       if (props.subtype === "add") {
         // Position Create API Call
-        const url = `http://127.0.0.1:5001/position/create`;
+        const url = process.env.REACT_APP_API_ENDPOINT + `position/create`;
         const body: UserPositions = {
           user_id: userId,
           position: data["position"],
@@ -142,7 +142,9 @@ const Position = (props: Props) => {
 
       if (props.subtype === "edit") {
         // Position Update API Call
-        const url = `http://127.0.0.1:5001/position/update/${props.data?.id}`;
+        const url =
+          process.env.REACT_APP_API_ENDPOINT +
+          `position/update/${props.data?.id}`;
         const body: UserPositions = {
           user_id: userId,
           position: data["position"],
@@ -179,7 +181,9 @@ const Position = (props: Props) => {
   const onDelete = async () => {
     try {
       // Position Delete API Call
-      const url = `http://127.0.0.1:5001/position/delete/${props.data?.id}`;
+      const url =
+        process.env.REACT_APP_API_ENDPOINT +
+        `position/delete/${props.data?.id}`;
       const res = await fetchCall(url, "DELETE");
 
       if (res.status !== "ok") {

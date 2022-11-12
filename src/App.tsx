@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Assessments from "./pages/Assessments";
+import Admin from "./pages/Admin";
 
 export interface LoginToken {
   exp: number;
@@ -24,6 +25,7 @@ export interface LoginToken {
   iat: number;
   jti: string;
   userId: string;
+  is_admin: boolean;
 }
 
 const App = () => {
@@ -57,7 +59,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const url = `http://127.0.0.1:5001/misc/enum`;
+      const url = process.env.REACT_APP_API_ENDPOINT + `misc/enum`;
       const res = await fetchCall(url);
 
       if (res.status !== "ok") {
@@ -73,7 +75,7 @@ const App = () => {
 
     (async () => {
       if (localStorage.refreshToken) {
-        const url = `http://127.0.0.1:5001/misc/refresh`;
+        const url = process.env.REACT_APP_API_ENDPOINT + `misc/refresh`;
         const body = { refresh: localStorage.refreshToken };
         const res = await fetchCall(url, "", "POST", body);
 
@@ -82,8 +84,9 @@ const App = () => {
         accessToken.current = res.data.access;
         const decoded: LoginToken = jwt_decode(res.data.access);
 
-        setUserId?.(decoded.userId);
-        setHasProfile?.(decoded.hasProfile);
+        setUserId(decoded.userId);
+        setHasProfile(decoded.hasProfile);
+        setIsAdmin(decoded.is_admin);
         navigate("/assessments");
         return;
       }
@@ -121,6 +124,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/assessments" element={<Assessments />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </GlobalVariables.Provider>

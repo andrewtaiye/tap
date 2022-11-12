@@ -9,6 +9,7 @@ import { ReactComponent as LongLogo } from "../../assets/logos/long.svg";
 const Header = () => {
   const {
     accessToken,
+    isAdmin,
     setUserId,
     setHasProfile,
     setUserProfile,
@@ -20,7 +21,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const url = `http://127.0.0.1:5001/user/logout`;
+      const url = process.env.REACT_APP_API_ENDPOINT + `user/logout`;
       const res = await fetchCall(url, accessToken.current, "POST");
 
       if (res.status !== "ok") {
@@ -46,7 +47,7 @@ const Header = () => {
     <div className="header">
       <div className="row header__container bebas fs-24">
         <LongLogo style={{ height: "48px", width: "193px" }} />
-        <div className="row gap-32 navBar__container">
+        <div className="row gap-32 header__navBar__container">
           <NavLink
             to="/assessments"
             className={({ isActive }) => (isActive ? "selected" : undefined)}
@@ -59,6 +60,14 @@ const Header = () => {
           >
             Profile
           </NavLink>
+          {isAdmin && (
+            <NavLink
+              to="/admin"
+              className={({ isActive }) => (isActive ? "selected" : undefined)}
+            >
+              Admin
+            </NavLink>
+          )}
           <span onClick={handleLogout} style={{ cursor: "pointer" }}>
             Logout
           </span>

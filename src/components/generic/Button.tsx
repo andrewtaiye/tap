@@ -4,9 +4,10 @@ interface Props {
   children: string;
   className: string;
   mode: string;
-  style: {};
+  style?: {};
   type: "button" | "submit" | "reset";
-  onClick?: () => void;
+  onClick?: (event: any) => void;
+  name?: string;
 }
 
 const Active = (props: Props) => {
@@ -22,7 +23,7 @@ const Active = (props: Props) => {
   );
 };
 
-const Disabled = (props: any) => {
+const Disabled = (props: Props) => {
   return (
     <button
       type={props.type}
@@ -35,7 +36,7 @@ const Disabled = (props: any) => {
   );
 };
 
-const Outline = (props: any) => {
+const Outline = (props: Props) => {
   return (
     <button
       type={props.type}
@@ -48,7 +49,21 @@ const Outline = (props: any) => {
   );
 };
 
-const Button = (props: any) => {
+const Nav = (props: Props) => {
+  return (
+    <button
+      type={props.type}
+      className={`button__nav ${props.className}`}
+      style={props.style}
+      onClick={props.onClick}
+      name={props.name}
+    >
+      {props.children}
+    </button>
+  );
+};
+
+const Button = (props: Props) => {
   return (
     <>
       {props.mode === "active" && <Active {...props} />}
@@ -56,6 +71,8 @@ const Button = (props: any) => {
       {props.mode === "disabled" && <Disabled {...props} />}
 
       {props.mode === "outline" && <Outline {...props} />}
+
+      {props.mode === "nav" && <Nav {...props} />}
     </>
   );
 };

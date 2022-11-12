@@ -13,7 +13,8 @@ import Button from "../components/generic/Button";
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
 
 const Login = () => {
-  const { accessToken, setUserId, setHasProfile } = useContext(GlobalVariables);
+  const { accessToken, setUserId, setHasProfile, setIsAdmin } =
+    useContext(GlobalVariables);
 
   interface Inputs {
     username: string;
@@ -31,7 +32,7 @@ const Login = () => {
       }
 
       // User Login API Call
-      let url = `http://127.0.0.1:5001/user/login`;
+      let url = process.env.REACT_APP_API_ENDPOINT + `user/login`;
       let body = {
         username: data["username"],
         password: data["password"],
@@ -51,6 +52,7 @@ const Login = () => {
       setErrorMessage("");
       setUserId?.(decoded.userId);
       setHasProfile?.(decoded.hasProfile);
+      setIsAdmin?.(decoded.is_admin);
       navigate("/assessments");
     } catch (err: any) {
       console.error(err.message);

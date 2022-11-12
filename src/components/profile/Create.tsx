@@ -72,7 +72,7 @@ const Create = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       // Profile Create API Call
-      const url = `http://127.0.0.1:5001/profile/create`;
+      const url = process.env.REACT_APP_API_ENDPOINT + `profile/create`;
       const body = {
         userId: userId,
         rank: data["rank"],

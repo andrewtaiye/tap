@@ -36,7 +36,7 @@ const Main = (props: Props) => {
   useEffect(() => {
     (async () => {
       // Profile Get API Call
-      const url = `http://127.0.0.1:5001/profile/get/${userId}`;
+      const url = process.env.REACT_APP_API_ENDPOINT + `profile/get/${userId}`;
       const res = await fetchCall(url, accessToken.current, "GET");
 
       if (res.status !== "ok") {
@@ -48,7 +48,7 @@ const Main = (props: Props) => {
 
     (async () => {
       // Position Get API Call
-      const url = `http://127.0.0.1:5001/position/get/${userId}`;
+      const url = process.env.REACT_APP_API_ENDPOINT + `position/get/${userId}`;
       const res = await fetchCall(url, accessToken.current, "GET");
 
       if (res.status !== "ok") {
@@ -68,7 +68,7 @@ const Main = (props: Props) => {
   const onDelete = async () => {
     try {
       // User Delete API Call
-      const url = `http://127.0.0.1:5001/user/delete/${userId}`;
+      const url = process.env.REACT_APP_API_ENDPOINT + `user/delete/${userId}`;
       const res = await fetchCall(url, "DELETE");
 
       if (res.status !== "ok") {

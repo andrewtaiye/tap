@@ -160,7 +160,7 @@ const Assessment = (props: Props) => {
 
       if (props.subtype === "add") {
         // Assessment Create API Call
-        const url = `http://127.0.0.1:5001/assessment/create`;
+        const url = process.env.REACT_APP_API_ENDPOINT + `assessment/create`;
         const body: PositionAssessment = {
           user_position_id: props.data.positionId,
           assessment_number: data["assessment no"],
@@ -216,7 +216,9 @@ const Assessment = (props: Props) => {
 
       if (props.subtype === "edit") {
         // Assessment Update API Call
-        const url = `http://127.0.0.1:5001/assessment/update/${props.data.id}`;
+        const url =
+          process.env.REACT_APP_API_ENDPOINT +
+          `assessment/update/${props.data.id}`;
         const body: PositionAssessment = {
           user_position_id: props.data.user_position_id,
           assessment_number: data["assessment no"],
@@ -278,7 +280,9 @@ const Assessment = (props: Props) => {
   const onDelete = async () => {
     try {
       // Assessment Delete API Call
-      const url = `http://127.0.0.1:5001/assessment/delete/${props.data.id}`;
+      const url =
+        process.env.REACT_APP_API_ENDPOINT +
+        `assessment/delete/${props.data.id}`;
       const res = await fetchCall(url, "DELETE");
 
       if (res.status !== "ok") {
