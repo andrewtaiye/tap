@@ -104,7 +104,7 @@ const Main = (props: Props) => {
         </div>
       </div>
       <div className="row section__container-dark">
-        <div className="container">
+        <div className="row container">
           <PositionTable setModal={props.setModal} />
         </div>
       </div>

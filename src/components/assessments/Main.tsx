@@ -84,20 +84,24 @@ const Main = (props: Props) => {
 
   return (
     <>
-      <div className="section__container-light">
-        <p className="bebas fs-48 mb-2">Assessments</p>
-        <Summary
-          selectedPosition={selectedPosition}
-          setSelectedPosition={setSelectedPosition}
-        />
+      <div className="row section__container-light">
+        <div className="container">
+          <p className="bebas fs-48 mb-2">Assessments</p>
+          <Summary
+            selectedPosition={selectedPosition}
+            setSelectedPosition={setSelectedPosition}
+          />
+        </div>
       </div>
 
       {selectedPosition && (
-        <div className="section__container-dark">
-          <AssessmentTable
-            setModal={props.setModal}
-            selectedPosition={selectedPosition}
-          />
+        <div className="row section__container-dark">
+          <div className="row container">
+            <AssessmentTable
+              setModal={props.setModal}
+              selectedPosition={selectedPosition}
+            />
+          </div>
         </div>
       )}
     </>
