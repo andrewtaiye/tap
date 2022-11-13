@@ -67,11 +67,19 @@ const Main = (props: Props) => {
       }
 
       res.data.sort((a: PositionAssessment, b: PositionAssessment) => {
-        if (a.date! < b.date!) {
+        if (a.date < b.date) {
           return -1;
         }
 
-        if (a.date! > b.date!) {
+        if (a.date > b.date) {
+          return 1;
+        }
+
+        if (a.assessment_number < b.assessment_number) {
+          return -1;
+        }
+
+        if (a.assessment_number > b.assessment_number) {
           return 1;
         }
 

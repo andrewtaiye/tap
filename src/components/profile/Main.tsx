@@ -94,7 +94,7 @@ const Main = (props: Props) => {
   return (
     <>
       <div className="row section__container-light">
-        <div className="container">
+        <div className="col">
           <p className="bebas fs-48 mb-2">Profile</p>
           {isEditing ? (
             <Edit isEditing={isEditing} toggleMode={toggleMode} />

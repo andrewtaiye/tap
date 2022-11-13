@@ -16,7 +16,8 @@ const Display = (props: Props) => {
 
   return (
     <>
-      <div className="row justify-sb gap-64 px-8 mb-2">
+      <div className="grid gc-2 gap-16">
+        {/* Username Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -31,6 +32,8 @@ const Display = (props: Props) => {
             {userProfile?.username}
           </p>
         </div>
+
+        {/* Full Name Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -46,8 +49,8 @@ const Display = (props: Props) => {
             ${capitaliseFirstLetter(userProfile?.full_name)}`}
           </p>
         </div>
-      </div>
-      <div className="row justify-sb gap-64 px-8 mb-2">
+
+        {/* ID Number Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -62,6 +65,8 @@ const Display = (props: Props) => {
             {userProfile?.id_number}
           </p>
         </div>
+
+        {/* DOB Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -78,8 +83,8 @@ const Display = (props: Props) => {
               .format("DD.MM.YYYY")}
           </p>
         </div>
-      </div>
-      <div className="row justify-sb gap-64 px-8 mb-2">
+
+        {/* Enlistment Date Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -96,6 +101,8 @@ const Display = (props: Props) => {
               .format("DD.MM.YYYY")}
           </p>
         </div>
+
+        {/* Post-In Date Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -112,8 +119,8 @@ const Display = (props: Props) => {
               .format("DD.MM.YYYY")}
           </p>
         </div>
-      </div>
-      <div className="row justify-sb gap-64 px-8">
+
+        {/* Flight Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -128,6 +135,8 @@ const Display = (props: Props) => {
             {capitaliseFirstLetter(userProfile?.flight?.toLowerCase())}
           </p>
         </div>
+
+        {/* CAT Display */}
         <div className="w-100 row">
           <p
             className="pr-4 py-1 fs-24 fw-600"
@@ -143,6 +152,7 @@ const Display = (props: Props) => {
           </p>
         </div>
       </div>
+
       <div className="row mt-8">
         <Button
           mode="active"

@@ -119,7 +119,7 @@ const Edit = (props: Props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="row justify-sb gap-64 px-8 mb-2">
+      <div className="grid gc-2 gap-16">
         {/* Username Display */}
         <div className="w-100 row">
           <p
@@ -152,9 +152,7 @@ const Edit = (props: Props) => {
             ${capitaliseFirstLetter(userProfile?.full_name)}`}
           </p>
         </div>
-      </div>
 
-      <div className="row justify-sb gap-64 px-8 mb-2">
         {/* ID Number Input */}
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
@@ -180,9 +178,7 @@ const Edit = (props: Props) => {
             warning={allValues["date of birth"] ? false : true}
           />
         </div>
-      </div>
 
-      <div className="row justify-sb gap-64 px-8 mb-2">
         {/* Enlistment Date Input */}
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
@@ -208,9 +204,7 @@ const Edit = (props: Props) => {
             warning={allValues["reporting date"] ? false : true}
           />
         </div>
-      </div>
 
-      <div className="row justify-sb gap-64 px-8">
         {/* Flight Input */}
         <div className="w-100 row">
           <div
@@ -298,9 +292,7 @@ const Edit = (props: Props) => {
             </select>
           </span>
         </div>
-      </div>
 
-      <div className="row justify-sb gap-64 px-8 mt-2">
         {/* Password Input */}
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline

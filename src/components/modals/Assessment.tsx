@@ -197,11 +197,19 @@ const Assessment = (props: Props) => {
         setPositionAssessments?.((prevState) => {
           const array = [...prevState, body];
           array.sort((a, b) => {
-            if (a.date! < b.date!) {
+            if (a.date < b.date) {
               return -1;
             }
 
-            if (a.date! > b.date!) {
+            if (a.date > b.date) {
+              return 1;
+            }
+
+            if (a.assessment_number < b.assessment_number) {
+              return -1;
+            }
+
+            if (a.assessment_number > b.assessment_number) {
               return 1;
             }
 
@@ -261,6 +269,14 @@ const Assessment = (props: Props) => {
             }
 
             if (a.date! > b.date!) {
+              return 1;
+            }
+
+            if (a.assessment_number < b.assessment_number) {
+              return -1;
+            }
+
+            if (a.assessment_number > b.assessment_number) {
               return 1;
             }
 

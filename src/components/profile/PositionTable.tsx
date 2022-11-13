@@ -34,13 +34,13 @@ const PositionTable = (props: Props) => {
   return (
     <table className="table__positions">
       <colgroup>
-        <col style={{ width: "6.3829787234042553191489361702128%" }} />
-        <col style={{ width: "27.659574468085106382978723404255%" }} />
-        <col style={{ width: "14.89361702127659574468085106383%" }} />
-        <col style={{ width: "14.89361702127659574468085106383%" }} />
-        <col style={{ width: "14.89361702127659574468085106383%" }} />
-        <col style={{ width: "14.89361702127659574468085106383%" }} />
-        <col style={{ width: "6.3829787234042553191489361702128%" }} />
+        <col style={{ width: "8.325%" }} />
+        <col style={{ width: "16.67%" }} />
+        <col style={{ width: "16.67%" }} />
+        <col style={{ width: "16.67%" }} />
+        <col style={{ width: "16.67%" }} />
+        <col style={{ width: "16.67%" }} />
+        <col style={{ width: "8.325%" }} />
       </colgroup>
       <thead>
         <tr>

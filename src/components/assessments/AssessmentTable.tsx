@@ -41,24 +41,24 @@ const AssessmentTable = (props: Props) => {
   };
 
   return (
-    <table>
+    <table className="table__assessments">
       <colgroup>
         <col style={{ width: "48px" }} />
         <col style={{ width: "112px" }} />
-        <col style={{ width: "160px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "32px" }} />
-        <col style={{ width: "64px" }} />
-        <col style={{ width: "64px" }} />
-        <col style={{ width: "336px" }} />
+        <col style={{ width: "160px", minWidth: "160px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "32px", minWidth: "32px" }} />
+        <col style={{ width: "64px", minWidth: "64px" }} />
+        <col style={{ width: "64px", minWidth: "64px" }} />
+        <col style={{ width: "336px", minWidth: "336px" }} />
         <col style={{ width: "48px" }} />
       </colgroup>
       <thead>
