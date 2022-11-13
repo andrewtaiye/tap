@@ -9,7 +9,7 @@ interface Props {
 
 const NavBar = (props: Props) => {
   return (
-    <div className="row justify-sb px-8">
+    <div className="row admin__navBar justify-sb px-8">
       <div className="row admin__navBar__container alignSelf-end">
         <Button
           mode="nav"

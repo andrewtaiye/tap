@@ -93,27 +93,33 @@ const Main = (props: Props) => {
 
   return (
     <>
-      <div className="section__container-light">
-        <p className="bebas fs-48 mb-2">Profile</p>
-        {isEditing ? (
-          <Edit isEditing={isEditing} toggleMode={toggleMode} />
-        ) : (
-          <Display isEditing={isEditing} toggleMode={toggleMode} />
-        )}
+      <div className="row section__container-light">
+        <div className="container">
+          <p className="bebas fs-48 mb-2">Profile</p>
+          {isEditing ? (
+            <Edit isEditing={isEditing} toggleMode={toggleMode} />
+          ) : (
+            <Display isEditing={isEditing} toggleMode={toggleMode} />
+          )}
+        </div>
       </div>
-      <div className="section__container-dark">
-        <PositionTable setModal={props.setModal} />
+      <div className="row section__container-dark">
+        <div className="container">
+          <PositionTable setModal={props.setModal} />
+        </div>
       </div>
       {isEditing && (
-        <div className="section__container-light col">
-          <Button
-            mode="outline"
-            type="button"
-            className="button__delete fs-24"
-            onClick={onDelete}
-          >
-            Delete User
-          </Button>
+        <div className="row section__container-light">
+          <div className="row container">
+            <Button
+              mode="outline"
+              type="button"
+              className="button__delete fs-24"
+              onClick={onDelete}
+            >
+              Delete User
+            </Button>
+          </div>
         </div>
       )}
     </>

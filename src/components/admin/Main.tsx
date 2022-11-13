@@ -17,10 +17,12 @@ const Main = () => {
   return (
     <>
       <div className="section__container-darker pb-0">
-        <NavBar
-          selectedButton={selectedButton}
-          toggleNavButton={toggleNavButton}
-        />
+        <div className="row">
+          <NavBar
+            selectedButton={selectedButton}
+            toggleNavButton={toggleNavButton}
+          />
+        </div>
       </div>
       <div className="section__container-light">
         {selectedButton === "users" && <Users />}

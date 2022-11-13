@@ -57,6 +57,10 @@ a {
   padding-block: 64px;
 }
 
+.admin__navBar {
+  width: min(70%, 1366px);
+}
+
 .admin__navBar__container > .button__nav:hover {
   background-color: rgb(var(--lightBlue200));
   color: rgb(var(--black));
@@ -72,6 +76,10 @@ a {
 /* ======================= */
 
 /* ------- Generic ------- */
+
+.container {
+  width: min(70%, 1366px);
+}
 
 .error {
   color: rgb(var(--red));
@@ -221,7 +229,7 @@ textarea {
 
 .header__container {
   margin-inline: auto;
-  width: 70%;
+  width: min(70%, 1366px);
   justify-content: space-between !important;
 }
 
