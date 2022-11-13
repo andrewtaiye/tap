@@ -153,6 +153,11 @@ button {
   color: rgb(var(--white));
 }
 
+.table__admin-users td button {
+  padding: 0 16px;
+  width: 76px;
+}
+
 /* ------- Inputs ------- */
 
 input,
@@ -163,6 +168,7 @@ textarea {
   outline: 1px solid rgb(var(--black));
   border: none;
   border-radius: 4px;
+  border-image-width: 0;
   background-color: rgb(var(--white));
 }
 
@@ -216,6 +222,34 @@ textarea {
   height: fit-content;
   padding-inline: 32px;
   padding-block: 8px;
+}
+
+.table__admin-users td > select,
+.table__admin-users td > input {
+  font-size: 16px;
+  line-height: 24px;
+  appearance: none;
+  padding-inline: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.table__admin-users td > input::placeholder {
+  color: rgb(var(--black));
+}
+
+.admin__is-admin-checkbox {
+  appearance: none;
+  height: 17px;
+  width: 17px !important;
+  outline: 1px solid rgb(var(--black));
+  outline-offset: 3px;
+  border-radius: 50%;
+  padding: 0 !important;
+}
+
+.admin__is-admin-checkbox:checked {
+  background-color: rgb(var(--grey));
 }
 
 /* ------- Header ------- */
@@ -361,6 +395,7 @@ table {
 
 th,
 td {
+  height: 44px;
   padding: 8px;
 }
 

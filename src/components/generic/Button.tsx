@@ -17,6 +17,7 @@ const Active = (props: Props) => {
       className={`button__active ${props.className}`}
       style={props.style}
       onClick={props.onClick}
+      name={props.name}
     >
       {props.children}
     </button>
@@ -30,6 +31,7 @@ const Disabled = (props: Props) => {
       className={`button__disabled ${props.className}`}
       style={props.style}
       onClick={props.onClick}
+      name={props.name}
     >
       {props.children}
     </button>
@@ -43,6 +45,7 @@ const Outline = (props: Props) => {
       className={`button__outline ${props.className}`}
       style={props.style}
       onClick={props.onClick}
+      name={props.name}
     >
       {props.children}
     </button>

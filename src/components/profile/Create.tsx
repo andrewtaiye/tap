@@ -13,6 +13,7 @@ import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 const Create = () => {
   const { accessToken, setHasProfile, userId, ranks, flights, cats } =
     useContext(GlobalVariables);
+
   interface Inputs {
     rank: string;
     "full name": string;
