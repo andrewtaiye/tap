@@ -32,7 +32,7 @@ const PositionTable = (props: Props) => {
   };
 
   return (
-    <table>
+    <table className="table__positions">
       <colgroup>
         <col style={{ width: "6.3829787234042553191489361702128%" }} />
         <col style={{ width: "27.659574468085106382978723404255%" }} />
