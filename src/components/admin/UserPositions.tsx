@@ -55,31 +55,92 @@ const UserPositions = () => {
         <tbody>
           {userPositions.length > 0 ? (
             userPositions.map((element, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{element.rank}</td>
-                  <td>{element.full_name}</td>
-                  <td>{element.position}</td>
-                  <td>
-                    {element.approval_date
-                      ? dayjs.unix(element.approval_date).format("DD.MM.YYYY")
-                      : "-"}
-                  </td>
-                  <td>{element.is_instructor ? "Yes" : "No"}</td>
-                  <td>Edit</td>
-                  <td>Delete</td>
-                </tr>
-              );
+              return <Row position={element} index={index} key={index} />;
             })
           ) : (
             <tr>
-              <td colSpan={8}>No users in database</td>
+              <td colSpan={8}>No positions in database</td>
             </tr>
           )}
         </tbody>
       </table>
     </div>
+  );
+};
+
+interface Props {
+  position: UserPosition;
+  index: number;
+}
+
+const Row = (props: Props) => {
+  const { ranks } = useContext(GlobalVariables);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const toggleEdit = () => {
+    setIsEdit(!isEdit);
+  };
+
+  return (
+    <tr>
+      <td>{props.index + 1}</td>
+      {isEdit ? (
+        <td>
+          <select className="table__select">
+            {ranks?.map((element, index) => {
+              return <option value={element}>{element}</option>;
+            })}
+          </select>
+        </td>
+      ) : (
+        <td>{props.position.rank}</td>
+      )}
+
+      {isEdit ? (
+        <td>
+          <input type="text" className="table__input" />
+        </td>
+      ) : (
+        <td>{props.position.full_name}</td>
+      )}
+
+      {isEdit ? (
+        <td>
+          <input type="text" className="table__input" />
+        </td>
+      ) : (
+        <td>{props.position.position}</td>
+      )}
+
+      {isEdit ? (
+        <td>
+          <input type="date" className="table__input" />
+        </td>
+      ) : (
+        <td>
+          {props.position.approval_date
+            ? dayjs.unix(props.position.approval_date).format("DD.MM.YYYY")
+            : "-"}
+        </td>
+      )}
+
+      <td>{props.position.is_instructor ? "Yes" : "No"}</td>
+
+      {isEdit ? (
+        <td>
+          <p onClick={toggleEdit} style={{ cursor: "pointer" }}>
+            Save
+          </p>
+        </td>
+      ) : (
+        <td>
+          <p onClick={toggleEdit} style={{ cursor: "pointer" }}>
+            Edit
+          </p>
+        </td>
+      )}
+      <td>Delete</td>
+    </tr>
   );
 };
 

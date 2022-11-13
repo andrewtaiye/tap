@@ -52,18 +52,7 @@ const Users = () => {
         <tbody>
           {users.length > 0 ? (
             users.map((element, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{element.rank}</td>
-                  <td>{element.full_name}</td>
-                  <td>{element.username}</td>
-                  <td>●●●●●●●●</td>
-                  <td>{element.is_admin ? "Yes" : "No"}</td>
-                  <td>Edit</td>
-                  <td>Delete</td>
-                </tr>
-              );
+              return <Row user={element} index={index} key={index} />;
             })
           ) : (
             <tr>
@@ -73,6 +62,78 @@ const Users = () => {
         </tbody>
       </table>
     </div>
+  );
+};
+
+interface Props {
+  user: User;
+  index: number;
+}
+
+const Row = (props: Props) => {
+  const { ranks } = useContext(GlobalVariables);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const toggleEdit = () => {
+    setIsEdit(!isEdit);
+  };
+
+  return (
+    <tr>
+      <td>{props.index + 1}</td>
+      {isEdit ? (
+        <td>
+          <select className="table__select">
+            {ranks?.map((element, index) => {
+              return <option value={element}>{element}</option>;
+            })}
+          </select>
+        </td>
+      ) : (
+        <td>{props.user.rank}</td>
+      )}
+
+      {isEdit ? (
+        <td>
+          <input type="text" className="table__input" />
+        </td>
+      ) : (
+        <td>{props.user.full_name}</td>
+      )}
+
+      {isEdit ? (
+        <td>
+          <input type="text" className="table__input" />
+        </td>
+      ) : (
+        <td>{props.user.username}</td>
+      )}
+
+      {isEdit ? (
+        <td>
+          <input type="text" className="table__input" />
+        </td>
+      ) : (
+        <td>●●●●●●●●</td>
+      )}
+
+      <td>{props.user.is_admin ? "Yes" : "No"}</td>
+
+      {isEdit ? (
+        <td>
+          <p onClick={toggleEdit} style={{ cursor: "pointer" }}>
+            Save
+          </p>
+        </td>
+      ) : (
+        <td>
+          <p onClick={toggleEdit} style={{ cursor: "pointer" }}>
+            Edit
+          </p>
+        </td>
+      )}
+      <td>Delete</td>
+    </tr>
   );
 };
 

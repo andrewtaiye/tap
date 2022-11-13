@@ -42,14 +42,7 @@ const Flights = () => {
         <tbody>
           {flights.length > 0 ? (
             flights.map((element, index) => {
-              return (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{element}</td>
-                  <td>Edit</td>
-                  <td>Delete</td>
-                </tr>
-              );
+              return <Row flight={element} index={index} key={index} />;
             })
           ) : (
             <tr>
@@ -73,6 +66,51 @@ const Flights = () => {
         </tbody>
       </table>
     </div>
+  );
+};
+
+interface Props {
+  flight: string;
+  index: number;
+}
+
+const Row = (props: Props) => {
+  const [isEdit, setIsEdit] = useState(false);
+
+  const toggleEdit = () => {
+    setIsEdit(!isEdit);
+  };
+
+  return (
+    <tr>
+      <td>{props.index + 1}</td>
+      {isEdit ? (
+        <td>
+          <input
+            type="text"
+            className="table__input"
+            defaultValue={props.flight}
+          />
+        </td>
+      ) : (
+        <td>{props.flight}</td>
+      )}
+
+      {isEdit ? (
+        <td>
+          <p onClick={toggleEdit} style={{ cursor: "pointer" }}>
+            Save
+          </p>
+        </td>
+      ) : (
+        <td>
+          <p onClick={toggleEdit} style={{ cursor: "pointer" }}>
+            Edit
+          </p>
+        </td>
+      )}
+      <td>Delete</td>
+    </tr>
   );
 };
 
