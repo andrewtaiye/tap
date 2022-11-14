@@ -24,7 +24,12 @@ const Main = (props: Props) => {
     (async () => {
       // Position Get API Call
       const url = process.env.REACT_APP_API_ENDPOINT + `position/get/${userId}`;
-      const res = await fetchCall(url, accessToken.current, "GET");
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res);
@@ -33,7 +38,7 @@ const Main = (props: Props) => {
 
       if (!res.data) return;
 
-      res.data.sort((a: UserPositions, b: UserPositions) => {
+      res.data.positions.sort((a: UserPositions, b: UserPositions) => {
         if (a.position! < b.position!) {
           return -1;
         }
@@ -43,7 +48,7 @@ const Main = (props: Props) => {
         return 0;
       });
 
-      setUserPositions?.(res.data);
+      setUserPositions?.(res.data.positions);
     })();
   }, [userId]);
 
@@ -55,7 +60,12 @@ const Main = (props: Props) => {
       const url =
         process.env.REACT_APP_API_ENDPOINT +
         `assessment/get/${selectedPosition}`;
-      const res = await fetchCall(url, accessToken.current, "GET");
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res);
@@ -66,27 +76,29 @@ const Main = (props: Props) => {
         return;
       }
 
-      res.data.sort((a: PositionAssessment, b: PositionAssessment) => {
-        if (a.date < b.date) {
-          return -1;
+      res.data.assessments.sort(
+        (a: PositionAssessment, b: PositionAssessment) => {
+          if (a.date < b.date) {
+            return -1;
+          }
+
+          if (a.date > b.date) {
+            return 1;
+          }
+
+          if (a.assessment_number < b.assessment_number) {
+            return -1;
+          }
+
+          if (a.assessment_number > b.assessment_number) {
+            return 1;
+          }
+
+          return 0;
         }
+      );
 
-        if (a.date > b.date) {
-          return 1;
-        }
-
-        if (a.assessment_number < b.assessment_number) {
-          return -1;
-        }
-
-        if (a.assessment_number > b.assessment_number) {
-          return 1;
-        }
-
-        return 0;
-      });
-
-      setPositionAssessments?.(res.data);
+      setPositionAssessments?.(res.data.assessments);
     })();
   }, [selectedPosition]);
 

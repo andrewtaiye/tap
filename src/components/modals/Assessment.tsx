@@ -184,7 +184,12 @@ const Assessment = (props: Props) => {
           is_simulator: data["simulator"],
           remarks: data["remarks"],
         };
-        const res = await fetchCall(url, accessToken.current, "PUT", body);
+        let res = await fetchCall(url, accessToken.current, "PUT", body);
+
+        if (res.status === "authErr") {
+          res = await fetchCall(url, localStorage.refreshToken, "PUT", body);
+          accessToken.current = res.data.access;
+        }
 
         if (res.status !== "ok") {
           console.error(res);
@@ -250,7 +255,12 @@ const Assessment = (props: Props) => {
           is_simulator: data["simulator"],
           remarks: data["remarks"],
         };
-        const res = await fetchCall(url, accessToken.current, "PATCH", body);
+        let res = await fetchCall(url, accessToken.current, "PATCH", body);
+
+        if (res.status === "authErr") {
+          res = await fetchCall(url, localStorage.refreshToken, "PATCH", body);
+          accessToken.current = res.data.access;
+        }
 
         if (res.status !== "ok") {
           console.error(res);
@@ -299,7 +309,12 @@ const Assessment = (props: Props) => {
       const url =
         process.env.REACT_APP_API_ENDPOINT +
         `assessment/delete/${props.data.id}`;
-      const res = await fetchCall(url, "DELETE");
+      let res = await fetchCall(url, accessToken.current, "DELETE");
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken, "DELETE");
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res);

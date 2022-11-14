@@ -97,11 +97,20 @@ const Edit = (props: Props) => {
         flight: data["flight"],
         cat: data["cat"],
       };
-      const res = await fetchCall(url, accessToken.current, "PATCH", {
+      let res = await fetchCall(url, accessToken.current, "PATCH", {
         ...body,
         password: data["password"],
         confirm_password: data["confirm password"],
       });
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken, "PATCH", {
+          ...body,
+          password: data["password"],
+          confirm_password: data["confirm password"],
+        });
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res);

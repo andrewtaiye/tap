@@ -95,7 +95,7 @@ const Users = () => {
       let res = await fetchCall(url, accessToken.current, "PATCH", body);
 
       if (res.status === "authErr") {
-        res = await fetchCall(url, localStorage.refreshToken);
+        res = await fetchCall(url, localStorage.refreshToken, "PATCH", body);
         accessToken.current = res.data.access;
       }
 

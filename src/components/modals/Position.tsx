@@ -112,7 +112,12 @@ const Position = (props: Props) => {
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
         };
-        const res = await fetchCall(url, accessToken.current, "PUT", body);
+        let res = await fetchCall(url, accessToken.current, "PUT", body);
+
+        if (res.status === "authErr") {
+          res = await fetchCall(url, localStorage.refreshToken, "PUT", body);
+          accessToken.current = res.data.access;
+        }
 
         if (res.status !== "ok") {
           console.error(res);
@@ -153,7 +158,12 @@ const Position = (props: Props) => {
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
         };
-        const res = await fetchCall(url, accessToken.current, "PATCH", body);
+        let res = await fetchCall(url, accessToken.current, "PATCH", body);
+
+        if (res.status === "authErr") {
+          res = await fetchCall(url, localStorage.refreshToken, "PATCH", body);
+          accessToken.current = res.data.access;
+        }
 
         if (res.status !== "ok") {
           console.error(res);
@@ -184,7 +194,12 @@ const Position = (props: Props) => {
       const url =
         process.env.REACT_APP_API_ENDPOINT +
         `position/delete/${props.data?.id}`;
-      const res = await fetchCall(url, "DELETE");
+      let res = await fetchCall(url, accessToken.current, "DELETE");
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken, "DELETE");
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res);

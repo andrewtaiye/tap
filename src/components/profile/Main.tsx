@@ -37,19 +37,29 @@ const Main = (props: Props) => {
     (async () => {
       // Profile Get API Call
       const url = process.env.REACT_APP_API_ENDPOINT + `profile/get/${userId}`;
-      const res = await fetchCall(url, accessToken.current, "GET");
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res.message);
         return;
       }
-      setUserProfile?.(res.data);
+      setUserProfile?.(res.data.profile);
     })();
 
     (async () => {
       // Position Get API Call
       const url = process.env.REACT_APP_API_ENDPOINT + `position/get/${userId}`;
-      const res = await fetchCall(url, accessToken.current, "GET");
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res);
@@ -61,7 +71,7 @@ const Main = (props: Props) => {
         return;
       }
 
-      setUserPositions?.(res.data);
+      setUserPositions?.(res.data.positions);
     })();
   }, [userId]);
 
@@ -69,7 +79,12 @@ const Main = (props: Props) => {
     try {
       // User Delete API Call
       const url = process.env.REACT_APP_API_ENDPOINT + `user/delete/${userId}`;
-      const res = await fetchCall(url, "DELETE");
+      let res = await fetchCall(url, accessToken.current, "DELETE");
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken, "DELETE");
+        accessToken.current = res.data.access;
+      }
 
       if (res.status !== "ok") {
         console.error(res);
