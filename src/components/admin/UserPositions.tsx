@@ -269,6 +269,7 @@ interface Props {
 
 const Row = (props: Props) => {
   const { positions } = useContext(GlobalVariables);
+
   const toggleEdit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (event.currentTarget.name === "edit") {
@@ -292,6 +293,7 @@ const Row = (props: Props) => {
       });
     }
   };
+
   return (
     <tr>
       <td>{props.index + 1}</td>
