@@ -3,8 +3,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import GlobalVariables from "../../context/GlobalVariables";
-import Button from "../generic/Button";
 import { fetchCall } from "../generic/utility";
+
+import Button from "../generic/Button";
 
 interface EditState {
   index: number;
