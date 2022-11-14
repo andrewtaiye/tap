@@ -47,10 +47,9 @@ const Users = () => {
     username: isEdit.user.username,
     is_admin: isEdit.user.is_admin,
   };
-  const { register, handleSubmit, watch, reset } = useForm<Inputs>({
+  const { register, handleSubmit, reset } = useForm<Inputs>({
     defaultValues,
   });
-  const allValues = watch();
 
   useEffect(() => {
     reset(defaultValues);
@@ -81,7 +80,35 @@ const Users = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      console.log(isEdit);
+      // Admin Update User API Call
+      const url =
+        process.env.REACT_APP_API_ENDPOINT +
+        `admin/patch/users/${isEdit.user.id}`;
+      const body = {
+        rank: data.rank,
+        full_name: data.full_name,
+        username: data.username,
+        password: data.password,
+        is_admin: data.is_admin,
+      };
+      let res = await fetchCall(url, accessToken.current, "PATCH", body);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
+
+      if (res.status !== "ok") {
+        console.error(res);
+        return;
+      }
+
+      setUsers((prevState) => {
+        const array = [...prevState];
+        array.splice(isEdit.index, 1, res.data.user);
+        return array;
+      });
+
       setIsEdit({
         index: -1,
         user: {
@@ -92,15 +119,32 @@ const Users = () => {
           username: "",
         },
       });
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
 
-      // Profile Create API Call
-      const url = process.env.REACT_APP_API_ENDPOINT + `admin/update/users`;
-      const body = {};
-      // const res = await fetchCall(url, accessToken.current, "PUT", body);
+  const onDelete = async (userId: string, index: number) => {
+    try {
+      const url =
+        process.env.REACT_APP_API_ENDPOINT + `admin/delete/users/${userId}`;
+      let res = await fetchCall(url, accessToken.current, "DELETE");
 
-      // if (res.status !== "ok") {
-      //   console.error(res);
-      // }
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
+
+      if (res.status !== "ok") {
+        console.error(res);
+        return;
+      }
+
+      setUsers((prevState) => {
+        const array = [...prevState];
+        array.splice(index, 1);
+        return array;
+      });
     } catch (err: any) {
       console.error(err.message);
     }
@@ -141,6 +185,7 @@ const Users = () => {
                     isEdit={isEdit}
                     setIsEdit={setIsEdit}
                     register={register}
+                    onDelete={onDelete}
                   />
                 );
               })
@@ -162,6 +207,7 @@ interface Props {
   register: any;
   isEdit: EditState;
   setIsEdit: (state: EditState) => void;
+  onDelete: (userId: string, index: number) => void;
 }
 
 const Row = (props: Props) => {
@@ -175,6 +221,7 @@ const Row = (props: Props) => {
         user: { ...props.user },
       });
     }
+
     if (event.currentTarget.name === "cancel") {
       props.setIsEdit({
         index: -1,
@@ -282,7 +329,13 @@ const Row = (props: Props) => {
             >
               Edit
             </Button>
-            <Button mode="active" type="button" className="fs-16" name="edit">
+            <Button
+              mode="active"
+              type="button"
+              className="fs-16"
+              name="edit"
+              onClick={() => props.onDelete(props.user.id, props.index)}
+            >
               Delete
             </Button>
           </div>
