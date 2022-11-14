@@ -154,7 +154,7 @@ button {
   color: rgb(var(--white));
 }
 
-.table__admin-users td button {
+.table__admin td button {
   padding: 0 16px;
   width: 76px;
 }
@@ -225,8 +225,8 @@ textarea {
   padding-block: 8px;
 }
 
-.table__admin-users td > select,
-.table__admin-users td > input {
+.table__admin td > select,
+.table__admin td > input {
   font-size: 16px;
   line-height: 24px;
   appearance: none;
@@ -235,11 +235,11 @@ textarea {
   width: 100%;
 }
 
-.table__admin-users td > input::placeholder {
+.table__admin td > input::placeholder {
   color: rgb(var(--black));
 }
 
-.admin__is-admin-checkbox {
+.table__admin-checkbox {
   appearance: none;
   height: 17px;
   width: 17px !important;
@@ -249,7 +249,7 @@ textarea {
   padding: 0 !important;
 }
 
-.admin__is-admin-checkbox:checked {
+.table__admin-checkbox:checked {
   background-color: rgb(var(--grey));
 }
 

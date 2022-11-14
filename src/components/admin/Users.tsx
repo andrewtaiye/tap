@@ -59,7 +59,7 @@ const Users = () => {
   useEffect(() => {
     (async () => {
       try {
-        let url = process.env.REACT_APP_API_ENDPOINT + `admin/get/users`;
+        const url = process.env.REACT_APP_API_ENDPOINT + `admin/get/users`;
         let res = await fetchCall(url, accessToken.current);
 
         if (res.status === "authErr") {
@@ -154,7 +154,7 @@ const Users = () => {
   return (
     <div className="row">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <table className="table__admin-users">
+        <table className="table__admin">
           <colgroup>
             <col />
             <col style={{ width: "82px" }} />
@@ -288,16 +288,18 @@ const Row = (props: Props) => {
 
       {props.isEdit.index === props.index ? (
         <td>
-          <label
-            htmlFor="admin__is-admin-checkbox"
-            className="visually-hidden"
-          />
-          <input
-            type="checkbox"
-            id="admin__is-admin-checkbox"
-            className="admin__is-admin-checkbox"
-            {...props.register("is_admin")}
-          />
+          <div className="row">
+            <label
+              htmlFor="table__admin-checkbox"
+              className="visually-hidden"
+            />
+            <input
+              type="checkbox"
+              id="table__admin-checkbox"
+              className="table__admin-checkbox"
+              {...props.register("is_admin")}
+            />
+          </div>
         </td>
       ) : (
         <td>{props.user.is_admin ? "Yes" : "No"}</td>
