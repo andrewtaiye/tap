@@ -8,6 +8,7 @@ interface Props {
   type: "button" | "submit" | "reset";
   onClick?: (event: any) => void;
   name?: string;
+  ref?: any;
 }
 
 const Active = (props: Props) => {
@@ -32,6 +33,7 @@ const Disabled = (props: Props) => {
       style={props.style}
       onClick={props.onClick}
       name={props.name}
+      disabled
     >
       {props.children}
     </button>

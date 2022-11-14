@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import jwt_decode from "jwt-decode";
 
 import GlobalVariables from "../../context/GlobalVariables";
 import Button from "../generic/Button";
@@ -211,7 +212,9 @@ interface Props {
 }
 
 const Row = (props: Props) => {
-  const { ranks } = useContext(GlobalVariables);
+  const { accessToken, ranks } = useContext(GlobalVariables);
+
+  const decoded: any = jwt_decode(accessToken.current);
 
   const toggleEdit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -330,7 +333,7 @@ const Row = (props: Props) => {
               Edit
             </Button>
             <Button
-              mode="active"
+              mode={props.user.id === decoded.userId ? "disabled" : "active"}
               type="button"
               className="fs-16"
               name="edit"

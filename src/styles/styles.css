@@ -121,8 +121,9 @@ button {
 }
 
 .button__disabled {
-  background-color: rgb(var(--darkBlue));
+  background-color: rgb(var(--darkGrey));
   color: rgb(var(--white));
+  cursor: default;
 }
 
 .button__outline {

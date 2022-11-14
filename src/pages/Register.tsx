@@ -2,8 +2,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import jwt_decode from "jwt-decode";
 
 import GlobalVariables from "../context/GlobalVariables";
+import { LoginToken } from "../App";
 import { fetchCall } from "../components/generic/utility";
 
 import InputFieldWithLegend from "../components/generic/InputFieldWithLegend";
@@ -12,7 +14,7 @@ import Button from "../components/generic/Button";
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
 
 const Register = () => {
-  const { setUserId } = useContext(GlobalVariables);
+  const { accessToken, setUserId } = useContext(GlobalVariables);
 
   interface Inputs {
     username: string;
@@ -67,8 +69,12 @@ const Register = () => {
         return;
       }
 
+      localStorage.setItem("refreshToken", res.data.refresh);
+      accessToken.current = res.data.access;
+      const decoded: LoginToken = jwt_decode(res.data.access);
+
       setErrorMessage("");
-      setUserId?.(res.data.userId);
+      setUserId?.(decoded.userId);
       navigate("/profile");
     } catch (err: any) {
       console.error(err.message);
