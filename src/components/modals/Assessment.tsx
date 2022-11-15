@@ -196,8 +196,8 @@ const Assessment = (props: Props) => {
           return;
         }
 
-        body.id = res.data.assessment_id;
-        body.grade = res.data.grade;
+        body.id = res.data.assessment.id;
+        body.grade = res.data.assessment.grade;
 
         setPositionAssessments?.((prevState) => {
           const array = [...prevState, body];
@@ -268,7 +268,7 @@ const Assessment = (props: Props) => {
         }
 
         body.id = props.data.id;
-        body.grade = res.data.grade;
+        body.grade = res.data.assessment.grade;
 
         setPositionAssessments?.((prevState) => {
           const array = [...prevState];
