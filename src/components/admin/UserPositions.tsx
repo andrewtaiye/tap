@@ -61,7 +61,7 @@ const UserPositions = () => {
     (async () => {
       try {
         const url =
-          process.env.REACT_APP_API_ENDPOINT + `admin/get/user-positions`;
+          process.env.REACT_APP_API_ENDPOINT + `admin/get/user_positions`;
         let res = await fetchCall(url, accessToken.current);
 
         if (res.status === "authErr") {
@@ -102,7 +102,7 @@ const UserPositions = () => {
       // Admin Update User API Call
       const url =
         process.env.REACT_APP_API_ENDPOINT +
-        `admin/patch/user-positions/${isEdit.userPosition.id}`;
+        `admin/patch/user_positions/${isEdit.userPosition.id}`;
       const body = {
         position: data.position,
         approval_date: dayjs(data.approval_date).unix(),
@@ -168,7 +168,7 @@ const UserPositions = () => {
     try {
       const url =
         process.env.REACT_APP_API_ENDPOINT +
-        `admin/delete/user-positions/${positionId}`;
+        `admin/delete/user_positions/${positionId}`;
       let res = await fetchCall(url, accessToken.current, "DELETE");
 
       if (res.status === "authErr") {
