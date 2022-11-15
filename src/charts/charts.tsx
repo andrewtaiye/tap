@@ -5,6 +5,7 @@ import * as d3 from "d3";
 // https://observablehq.com/@d3/line-chart
 export function LineChart(
   data: any,
+  element: any,
   {
     x = ([x]: any) => x, // given d in data, returns the (temporal) x-value
     y = ([, y]: any) => y, // given d in data, returns the (quantitative) y-value
@@ -16,7 +17,7 @@ export function LineChart(
     marginLeft = 40, // left margin, in pixels
     width = 640, // outer width, in pixels
     height = 400, // outer height, in pixels
-    xType = d3.scaleUtc, // the x-scale type
+    xType = d3.scaleLinear, // the x-scale type
     xDomain, // [xmin, xmax]
     xRange = [marginLeft, width - marginRight], // [left, right]
     yType = d3.scaleLinear, // the y-scale type
@@ -48,7 +49,7 @@ export function LineChart(
   const yScale: any = yType(yDomain, yRange);
   const xAxis: any = d3
     .axisBottom(xScale)
-    .ticks(width / 80)
+    .ticks(data.length - 1)
     .tickSizeOuter(0);
   const yAxis: any = d3.axisLeft(yScale).ticks(height / 40, yFormat);
 
@@ -61,11 +62,14 @@ export function LineChart(
     .y((i: any) => yScale(Y[i]));
 
   const svg = d3
-    .create("svg")
+    .select(element)
     .attr("width", width)
     .attr("height", height)
     .attr("viewBox", [0, 0, width, height])
     .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+  d3.selectAll("g").remove();
+  d3.selectAll("path").remove();
 
   svg
     .append("g")
