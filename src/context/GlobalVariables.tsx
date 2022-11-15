@@ -78,6 +78,10 @@ export interface GlobalVariableType {
   ) => void;
   setIsInstructor?: (boolean: boolean) => void;
   setIsAdmin?: (boolean: boolean) => void;
+  setRanks?: (callback: string[] | ((array: string[]) => string[])) => void;
+  setFlights?: (callback: string[] | ((array: string[]) => string[])) => void;
+  setPositions?: (callback: string[] | ((array: string[]) => string[])) => void;
+  setCats?: (callback: string[] | ((array: string[]) => string[])) => void;
 }
 
 const GlobalVariables = React.createContext<GlobalVariableType>({});

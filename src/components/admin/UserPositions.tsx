@@ -137,11 +137,11 @@ const UserPositions = () => {
             return 1;
           }
 
-          if (a.position < b.position) {
-            return -1;
-          }
-          if (a.position > b.position) {
+          if (a.approval_date < b.approval_date) {
             return 1;
+          }
+          if (a.approval_date > b.approval_date) {
+            return -1;
           }
           return 0;
         });

@@ -13,8 +13,7 @@ interface EditState {
 }
 
 const Cats = () => {
-  const { accessToken } = useContext(GlobalVariables);
-  const [cats, setCats] = useState<string[]>([]);
+  const { accessToken, cats, setCats } = useContext(GlobalVariables);
   const [addNew, setAddNew] = useState(false);
   const [isEdit, setIsEdit] = useState<EditState>({
     index: -1,
@@ -31,24 +30,6 @@ const Cats = () => {
   useEffect(() => {
     reset(defaultValues);
   }, [isEdit.index]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const url = process.env.REACT_APP_API_ENDPOINT + `admin/get/cats`;
-        const res = await fetchCall(url, accessToken.current);
-
-        if (!res.data) {
-          setCats([]);
-          return;
-        }
-
-        setCats(res.data.cats);
-      } catch (err: any) {
-        console.error(err);
-      }
-    })();
-  }, []);
 
   const toggleAddNew = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAddNew(!addNew);
@@ -71,7 +52,7 @@ const Cats = () => {
           return;
         }
 
-        setCats((prevState) => {
+        setCats?.((prevState) => {
           const array = [...prevState];
           array.push(data.cat);
           array.sort((a, b) => {
@@ -104,7 +85,7 @@ const Cats = () => {
         return;
       }
 
-      setCats((prevState) => {
+      setCats?.((prevState) => {
         const array = [...prevState];
         array.splice(isEdit.index, 1, data.cat);
         array.sort((a, b) => {
@@ -140,7 +121,7 @@ const Cats = () => {
         return;
       }
 
-      setCats((prevState) => {
+      setCats?.((prevState) => {
         const array = [...prevState];
         array.splice(index, 1);
         array.sort((a, b) => {
@@ -172,8 +153,8 @@ const Cats = () => {
             </tr>
           </thead>
           <tbody>
-            {cats.length > 0 ? (
-              cats.map((element, index) => {
+            {cats!.length > 0 ? (
+              cats?.map((element, index) => {
                 return (
                   <Row
                     key={index}
@@ -194,7 +175,7 @@ const Cats = () => {
             <tr>
               {addNew ? (
                 <>
-                  <td>{cats.length + 1}</td>
+                  <td>{cats!.length + 1}</td>
                   <td>
                     <input type="text" {...register("cat")} />
                   </td>

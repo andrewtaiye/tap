@@ -13,8 +13,7 @@ interface EditState {
 }
 
 const Positions = () => {
-  const { accessToken } = useContext(GlobalVariables);
-  const [positions, setPositions] = useState<string[]>([]);
+  const { accessToken, positions, setPositions } = useContext(GlobalVariables);
   const [addNew, setAddNew] = useState(false);
   const [isEdit, setIsEdit] = useState<EditState>({
     index: -1,
@@ -31,29 +30,6 @@ const Positions = () => {
   useEffect(() => {
     reset(defaultValues);
   }, [isEdit.index]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const url = process.env.REACT_APP_API_ENDPOINT + `admin/get/positions`;
-        let res = await fetchCall(url, accessToken.current);
-
-        if (res.status === "authErr") {
-          res = await fetchCall(url, localStorage.refreshToken);
-          accessToken.current = res.data.access;
-        }
-
-        if (!res.data) {
-          setPositions([]);
-          return;
-        }
-
-        setPositions(res.data.positions);
-      } catch (err: any) {
-        console.error(err);
-      }
-    })();
-  }, []);
 
   const toggleAddNew = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAddNew(!addNew);
@@ -76,7 +52,7 @@ const Positions = () => {
           return;
         }
 
-        setPositions((prevState) => {
+        setPositions?.((prevState) => {
           const array = [...prevState];
           array.push(data.position);
           array.sort((a, b) => {
@@ -110,7 +86,7 @@ const Positions = () => {
         return;
       }
 
-      setPositions((prevState) => {
+      setPositions?.((prevState) => {
         const array = [...prevState];
         array.splice(isEdit.index, 1, data.position);
         array.sort((a, b) => {
@@ -147,7 +123,7 @@ const Positions = () => {
         return;
       }
 
-      setPositions((prevState) => {
+      setPositions?.((prevState) => {
         const array = [...prevState];
         array.splice(index, 1);
         array.sort((a, b) => {
@@ -179,8 +155,8 @@ const Positions = () => {
             </tr>
           </thead>
           <tbody>
-            {positions.length > 0 ? (
-              positions.map((element, index) => {
+            {positions!.length > 0 ? (
+              positions?.map((element, index) => {
                 return (
                   <Row
                     key={index}
@@ -201,7 +177,7 @@ const Positions = () => {
             <tr>
               {addNew ? (
                 <>
-                  <td>{positions.length + 1}</td>
+                  <td>{positions!.length + 1}</td>
                   <td>
                     <input type="text" {...register("position")} />
                   </td>

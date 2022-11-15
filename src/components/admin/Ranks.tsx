@@ -13,8 +13,7 @@ interface EditState {
 }
 
 const Ranks = () => {
-  const { accessToken } = useContext(GlobalVariables);
-  const [ranks, setRanks] = useState<string[]>([]);
+  const { accessToken, ranks, setRanks } = useContext(GlobalVariables);
   const [addNew, setAddNew] = useState(false);
   const [isEdit, setIsEdit] = useState<EditState>({
     index: -1,
@@ -31,29 +30,6 @@ const Ranks = () => {
   useEffect(() => {
     reset(defaultValues);
   }, [isEdit.index]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const url = process.env.REACT_APP_API_ENDPOINT + `admin/get/ranks`;
-        let res = await fetchCall(url, accessToken.current);
-
-        if (res.status === "authErr") {
-          res = await fetchCall(url, localStorage.refreshToken);
-          accessToken.current = res.data.access;
-        }
-
-        if (!res.data) {
-          setRanks([]);
-          return;
-        }
-
-        setRanks(res.data.ranks);
-      } catch (err: any) {
-        console.error(err);
-      }
-    })();
-  }, []);
 
   const toggleAddNew = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAddNew(!addNew);
@@ -76,7 +52,7 @@ const Ranks = () => {
           return;
         }
 
-        setRanks((prevState) => {
+        setRanks?.((prevState) => {
           const array = [...prevState];
           array.push(data.rank);
           array.sort((a, b) => {
@@ -109,7 +85,7 @@ const Ranks = () => {
         return;
       }
 
-      setRanks((prevState) => {
+      setRanks?.((prevState) => {
         const array = [...prevState];
         array.splice(isEdit.index, 1, data.rank);
         array.sort((a, b) => {
@@ -145,7 +121,7 @@ const Ranks = () => {
         return;
       }
 
-      setRanks((prevState) => {
+      setRanks?.((prevState) => {
         const array = [...prevState];
         array.splice(index, 1);
         array.sort((a, b) => {
@@ -177,8 +153,8 @@ const Ranks = () => {
             </tr>
           </thead>
           <tbody>
-            {ranks.length > 0 ? (
-              ranks.map((element, index) => {
+            {ranks!.length > 0 ? (
+              ranks?.map((element, index) => {
                 return (
                   <Row
                     key={index}
@@ -199,7 +175,7 @@ const Ranks = () => {
             <tr>
               {addNew ? (
                 <>
-                  <td>{ranks.length + 1}</td>
+                  <td>{ranks!.length + 1}</td>
                   <td>
                     <input type="text" {...register("rank")} />
                   </td>

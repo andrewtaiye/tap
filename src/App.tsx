@@ -103,6 +103,10 @@ const App = () => {
         setPositionAssessments,
         setIsInstructor,
         setIsAdmin,
+        setRanks,
+        setFlights,
+        setPositions,
+        setCats,
       }}
     >
       <div className="col">

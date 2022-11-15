@@ -13,8 +13,7 @@ interface EditState {
 }
 
 const Flights = () => {
-  const { accessToken } = useContext(GlobalVariables);
-  const [flights, setFlights] = useState<string[]>([]);
+  const { accessToken, flights, setFlights } = useContext(GlobalVariables);
   const [addNew, setAddNew] = useState(false);
   const [isEdit, setIsEdit] = useState<EditState>({
     index: -1,
@@ -31,24 +30,6 @@ const Flights = () => {
   useEffect(() => {
     reset(defaultValues);
   }, [isEdit.index]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const url = process.env.REACT_APP_API_ENDPOINT + `admin/get/flights`;
-        const res = await fetchCall(url, accessToken.current);
-
-        if (!res.data) {
-          setFlights([]);
-          return;
-        }
-
-        setFlights(res.data.flights);
-      } catch (err: any) {
-        console.error(err);
-      }
-    })();
-  }, []);
 
   const toggleAddNew = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAddNew(!addNew);
@@ -71,7 +52,7 @@ const Flights = () => {
           return;
         }
 
-        setFlights((prevState) => {
+        setFlights?.((prevState) => {
           const array = [...prevState];
           array.push(data.flight);
           array.sort((a, b) => {
@@ -105,7 +86,7 @@ const Flights = () => {
         return;
       }
 
-      setFlights((prevState) => {
+      setFlights?.((prevState) => {
         const array = [...prevState];
         array.splice(isEdit.index, 1, data.flight);
         array.sort((a, b) => {
@@ -141,7 +122,7 @@ const Flights = () => {
         return;
       }
 
-      setFlights((prevState) => {
+      setFlights?.((prevState) => {
         const array = [...prevState];
         array.splice(index, 1);
         array.sort((a, b) => {
@@ -173,8 +154,8 @@ const Flights = () => {
             </tr>
           </thead>
           <tbody>
-            {flights.length > 0 ? (
-              flights.map((element, index) => {
+            {flights!.length > 0 ? (
+              flights?.map((element, index) => {
                 return (
                   <Row
                     key={index}
@@ -195,7 +176,7 @@ const Flights = () => {
             <tr>
               {addNew ? (
                 <>
-                  <td>{flights.length + 1}</td>
+                  <td>{flights!.length + 1}</td>
                   <td>
                     <input type="text" {...register("flight")} />
                   </td>
