@@ -103,7 +103,7 @@ const Position = (props: Props) => {
 
       if (props.subtype === "add") {
         // Position Create API Call
-        const url = process.env.REACT_APP_API_ENDPOINT + `position/create`;
+        const url = process.env.REACT_APP_API_ENDPOINT + `user_position/create`;
         const body: UserPositions = {
           user_id: userId,
           position: data["position"],
@@ -149,7 +149,7 @@ const Position = (props: Props) => {
         // Position Update API Call
         const url =
           process.env.REACT_APP_API_ENDPOINT +
-          `position/update/${props.data?.id}`;
+          `user_position/update/${props.data?.id}`;
         const body: UserPositions = {
           user_id: userId,
           position: data["position"],
@@ -193,7 +193,7 @@ const Position = (props: Props) => {
       // Position Delete API Call
       const url =
         process.env.REACT_APP_API_ENDPOINT +
-        `position/delete/${props.data?.id}`;
+        `user_position/delete/${props.data?.id}`;
       let res = await fetchCall(url, accessToken.current, "DELETE");
 
       if (res.status === "authErr") {

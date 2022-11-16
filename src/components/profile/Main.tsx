@@ -53,7 +53,8 @@ const Main = (props: Props) => {
 
     (async () => {
       // Position Get API Call
-      const url = process.env.REACT_APP_API_ENDPOINT + `position/get/${userId}`;
+      const url =
+        process.env.REACT_APP_API_ENDPOINT + `user_position/get/${userId}`;
       let res = await fetchCall(url, accessToken.current);
 
       if (res.status === "authErr") {
