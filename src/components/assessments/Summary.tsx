@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useRef, useState } from "react";
-import * as d3 from "d3";
+import React, { useContext, useEffect, useRef } from "react";
 
 import GlobalVariables from "../../context/GlobalVariables";
 import { LineChart } from "../../charts/charts";
