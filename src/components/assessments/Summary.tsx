@@ -23,7 +23,6 @@ const Summary = (props: Props) => {
     LineChart(positionAssessments, lineChart.current, {
       x: (d: any) => d.assessment_number,
       y: (d: any) => d.grade,
-      xFormat: ".0",
       yLabel: "Grade",
       yDomain: [0, 100],
       width: 700,
