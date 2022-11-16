@@ -13,6 +13,8 @@ interface Props {
   type: string;
   warning?: boolean;
   selected?: boolean;
+  min?: number;
+  max?: number;
 }
 
 const InputFieldWithLabelInline = (props: Props) => {
@@ -42,6 +44,8 @@ const InputFieldWithLabelInline = (props: Props) => {
           className={`${props.className}`}
           {...props.register(props.inputName)}
           autoComplete="off"
+          min={props.min}
+          max={props.max}
         />
       </span>
     </div>

@@ -126,9 +126,19 @@ const Assessment = (props: Props) => {
       allValues["g"] > 10 ||
       allValues["h"] > 10 ||
       allValues["i"] > 10 ||
-      allValues["j"] > 10
+      allValues["j"] > 10 ||
+      allValues["a"] < 1 ||
+      allValues["b"] < 1 ||
+      allValues["c"] < 1 ||
+      allValues["d"] < 1 ||
+      allValues["e"] < 1 ||
+      allValues["f"] < 1 ||
+      allValues["g"] < 1 ||
+      allValues["h"] < 1 ||
+      allValues["i"] < 1 ||
+      allValues["j"] < 1
     ) {
-      setErrorMessage("Individual grades cannot be more than 10");
+      setErrorMessage("Individual grades must be between 1 and 10");
       return;
     }
 
@@ -459,6 +469,7 @@ const Assessment = (props: Props) => {
               />
             </div>
           </div>
+
           {/* Objectives Inputs */}
           <InputFieldWithLabelInline
             inputName="objectives"
@@ -498,6 +509,8 @@ const Assessment = (props: Props) => {
               type="number"
               register={register}
               warning={allValues["a"] ? false : true}
+              min={1}
+              max={10}
             />
             <div className="row w-100 justify-fe">
               <div className="row">
@@ -509,6 +522,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["b"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
@@ -522,6 +537,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["c"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
@@ -535,6 +552,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["d"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
@@ -548,6 +567,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["e"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
@@ -561,6 +582,8 @@ const Assessment = (props: Props) => {
               type="number"
               register={register}
               warning={allValues["f"] ? false : true}
+              min={1}
+              max={10}
             />
             <div className="row w-100 justify-fe">
               <div className="row">
@@ -572,6 +595,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["g"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
@@ -585,6 +610,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["h"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
@@ -598,6 +625,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["i"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
@@ -611,6 +640,8 @@ const Assessment = (props: Props) => {
                   type="number"
                   register={register}
                   warning={allValues["j"] ? false : true}
+                  min={1}
+                  max={10}
                 />
               </div>
             </div>
