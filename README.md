@@ -30,71 +30,71 @@ Charts are generated using D3 and their associated libraries.
 
 Displayed below is the envisioned structure of the application. Components not yet implemented are indicated with a _[not implemented]_ tag.
 
-```
---> Root (/)
-    |--> Login (/login)
-         |--> Login page for registered users.
-         |--> Generates Refresh and Access Tokens. Refresh Token is stored in Local Storage.
-         |--> Global states are automatically populated after login.
-    |--> Account Creation (/register)
-         |--> Account creation with username and password. All accounts are tagged as non-admin by default.
-         |--> Counts as a login and thus will generate Refresh and Access Tokens. Refresh Token is stored in Local Storage.
-         |--> Global states are automatically populated after account creation.
-    |--> Home Dashboard (/home) [not implemented]
-         |--> Dashboard Section to indicate a trainee's progress in their selected position. Includes Live-Sim Ratio, Average Grades, Scenario Percentage Completion and Training Deadlines
-    |--> Assessments (/assessments)
-         |--> Summary
-              |--> Position Selector with a dropdown that includes all of the positions the trainee is training in or has trained in.
-              |--> 'New Position' button for trainees to add a new position. [not implemented]
-              |--> A grade chart is displayed, showing a graph of the trainee's assessments in the selected position.
-         |--> Assessments Table
-              |--> Tabular display of all the trainee's assessments for the selected position.
-              |--> Trainee is able to add new assessments from this page through the 'Add Assessment' button
-              |--> Each assessment is displayed as a row in the table. Trainees are able to edit the assessment details or delete the assessment if it is no longer required.
-              |--> All available fields will be automatically populated when editing an assessment.
-              |--> Validations are present in both 'Add' and 'Edit' modes to ensure proper submission.
-              |--> Assessments are sorted by Assessment Number
-    |--> Profile (/profile)
-         |--> If no profile is detected, the 'Create Profile' view is displayed.
-              |--> Trainees are presented with a form to fill up their trainee profile. All fields are required.
-         |--> Profile Details Section is split into two views - 'Display' and 'Edit'.
-              |--> Display view displays the trainee profile details
-              |--> Edit view displays inputs for trainee to edit their profile details and to change their password
-                   |--> The password must always be entered twice to save the edited profile
-                   |--> Details such as username and rank and name cannot be updated by the user. Can only be edited through the Admin panel.
-         |--> Positions Table
-              |--> Tabular display of all the trainee's positions
-              |--> Trainee is able to add new positions from this page through the 'Add Position' button
-              |--> Each position is displayed as a row in the table. Trainees are able to edit the position details or delete the position if it is no longer required.
-              |--> Positions are sorted by Start Date.
-    |--> Admin Panel (/admin)
-         |--> Contains 6 sub-views for Users, User Positions, Ranks, Flights, Positions and CATs.
-         |--> Only available to admin accounts.
-         |--> Users View
-              |--> Contains Rank, Name, Username, Password and a flag for Admin status. All fields are editable.
-              |--> Password is null by default. If a null password is submitted, it will not be changed.
-              |--> Admins will not be able to delete their own account.
-         |--> User Positions View - contains Rank, Name, Position, Approval Date and a flag for Instructor status. All fields less Rank and Name are editable.
-         |--> Ranks View
-              |--> Contains all Ranks.
-              |--> Ranks are sorted alphabetically.
-              |--> Deleting a rank will set all users with said rank to 'null'. Users will have to manually set their new rank.
-         |--> Positions View
-              |--> Contains all Positions.
-              |--> Positions are sorted alphabetically.
-              |--> Deleting a position will set all users with said position to 'null'. Users will have to manually set their new position.
-         |--> Flights View
-              |--> Contains all Flights.
-              |--> Flights are sorted alphabetically.
-              |--> Deleting a flight will set all users with said flight to 'null'. Users will have to manually set their new flight.
-         |--> CATs View
-              |--> Contains all CATs.
-              |--> CATs are sorted alphabetically.
-              |--> Deleting a CAT will set all users with said CAT to 'null'. Users will have to manually set their new CAT.
-    |--> Logout (/logout)
-         |--> Logs the user out and redirects them to the Login screen.
-         |--> Removes the Refresh Token from Local Storage and resets all global states.
-```
+> ```
+> --> Root (/)
+>     |--> Login (/login)
+>          |--> Login page for registered users.
+>          |--> Generates Refresh and Access Tokens. Refresh Token is stored in Local Storage.
+>          |--> Global states are automatically populated after login.
+>     |--> Account Creation (/register)
+>          |--> Account creation with username and password. All accounts are tagged as non-admin by default.
+>          |--> Counts as a login and thus will generate Refresh and Access Tokens. Refresh Token is stored in Local Storage.
+>          |--> Global states are automatically populated after account creation.
+>     |--> Home Dashboard (/home) [not implemented]
+>          |--> Dashboard Section to indicate a trainee's progress in their selected position. Includes Live-Sim Ratio, Average Grades, Scenario Percentage Completion and Training Deadlines
+>     |--> Assessments (/assessments)
+>          |--> Summary
+>               |--> Position Selector with a dropdown that includes all of the positions the trainee is training in or has trained in.
+>               |--> 'New Position' button for trainees to add a new position. [not implemented]
+>               |--> A grade chart is displayed, showing a graph of the trainee's assessments in the selected position.
+>          |--> Assessments Table
+>               |--> Tabular display of all the trainee's assessments for the selected position.
+>               |--> Trainee is able to add new assessments from this page through the 'Add Assessment' button
+>               |--> Each assessment is displayed as a row in the table. Trainees are able to edit the assessment details or delete the assessment if it is no longer required.
+>               |--> All available fields will be automatically populated when editing an assessment.
+>               |--> Validations are present in both 'Add' and 'Edit' modes to ensure proper submission.
+>               |--> Assessments are sorted by Assessment Number
+>     |--> Profile (/profile)
+>          |--> If no profile is detected, the 'Create Profile' view is displayed.
+>               |--> Trainees are presented with a form to fill up their trainee profile. All fields are required.
+>          |--> Profile Details Section is split into two views - 'Display' and 'Edit'.
+>               |--> Display view displays the trainee profile details
+>               |--> Edit view displays inputs for trainee to edit their profile details and to change their password
+>                    |--> The password must always be entered twice to save the edited profile
+>                    |--> Details such as username and rank and name cannot be updated by the user. Can only be edited through the Admin panel.
+>          |--> Positions Table
+>               |--> Tabular display of all the trainee's positions
+>               |--> Trainee is able to add new positions from this page through the 'Add Position' button
+>               |--> Each position is displayed as a row in the table. Trainees are able to edit the position details or delete the position if it is no longer required.
+>               |--> Positions are sorted by Start Date.
+>     |--> Admin Panel (/admin)
+>          |--> Contains 6 sub-views for Users, User Positions, Ranks, Flights, Positions and CATs.
+>          |--> Only available to admin accounts.
+>          |--> Users View
+>               |--> Contains Rank, Name, Username, Password and a flag for Admin status. All fields are editable.
+>               |--> Password is null by default. If a null password is submitted, it will not be changed.
+>               |--> Admins will not be able to delete their own account.
+>          |--> User Positions View - contains Rank, Name, Position, Approval Date and a flag for Instructor status. All fields less Rank and Name are editable.
+>          |--> Ranks View
+>               |--> Contains all Ranks.
+>               |--> Ranks are sorted alphabetically.
+>               |--> Deleting a rank will set all users with said rank to 'null'. Users will have to manually set their new rank.
+>          |--> Positions View
+>               |--> Contains all Positions.
+>               |--> Positions are sorted alphabetically.
+>               |--> Deleting a position will set all users with said position to 'null'. Users will have to manually set their new position.
+>          |--> Flights View
+>               |--> Contains all Flights.
+>               |--> Flights are sorted alphabetically.
+>               |--> Deleting a flight will set all users with said flight to 'null'. Users will have to manually set their new flight.
+>          |--> CATs View
+>               |--> Contains all CATs.
+>               |--> CATs are sorted alphabetically.
+>               |--> Deleting a CAT will set all users with said CAT to 'null'. Users will have to manually set their new CAT.
+>     |--> Logout (/logout)
+>          |--> Logs the user out and redirects them to the Login screen.
+>          |--> Removes the Refresh Token from Local Storage and resets all global states.
+> ```
 
 ## Feature List
 
