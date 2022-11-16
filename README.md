@@ -30,185 +30,133 @@ Charts are generated using D3 and their associated libraries.
 
 Displayed below is the envisioned structure of the application. Components not yet implemented are indicated with a _[not implemented]_ tag.
 
-> ```
-> --> Root (/)
->     |--> Login (/login)
->          |--> Login page for registered users.
->          |--> Generates Refresh and Access Tokens. Refresh Token is stored in Local Storage.
->          |--> Global states are automatically populated after login.
->     |--> Account Creation (/register)
->          |--> Account creation with username and password. All accounts are tagged as non-admin by default.
->          |--> Counts as a login and thus will generate Refresh and Access Tokens. Refresh Token is stored in Local Storage.
->          |--> Global states are automatically populated after account creation.
->     |--> Home Dashboard (/home) [not implemented]
->          |--> Dashboard Section to indicate a trainee's progress in their selected position. Includes Live-Sim Ratio, Average Grades, Scenario Percentage Completion and Training Deadlines
->     |--> Assessments (/assessments)
->          |--> Summary
->               |--> Position Selector with a dropdown that includes all of the positions the trainee is training in or has trained in.
->               |--> 'New Position' button for trainees to add a new position. [not implemented]
->               |--> A grade chart is displayed, showing a graph of the trainee's assessments in the selected position.
->          |--> Assessments Table
->               |--> Tabular display of all the trainee's assessments for the selected position.
->               |--> Trainee is able to add new assessments from this page through the 'Add Assessment' button
->               |--> Each assessment is displayed as a row in the table. Trainees are able to edit the assessment details or delete the assessment if it is no longer required.
->               |--> All available fields will be automatically populated when editing an assessment.
->               |--> Validations are present in both 'Add' and 'Edit' modes to ensure proper submission.
->               |--> Assessments are sorted by Assessment Number
->     |--> Profile (/profile)
->          |--> If no profile is detected, the 'Create Profile' view is displayed.
->               |--> Trainees are presented with a form to fill up their trainee profile. All fields are required.
->          |--> Profile Details Section is split into two views - 'Display' and 'Edit'.
->               |--> Display view displays the trainee profile details
->               |--> Edit view displays inputs for trainee to edit their profile details and to change their password
->                    |--> The password must always be entered twice to save the edited profile
->                    |--> Details such as username and rank and name cannot be updated by the user. Can only be edited through the Admin panel.
->          |--> Positions Table
->               |--> Tabular display of all the trainee's positions
->               |--> Trainee is able to add new positions from this page through the 'Add Position' button
->               |--> Each position is displayed as a row in the table. Trainees are able to edit the position details or delete the position if it is no longer required.
->               |--> Positions are sorted by Start Date.
->     |--> Admin Panel (/admin)
->          |--> Contains 6 sub-views for Users, User Positions, Ranks, Flights, Positions and CATs.
->          |--> Only available to admin accounts.
->          |--> Users View
->               |--> Contains Rank, Name, Username, Password and a flag for Admin status. All fields are editable.
->               |--> Password is null by default. If a null password is submitted, it will not be changed.
->               |--> Admins will not be able to delete their own account.
->          |--> User Positions View - contains Rank, Name, Position, Approval Date and a flag for Instructor status. All fields less Rank and Name are editable.
->          |--> Ranks View
->               |--> Contains all Ranks.
->               |--> Ranks are sorted alphabetically.
->               |--> Deleting a rank will set all users with said rank to 'null'. Users will have to manually set their new rank.
->          |--> Positions View
->               |--> Contains all Positions.
->               |--> Positions are sorted alphabetically.
->               |--> Deleting a position will set all users with said position to 'null'. Users will have to manually set their new position.
->          |--> Flights View
->               |--> Contains all Flights.
->               |--> Flights are sorted alphabetically.
->               |--> Deleting a flight will set all users with said flight to 'null'. Users will have to manually set their new flight.
->          |--> CATs View
->               |--> Contains all CATs.
->               |--> CATs are sorted alphabetically.
->               |--> Deleting a CAT will set all users with said CAT to 'null'. Users will have to manually set their new CAT.
->     |--> Logout (/logout)
->          |--> Logs the user out and redirects them to the Login screen.
->          |--> Removes the Refresh Token from Local Storage and resets all global states.
-> ```
+```
+--> Root (/)
+    |--> Login (/login)
+         |--> Login page for registered users.
+         |--> Generates Refresh and Access Tokens. Refresh Token is stored in Local Storage.
+         |--> Global states are automatically populated after login.
+    |--> Account Creation (/register)
+         |--> Account creation with username and password. All accounts are tagged as non-admin by default.
+         |--> Counts as a login and thus will generate Refresh and Access Tokens. Refresh Token is stored in Local Storage.
+         |--> Global states are automatically populated after account creation.
+    |--> Home Dashboard (/home) [not implemented]
+         |--> Dashboard Section to indicate a trainee's progress in their selected position. Includes Live-Sim Ratio, Average Grades, Scenario Percentage Completion and Training Deadlines
+    |--> Assessments (/assessments)
+         |--> Summary
+              |--> Position Selector with a dropdown that includes all of the positions the trainee is training in or has trained in.
+              |--> 'New Position' button for trainees to add a new position. [not implemented]
+              |--> A grade chart is displayed, showing a graph of the trainee's assessments in the selected position.
+         |--> Assessments Table
+              |--> Tabular display of all the trainee's assessments for the selected position.
+              |--> Trainee is able to add new assessments from this page through the 'Add Assessment' button
+              |--> Each assessment is displayed as a row in the table. Trainees are able to edit the assessment details or delete the assessment if it is no longer required.
+              |--> All available fields will be automatically populated when editing an assessment.
+              |--> Validations are present in both 'Add' and 'Edit' modes to ensure proper submission.
+              |--> Assessments are sorted by Assessment Number
+    |--> Profile (/profile)
+         |--> If no profile is detected, the 'Create Profile' view is displayed.
+              |--> Trainees are presented with a form to fill up their trainee profile. All fields are required.
+         |--> Profile Details Section is split into two views - 'Display' and 'Edit'.
+              |--> Display view displays the trainee profile details
+              |--> Edit view displays inputs for trainee to edit their profile details and to change their password
+                   |--> The password must always be entered twice to save the edited profile
+                   |--> Details such as username and rank and name cannot be updated by the user. Can only be edited through the Admin panel.
+         |--> Positions Table
+              |--> Tabular display of all the trainee's positions
+              |--> Trainee is able to add new positions from this page through the 'Add Position' button
+              |--> Each position is displayed as a row in the table. Trainees are able to edit the position details or delete the position if it is no longer required.
+              |--> Positions are sorted by Start Date.
+    |--> Admin Panel (/admin)
+         |--> Contains 6 sub-views for Users, User Positions, Ranks, Flights, Positions and CATs.
+         |--> Only available to admin accounts.
+         |--> Users View
+              |--> Contains Rank, Name, Username, Password and a flag for Admin status. All fields are editable.
+              |--> Password is null by default. If a null password is submitted, it will not be changed.
+              |--> Admins will not be able to delete their own account.
+         |--> User Positions View - contains Rank, Name, Position, Approval Date and a flag for Instructor status. All fields less Rank and Name are editable.
+         |--> Ranks View
+              |--> Contains all Ranks.
+              |--> Ranks are sorted alphabetically.
+              |--> Deleting a rank will set all users with said rank to 'null'. Users will have to manually set their new rank.
+         |--> Positions View
+              |--> Contains all Positions.
+              |--> Positions are sorted alphabetically.
+              |--> Deleting a position will set all users with said position to 'null'. Users will have to manually set their new position.
+         |--> Flights View
+              |--> Contains all Flights.
+              |--> Flights are sorted alphabetically.
+              |--> Deleting a flight will set all users with said flight to 'null'. Users will have to manually set their new flight.
+         |--> CATs View
+              |--> Contains all CATs.
+              |--> CATs are sorted alphabetically.
+              |--> Deleting a CAT will set all users with said CAT to 'null'. Users will have to manually set their new CAT.
+    |--> Logout (/logout)
+         |--> Logs the user out and redirects them to the Login screen.
+         |--> Removes the Refresh Token from Local Storage and resets all global states.
+```
 
-## Feature List
+## Back-End API End Points
 
-1. **Language Select** _(Currently not implemented)_
+API end points are broken up into 6 main categories as follows.
 
-   - Four option buttons for users to select
-   - One option must be selected before the user can proceed
-   - Page can be skipped if the user has previously logged in
+1. **Users (/user)**
 
-2. **Login Page**
+   1. **Create (/user/create)**
+   2. **Login (/user/login)**
+   3. **Update (/user/update/:user_id)**
+   4. **Delete (/user/delete/:user_id)**
+   5. **Logout (/user/logout)**
 
-   - Both username and password inputs must be filled up before the `login` button is enabled
-   - An error in submission will be reflected as an `invalid username or password`
-   - Users have the option to sign up for a new account from the login page
+2. **Profiles (/profile)**
 
-3. **Account Creation**
+   1. **Get (/profile/get/:user_id)**
+   2. **Create (/profile/create)**
+   3. **Update (/profile/update/:user_id)**
 
-   - **User Group Selection**
+3. **User Positions (/user_position)**
 
-     - Options for migrant workers, donors and volunteers
-     - Selection of an option determines the account creation process for the user group
+   1. **Get (/user_position/get/:user_id)**
+   2. **Create (/user_position/create)**
+   3. **Update (/user_position/update/:user_position_id)**
+   4. **Delete (/user_position/delete/:user_position_id)**
 
-   - **Donor Account Creation**
+4. **Assessments (/assessment)**
 
-     - Only consists of User Account Creation
+   1. **Get (/assessment/get/:user_id)**
+   2. **Create (/assessment/create)**
+   3. **Update (/assessment/update/:assessment_id)**
+   4. **Delete (/assessment/delete/:assessment_id)**
 
-   - **Migrant Worker Account Creation**
+5. **Miscellaneous (/misc)**
 
-     - Split into User Account Creation and Migrant Worker Profile Creation
+   1. **Enum (/misc/enum)**
+   2. **Refresh (/misc/refresh)**
 
-     - **User Account Creation**
+6. **Admin (/admin)**
 
-       - Required fields are clearly labelled upon load
-       - Front-end validation to ensure the correct password is submitted
-       - Back-end validation to ensure the username has not been taken already
-
-     - **Profile Creation**
-       - Various input fields for the creation of the migrant worker's profile
-       - Required fields are clearly labelled upon load
-       - All required fields must be filled in before the users are able to proceed to the next page
-
-4. **Home Page**
-
-   - **Donate Home Page**
-     - Options for donors to click on donate button to proceed with donation process
-     - Selection of an option will bring up modals to thank and provide donation info
-
-5. **Donation Request**
-
-   - **Donate Donate dashboard**
-
-     - Options for donors to click on item category to donate. The top 4 categories are dynamic and mapped through a dataset that can be modified based on requirement.
-     - A clear card shows the items that are currently low in quantity and are in high demand. Sorted based on status. This card is also dynamic and mapped through a dataset that can be modified based on requirement. If an item has low quantity, the color changes accordingly during display.
-     - An information icon that can be clicked to provide users with more information on what the status of items mean (through modal)
-
-   - **Donate Location**
-
-     - Users are directed to choose the location to donate their items to (NSEW) via a drop down option menu. Upon selection of area, this will filter volunteer data to the specific areas
-     - Visual Maps with clickable location pins will appear for users to choose
-     - Drop off information - Volunteer information will be filtered, mapped and displayed. This will include dynamic data such as available time and contact details.
-     - All required fields must be selected before the users are able to proceed to the next page
-
-   - **Donate Items Step 1**
-
-     - Once the location and drop off details are confirmed, users will be directed to the donate items step 1 page where users will select a generic category of items they wish to donate (generic layer). This is displayed in a grid format and is dynamic and not hardcoded, allowing the team to change the categories more easily in the future. All required fields must be selected before the users are able to proceed to the next page.
-
-   - **Donate Items Step 2**
-
-     - Once the generic category has been chosen, users will now be directed to the second layer of selection to choose a more specific item to donate (detailed layer). This new category is filtered data based on Donate Items 1 selection, mapped and displayed accordingly in a grid format.
-     - Upon selecting the detailed category, users will be directed to a new page (component) to select item details through onclick buttons which set the states for required body values that create backend data through POST method.
-     - Users can also choose to upload photo of the items. Currently hardcoded the photo upload to pull specific images from imgur, based on what user has selected.
-
-   - **Donate Confirmation**
-
-     - Once the user submits the application, they will be directed to a page to confirm submission, as well as option to donate a new item or view overall application.
-
-   - **Donate Application**
-
-     - Finally in the donate application tab/page, users get an overview of the donated items pending review through images and texts. This is displayed through a Donate Application Card. The Donate Application Card will fetch the data from the backend. Users can also delete specific item data in the Backend through the DELETE method. Subsequently mapping and displaying the data through text and photo.
-
-6. **Item Request**
-
-- **Item Application**
-
-  - A pre-set list of categories is available for users to select. Selection will present specific items for the user to add to their cart
-  - A text input field is included as an option for users to use in the event they are unable to find the requested item amongst the pre-set list of items
-  - In the event the user is unable to find the item within the pre-set list and is unable to adequately describe the item in the text input field, a photo upload option is available for them to upload a photo representing the item they would like to request for
-
-- **Item Cart**
-
-  - Displays the requested items as individual cards, along with the estimated waiting time for the item
-  - Edit and Delete options are available for each card
-  - An `Add Another` button is included for users to return to the Item Application page to add another item
-  - Up to three items can be added to cart (or depending on the remaining number of requests left for the user) and the `Add Another` button will be removed when the limit is reached
-  - The `Proceed to Delivery` button will navigate to the Delivery Method page
-
-- **Delivery Method**
-
-  - Includes a summary of requested items and their wait times
-  - Last page for users to delete items from their cart before checking out
-  - Users can select either delivery or self-pickup
-  - The `Next` button will navigate to the confirmation page
-
-- **Confirmation**
-
-  - Includes a summary of requested items and their wait times
-  - For a delivery option, the user's details will be populated from their profile (users will still be able to edit the information if they so wish to)
-  - For a self-pickup option, IRR's warehouse address will be populated
-  - The `Confirm & Apply` button will submit the item requests and if successful, navigate to the Success Page
-
-- **Success**
-
-  - Informs the user that their item application has been submitted
-  - Users can then navigate to the Applications page to view all their item requests or return to the Item Application page to start a new application
+   1. **Get Users (/get/users)**
+   1. **Get User Positions (/get/user_positions)**
+   1. **Get Ranks (/get/ranks)**
+   1. **Get Positions (/get/positions)**
+   1. **Get CATs (/get/cats)**
+   1. **Get Flights (/get/flights)**
+   1. **Create Ranks (/put/rank)**
+   1. **Create Positions (/put/position)**
+   1. **Create CATs (/put/cat)**
+   1. **Create Flights (/put/flight)**
+   1. **Update Users (/patch/users/:user_id)**
+   1. **Update User Positions (/patch/user_positions/:user_position_id)**,
+   1. **Update Ranks (/patch/ranks/:rank)**
+   1. **Update Positions (/patch/positions/:position)**
+   1. **Update CATs (/patch/cats/:cat)**
+   1. **Update Flights (/patch/flights/:flight)**
+   1. **Delete Users (/delete/users/:user_id)**
+   1. **Delete User Positions (/delete/user_positions/:user_position_id)**,
+   1. **Delete Ranks (/delete/ranks/:rank)**
+   1. **Delete Positions (/delete/positions/:position)**
+   1. **Delete CATs (/delete/cats/:cat)**
+   1. **Delete Flights (/delete/flights/:flight)**
 
 ## Back-end (Server)
 
