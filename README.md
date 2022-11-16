@@ -2,7 +2,11 @@
 
 The Trainee Assessment Portal (TAP) is envisioned to be a one-stop portal for both trainees and instructors to archive, monitor and process graded assessments. This project is tended for the fulfillment of the academic requirements of the Software engineering Immersive programme from General Assembly.
 
-## Background
+## Table of Contents
+
+1. [Background](#background-tap-background)
+
+## [Background (tap-background)]
 
 Trainees presently print out a hardcopy assessment form which their instructors will fill up as the session progresses. After the session is completed, trainees will file the assessment form in their training file for archival and for future instructors to view their progress.
 
