@@ -3,12 +3,14 @@ import React, { useContext, useEffect, useRef } from "react";
 
 import GlobalVariables from "../../context/GlobalVariables";
 import { LineChart } from "../../charts/charts";
+import { ModalState } from "../generic/Modal";
 
 import Button from "../generic/Button";
 
 interface Props {
   selectedPosition: string;
   setSelectedPosition: (position: string) => void;
+  setModal: (state: ModalState) => void;
 }
 
 const Summary = (props: Props) => {
@@ -30,6 +32,15 @@ const Summary = (props: Props) => {
       color: "steelblue",
     });
   }, [positionAssessments]);
+
+  const handleAddButtonClick = () => {
+    const modal = {
+      type: "position",
+      subtype: "add",
+      data: {},
+    };
+    props.setModal(modal);
+  };
 
   return (
     <>
@@ -58,7 +69,12 @@ const Summary = (props: Props) => {
         })}
       </select>
       <div className="row">
-        <Button mode="outline" type="button" className="fs-24">
+        <Button
+          mode="outline"
+          type="button"
+          className="fs-24"
+          onClick={handleAddButtonClick}
+        >
           New Position
         </Button>
       </div>

@@ -10,7 +10,8 @@ import Summary from "./Summary";
 import AssessmentTable from "./AssessmentTable";
 
 interface Props {
-  setModal: (state: ModalState) => void;
+  setAssessmentModal: (state: ModalState) => void;
+  setPositionModal: (state: ModalState) => void;
 }
 
 const Main = (props: Props) => {
@@ -111,6 +112,7 @@ const Main = (props: Props) => {
           <Summary
             selectedPosition={selectedPosition}
             setSelectedPosition={setSelectedPosition}
+            setModal={props.setPositionModal}
           />
         </div>
       </div>
@@ -119,7 +121,7 @@ const Main = (props: Props) => {
         <div className="row section__container-dark">
           <div className="row container">
             <AssessmentTable
-              setModal={props.setModal}
+              setModal={props.setAssessmentModal}
               selectedPosition={selectedPosition}
             />
           </div>

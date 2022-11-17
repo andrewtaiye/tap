@@ -11,6 +11,7 @@ import Main from "../components/assessments/Main";
 const Assessments = () => {
   const { userId, hasProfile } = useContext(GlobalVariables);
   const [assessmentModal, setAssessmentModal] = useState<ModalState>({});
+  const [positionModal, setPositionModal] = useState<ModalState>({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,7 +28,10 @@ const Assessments = () => {
   return (
     <>
       <Header />
-      <Main setModal={setAssessmentModal} />
+      <Main
+        setAssessmentModal={setAssessmentModal}
+        setPositionModal={setPositionModal}
+      />
       <div id="modal-root"></div>
       {assessmentModal.type && (
         <Modal
@@ -35,6 +39,14 @@ const Assessments = () => {
           subtype={assessmentModal.subtype}
           data={assessmentModal.data}
           setModal={setAssessmentModal}
+        />
+      )}
+      {positionModal.type && (
+        <Modal
+          type={positionModal.type}
+          subtype={positionModal.subtype}
+          data={positionModal.data}
+          setModal={setPositionModal}
         />
       )}
     </>
