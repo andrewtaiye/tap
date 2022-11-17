@@ -10,6 +10,8 @@ The Trainee Assessment Portal (TAP) is envisioned to be a one-stop portal for bo
 4. [Application Structure](#application-structure)
 5. [List of Form Validations](#list-of-form-validations)
 6. [Back-End API End Points](#back-end-api-endpoints)
+7. [Database Structure](#database-structure)
+8. [Outstanding List of Features](#outstanding-list-of-features)
 
 ## Background
 
@@ -149,63 +151,85 @@ The TAP provisions for a comprehensive list of validation criteria before the re
 
 API endpoints are broken up into 6 main categories as follows.
 
-1. **Users (/user)**
+### **Users (/user)**
 
-   1. **Create (/user/create)** - Creation of user account
-   2. **Login (/user/login)** - User login
-   3. **Update (/user/update/:user_id)** - Updating of user password
-   4. **Delete (/user/delete/:user_id)** - Delete of user account (includes deleting associated profile, user positions and respective assessments)
-   5. **Logout (/user/logout)** - User logout
+1.  **Create (/user/create)** - Creation of user account
+2.  **Login (/user/login)** - User login
+3.  **Update (/user/update/:user_id)** - Updating of user password
+4.  **Delete (/user/delete/:user_id)** - Delete of user account (includes deleting associated profile, user positions and respective assessments)
+5.  **Logout (/user/logout)** - User logout
 
-2. **Profiles (/profile)**
+### **Profiles (/profile)**
 
-   1. **Get (/profile/get/:user_id)** - Retrieve profile for specified user
-   2. **Create (/profile/create)** - Create new profile
-   3. **Update (/profile/update/:user_id)** - Update profile for specified user
+1.  **Get (/profile/get/:user_id)** - Retrieve profile for specified user
+2.  **Create (/profile/create)** - Create new profile
+3.  **Update (/profile/update/:user_id)** - Update profile for specified user
 
-3. **User Positions (/user_position)**
+### **User Positions (/user_position)**
 
-   1. **Get (/user_position/get/:user_id)** - Retrieve all positions for specified user
-   2. **Create (/user_position/create/:user_id)** - Create new position for specified user
-   3. **Update (/user_position/update/:user_position_id)** - Update specified position
-   4. **Delete (/user_position/delete/:user_position_id)** - Delete specified position
+1.  **Get (/user_position/get/:user_id)** - Retrieve all positions for specified user
+2.  **Create (/user_position/create/:user_id)** - Create new position for specified user
+3.  **Update (/user_position/update/:user_position_id)** - Update specified position
+4.  **Delete (/user_position/delete/:user_position_id)** - Delete specified position
 
-4. **Assessments (/assessment)**
+### **Assessments (/assessment)**
 
-   1. **Get (/assessment/get/:user_position_id)** - Retrieve all assessments for specified user position
-   2. **Create (/assessment/create/:user_position_id)** - Create new assessment for specified user position
-   3. **Update (/assessment/update/:assessment_id)** - Update specified assessment
-   4. **Delete (/assessment/delete/:assessment_id)** - Delete specified assessment
+1.  **Get (/assessment/get/:user_position_id)** - Retrieve all assessments for specified user position
+2.  **Create (/assessment/create/:user_position_id)** - Create new assessment for specified user position
+3.  **Update (/assessment/update/:assessment_id)** - Update specified assessment
+4.  **Delete (/assessment/delete/:assessment_id)** - Delete specified assessment
 
-5. **Miscellaneous (/misc)**
+### **Miscellaneous (/misc)**
 
-   1. **Enum (/misc/enum)** - Retrieve all enum tables (ranks, flights, positions, CATs)
-   2. **Refresh (/misc/refresh)** - Refresh Access Token
+1.  **Enum (/misc/enum)** - Retrieve all enum tables (ranks, flights, positions, CATs)
+2.  **Refresh (/misc/refresh)** - Refresh Access Token
 
-6. **Admin (/admin)**
+### **Admin (/admin)**
 
-   1. **Get Users (/get/users)** - Retrieve all user accounts together with rank and name
-   2. **Get User Positions (/get/user_positions)** - Retrieve all user positions together with rank and name
-   3. **Get Ranks (/get/ranks)** - Retrieve all ranks
-   4. **Get Positions (/get/positions)** - Retrieve all positions
-   5. **Get CATs (/get/cats)** - Retrieve all CATs
-   6. **Get Flights (/get/flights)** - Retrieve all flights
-   7. **Create Ranks (/put/rank)** - Create new rank
-   8. **Create Positions (/put/position)** - Create new position
-   9. **Create CATs (/put/cat)** - Create new CAT
-   10. **Create Flights (/put/flight)** - Create new flight
-   11. **Update Users (/patch/users/:user_id)** - Update account details and/or rank and name for specified user
-   12. **Update User Positions (/patch/user_positions/:user_position_id)** - Update position, approval date and instructor status for specified user position
-   13. **Update Ranks (/patch/ranks/:rank)** - Update specified rank
-   14. **Update Positions (/patch/positions/:position)** - Update specified position
-   15. **Update CATs (/patch/cats/:cat)** - Update specified CAT
-   16. **Update Flights (/patch/flights/:flight)** - Update specified flight
-   17. **Delete Users (/delete/users/:user_id)** - Delete specified user and associated profile, positions and assessments
-   18. **Delete User Positions (/delete/user_positions/:user_position_id)** - Delete specified user position and associated assessments
-   19. **Delete Ranks (/delete/ranks/:rank)** - Delete specified rank
-   20. **Delete Positions (/delete/positions/:position)** - Delete specified position
-   21. **Delete CATs (/delete/cats/:cat)** - Delete specified CAT
-   22. **Delete Flights (/delete/flights/:flight)** - Delete specified flight
+1.  **Get Users (/get/users)** - Retrieve all user accounts together with rank and name
+2.  **Get User Positions (/get/user_positions)** - Retrieve all user positions together with rank and name
+3.  **Get Ranks (/get/ranks)** - Retrieve all ranks
+4.  **Get Positions (/get/positions)** - Retrieve all positions
+5.  **Get CATs (/get/cats)** - Retrieve all CATs
+6.  **Get Flights (/get/flights)** - Retrieve all flights
+7.  **Create Ranks (/put/rank)** - Create new rank
+8.  **Create Positions (/put/position)** - Create new position
+9.  **Create CATs (/put/cat)** - Create new CAT
+10. **Create Flights (/put/flight)** - Create new flight
+11. **Update Users (/patch/users/:user_id)** - Update account details and/or rank and name for specified user
+12. **Update User Positions (/patch/user_positions/:user_position_id)** - Update position, approval date and instructor status for specified user position
+13. **Update Ranks (/patch/ranks/:rank)** - Update specified rank
+14. **Update Positions (/patch/positions/:position)** - Update specified position
+15. **Update CATs (/patch/cats/:cat)** - Update specified CAT
+16. **Update Flights (/patch/flights/:flight)** - Update specified flight
+17. **Delete Users (/delete/users/:user_id)** - Delete specified user and associated profile, positions and assessments
+18. **Delete User Positions (/delete/user_positions/:user_position_id)** - Delete specified user position and associated assessments
+19. **Delete Ranks (/delete/ranks/:rank)** - Delete specified rank
+20. **Delete Positions (/delete/positions/:position)** - Delete specified position
+21. **Delete CATs (/delete/cats/:cat)** - Delete specified CAT
+22. **Delete Flights (/delete/flights/:flight)** - Delete specified flight
+
+## Database Structure
+
+The TAP utilises Postgres as the database framework. The tables and relationship is displayed below.
+
+`**Database:** tap`
+
+### Tables
+
+1. Users
+2. Profiles
+3. User_Positions
+4. Assessments
+5. Ranks
+6. Flights
+7. CATs
+8. Positions
+9. Tokens
+
+### Relationship
+
+![Relational Database](./src/assets/images/rds.png "TAP Relational Database")
 
 ## Outstanding List of Features
 
