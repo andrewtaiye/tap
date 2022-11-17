@@ -149,6 +149,8 @@ The TAP provisions for a comprehensive list of validation criteria before the re
 
 ## Back-End API Endpoints
 
+The TAP utilises ExpressJS as the back-end framework. The repository can be found [here](https://github.com/andrewtaiye/tap-server).
+
 API endpoints are broken up into 6 main categories as follows.
 
 ### **Users (/user)**
