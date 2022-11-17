@@ -227,7 +227,7 @@ The TAP utilises Postgres as its relational database management system. The tabl
 8. Positions
 9. Tokens
 
-### Relationship
+### Relationships
 
 ![Relational Database](./src/assets/images/rds.png "TAP Relational Database")
 
