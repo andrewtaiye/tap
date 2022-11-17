@@ -9,7 +9,7 @@ The Trainee Assessment Portal (TAP) is envisioned to be a one-stop portal for bo
 3. [Technologies Used](#technologies-used)
 4. [Application Structure](#application-structure)
 5. [List of Form Validations](#list-of-form-validations)
-6. [Back-End API End Points](#back-end-api-endpoints)
+6. [Back-End API Endpoints](#back-end-api-endpoints)
 7. [Database Structure](#database-structure)
 8. [Outstanding List of Features](#outstanding-list-of-features)
 
