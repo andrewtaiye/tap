@@ -68,8 +68,8 @@ export function LineChart(
     .attr("viewBox", [0, 0, width, height])
     .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
 
-  d3.selectAll("g").remove();
-  d3.selectAll("path").remove();
+  svg.selectAll("g").remove();
+  svg.selectAll("path").remove();
 
   svg
     .append("g")
@@ -108,5 +108,5 @@ export function LineChart(
     .attr("stroke-opacity", strokeOpacity)
     .attr("d", line(I));
 
-  return svg.node();
+  // return svg.node();
 }

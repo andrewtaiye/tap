@@ -46,7 +46,12 @@ const Header = () => {
   return (
     <div className="header">
       <div className="row header__container bebas fs-24">
-        <LongLogo style={{ height: "48px", width: "193px" }} />
+        <LongLogo
+          style={{
+            height: "48px",
+            width: "193px",
+          }}
+        />
         <div className="row gap-32 header__navBar__container">
           <NavLink
             to="/assessments"
