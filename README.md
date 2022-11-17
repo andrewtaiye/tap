@@ -155,10 +155,10 @@ API endpoints are broken up into 6 main categories as follows.
 
 ### **Users (/user)**
 
-1.  **Create (/user/create)** - Creation of user account
+1.  **Create (/user/create)** - Create new user account
 2.  **Login (/user/login)** - User login
-3.  **Update (/user/update/:user_id)** - Updating of user password
-4.  **Delete (/user/delete/:user_id)** - Delete of user account (includes deleting associated profile, user positions and respective assessments)
+3.  **Update (/user/update/:user_id)** - Update user password
+4.  **Delete (/user/delete/:user_id)** - Delete user account (includes deleting associated profile, user positions and respective assessments)
 5.  **Logout (/user/logout)** - User logout
 
 ### **Profiles (/profile)**
