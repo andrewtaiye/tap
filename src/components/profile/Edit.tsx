@@ -65,6 +65,16 @@ const Edit = (props: Props) => {
       return;
     }
 
+    if (allValues["date accepted"] < allValues["date of birth"]) {
+      setErrorMessage("Date Accepted cannot be before Date of Birth");
+      return;
+    }
+
+    if (allValues["reporting date"] < allValues["date accepted"]) {
+      setErrorMessage("Reporting Date cannot be before Date Accepted");
+      return;
+    }
+
     if (allValues["password"] !== allValues["confirm password"]) {
       setErrorMessage("Passwords do not match");
       return;

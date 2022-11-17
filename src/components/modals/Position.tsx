@@ -103,9 +103,9 @@ const Position = (props: Props) => {
 
       if (props.subtype === "add") {
         // Position Create API Call
-        const url = process.env.REACT_APP_API_ENDPOINT + `user_position/create`;
+        const url =
+          process.env.REACT_APP_API_ENDPOINT + `user_position/create/${userId}`;
         const body: UserPositions = {
-          user_id: userId,
           position: data["position"],
           start_date: dayjs(data["start date"]).unix(),
           end_date: dayjs(data["end date"]).unix(),
@@ -125,6 +125,7 @@ const Position = (props: Props) => {
         }
 
         body.id = res.data.id;
+        body.user_id = userId;
         body.is_instructor = false;
 
         setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {

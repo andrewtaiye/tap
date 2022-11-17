@@ -170,9 +170,10 @@ const Assessment = (props: Props) => {
 
       if (props.subtype === "add") {
         // Assessment Create API Call
-        const url = process.env.REACT_APP_API_ENDPOINT + `assessment/create`;
+        const url =
+          process.env.REACT_APP_API_ENDPOINT +
+          `assessment/create/${props.data.positionId}`;
         const body: PositionAssessment = {
-          user_position_id: props.data.positionId,
           assessment_number: data["assessment no"],
           instructor: data["instructor"],
           date: dayjs(data["date"]).unix(),
@@ -207,6 +208,7 @@ const Assessment = (props: Props) => {
         }
 
         body.id = res.data.assessment.id;
+        body.user_position_id = props.data.positionId;
         body.grade = res.data.assessment.grade;
 
         setPositionAssessments?.((prevState) => {

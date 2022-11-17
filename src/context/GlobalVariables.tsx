@@ -26,7 +26,7 @@ export interface UserPositions {
 
 export interface PositionAssessment {
   id?: string;
-  user_position_id: string;
+  user_position_id?: string;
   assessment_number: number;
   instructor: string;
   date: number;

@@ -46,8 +46,6 @@ const Create = () => {
     ) {
       setErrorMessage("Please fill in all required fields");
       return;
-    } else {
-      setErrorMessage("");
     }
 
     if (allValues["date accepted"] < allValues["date of birth"]) {
@@ -59,6 +57,7 @@ const Create = () => {
       setErrorMessage("Reporting Date cannot be before Date Accepted");
       return;
     }
+    setErrorMessage("");
   }, [
     allValues["rank"],
     allValues["full name"],
