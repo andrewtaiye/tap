@@ -211,9 +211,9 @@ API endpoints are broken up into 6 main categories as follows.
 
 ## Database Structure
 
-The TAP utilises Postgres as the database framework. The tables and relationship is displayed below.
+The TAP utilises Postgres as its relational database management system. The tables and relationships are displayed below.
 
-`**Database:** tap`
+`Database: tap`
 
 ### Tables
 
