@@ -24,3 +24,7 @@ yarn-error.log*
 
 # environment
 .env
+
+# AWS Stuff
+deploy.sh
+tap_connect.pem
