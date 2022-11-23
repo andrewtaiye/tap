@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 
 import NavBar from "./NavBar";
-import Users from "./Users";
-import UserPositions from "./UserPositions";
-import Ranks from "./Ranks";
+import Overview from "./Overview";
 import Positions from "./Positions";
-import Flights from "./Flights";
-import Cats from "./Cats";
+import Trainees from "./Trainees";
 
 const Main = () => {
   const [selectedButton, setSelectedButton] = useState("");
@@ -23,12 +20,9 @@ const Main = () => {
         />
       </div>
       <div className="section__container-light">
-        {selectedButton === "users" && <Users />}
-        {selectedButton === "user-positions" && <UserPositions />}
-        {selectedButton === "ranks" && <Ranks />}
+        {selectedButton === "overview" && <Overview />}
+        {selectedButton === "trainees" && <Trainees />}
         {selectedButton === "positions" && <Positions />}
-        {selectedButton === "cats" && <Cats />}
-        {selectedButton === "flights" && <Flights />}
       </div>
     </>
   );

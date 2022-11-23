@@ -15,34 +15,23 @@ const NavBar = (props: Props) => {
           mode="nav"
           type="button"
           className={`fs-24${
-            props.selectedButton === "users" ? " selected" : ""
+            props.selectedButton === "overview" ? " selected" : ""
           }`}
           onClick={props.toggleNavButton}
-          name="users"
+          name="overview"
         >
-          Users
+          Overview
         </Button>
         <Button
           mode="nav"
           type="button"
           className={`fs-24${
-            props.selectedButton === "user-positions" ? " selected" : ""
+            props.selectedButton === "trainees" ? " selected" : ""
           }`}
           onClick={props.toggleNavButton}
-          name="user-positions"
+          name="trainees"
         >
-          User Positions
-        </Button>
-        <Button
-          mode="nav"
-          type="button"
-          className={`fs-24${
-            props.selectedButton === "ranks" ? " selected" : ""
-          }`}
-          onClick={props.toggleNavButton}
-          name="ranks"
-        >
-          Ranks
+          Trainees
         </Button>
         <Button
           mode="nav"
@@ -55,31 +44,9 @@ const NavBar = (props: Props) => {
         >
           Positions
         </Button>
-        <Button
-          mode="nav"
-          type="button"
-          className={`fs-24${
-            props.selectedButton === "cats" ? " selected" : ""
-          }`}
-          onClick={props.toggleNavButton}
-          name="cats"
-        >
-          CATs
-        </Button>
-        <Button
-          mode="nav"
-          type="button"
-          className={`fs-24${
-            props.selectedButton === "flights" ? " selected" : ""
-          }`}
-          onClick={props.toggleNavButton}
-          name="flights"
-        >
-          Flights
-        </Button>
       </div>
       <div>
-        <p className="bebas fs-48">Admin Panel</p>
+        <p className="bebas fs-48">Instructor Panel</p>
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Assessments from "./pages/Assessments";
 import Admin from "./pages/Admin";
+import Instructor from "./pages/Instructor";
 
 export interface LoginToken {
   exp: number;
@@ -122,6 +123,7 @@ const App = () => {
           <Route path="/assessments" element={<Assessments />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/instructor" element={<Instructor />} />
         </Routes>
       </div>
     </GlobalVariables.Provider>
