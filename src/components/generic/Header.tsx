@@ -10,12 +10,14 @@ const Header = () => {
   const {
     accessToken,
     isAdmin,
+    isInstructor,
     setUserId,
     setHasProfile,
     setUserProfile,
     setUserPositions,
     setPositionAssessments,
     setIsAdmin,
+    setIsInstructor,
   } = useContext(GlobalVariables);
   const navigate = useNavigate();
 
@@ -36,6 +38,7 @@ const Header = () => {
       setUserPositions?.([]);
       setPositionAssessments?.([]);
       setIsAdmin?.(false);
+      setIsInstructor?.(false);
 
       navigate("/login");
     } catch (err: any) {
@@ -65,6 +68,14 @@ const Header = () => {
           >
             Profile
           </NavLink>
+          {isInstructor && (
+            <NavLink
+              to="/instructor"
+              className={({ isActive }) => (isActive ? "selected" : undefined)}
+            >
+              Instructor
+            </NavLink>
+          )}
           {isAdmin && (
             <NavLink
               to="/admin"

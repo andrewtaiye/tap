@@ -13,7 +13,7 @@ import Button from "../components/generic/Button";
 import { ReactComponent as Logo } from "../assets/logos/image.svg";
 
 const Login = () => {
-  const { accessToken, setUserId, setHasProfile, setIsAdmin } =
+  const { accessToken, setUserId, setHasProfile, setIsAdmin, setIsInstructor } =
     useContext(GlobalVariables);
 
   interface Inputs {
@@ -48,11 +48,13 @@ const Login = () => {
       localStorage.setItem("refreshToken", res.data.refresh);
       accessToken.current = res.data.access;
       const decoded: LoginToken = jwt_decode(res.data.access);
+      console.log(decoded);
 
       setErrorMessage("");
       setUserId?.(decoded.userId);
       setHasProfile?.(decoded.hasProfile);
       setIsAdmin?.(decoded.is_admin);
+      setIsInstructor?.(decoded.is_instructor);
       navigate("/assessments");
     } catch (err: any) {
       console.error(err.message);

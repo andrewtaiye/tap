@@ -25,6 +25,7 @@ const Main = (props: Props) => {
     setUserPositions,
     setPositionAssessments,
     setIsAdmin,
+    setIsInstructor,
   } = useContext(GlobalVariables);
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -99,6 +100,7 @@ const Main = (props: Props) => {
       setUserPositions?.([]);
       setPositionAssessments?.([]);
       setIsAdmin?.(false);
+      setIsInstructor?.(false);
 
       toggleMode();
       navigate("/login");

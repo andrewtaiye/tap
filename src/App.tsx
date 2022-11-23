@@ -26,6 +26,7 @@ export interface LoginToken {
   jti: string;
   userId: string;
   is_admin: boolean;
+  is_instructor: boolean;
 }
 
 const App = () => {
@@ -75,6 +76,7 @@ const App = () => {
         setUserId(decoded.userId);
         setHasProfile(decoded.hasProfile);
         setIsAdmin(decoded.is_admin);
+        setIsInstructor(decoded.is_instructor);
         navigate("/");
         return;
       }
