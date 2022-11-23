@@ -48,7 +48,6 @@ const Login = () => {
       localStorage.setItem("refreshToken", res.data.refresh);
       accessToken.current = res.data.access;
       const decoded: LoginToken = jwt_decode(res.data.access);
-      console.log(decoded);
 
       setErrorMessage("");
       setUserId?.(decoded.userId);
