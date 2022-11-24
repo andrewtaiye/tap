@@ -57,10 +57,10 @@ const App = () => {
         return;
       }
 
-      setRanks(res.data.ranks);
-      setFlights(res.data.flights);
-      setCats(res.data.cats);
-      setPositions(res.data.positions);
+      setRanks(res.data.rank);
+      setFlights(res.data.flight);
+      setCats(res.data.cat);
+      setPositions(res.data.position);
     })();
 
     (async () => {
