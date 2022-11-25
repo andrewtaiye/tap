@@ -64,6 +64,7 @@ const Summary = (props: Props) => {
           return (
             <option value={element.id} key={index}>
               {element.position}
+              {element.is_revalidation && " (Revalidation)"}
             </option>
           );
         })}

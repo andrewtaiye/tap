@@ -35,8 +35,7 @@ const PositionTable = (props: Props) => {
     <table className="table__positions">
       <colgroup>
         <col style={{ width: "8.325%" }} />
-        <col style={{ width: "16.67%" }} />
-        <col style={{ width: "16.67%" }} />
+        <col style={{ width: "33.34%" }} />
         <col style={{ width: "16.67%" }} />
         <col style={{ width: "16.67%" }} />
         <col style={{ width: "16.67%" }} />
@@ -63,7 +62,7 @@ const PositionTable = (props: Props) => {
         {userPositions?.length === 0 ? (
           <>
             <tr>
-              <th colSpan={7}>
+              <th colSpan={6}>
                 <p className="fs-16">You have no positions</p>
               </th>
             </tr>
@@ -73,7 +72,6 @@ const PositionTable = (props: Props) => {
             <tr>
               <th>S/N</th>
               <th>Position</th>
-              <th>Revalidation</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th>Approval Date</th>
@@ -83,8 +81,10 @@ const PositionTable = (props: Props) => {
               return (
                 <tr key={element.id}>
                   <td>{index + 1}</td>
-                  <td>{element.position}</td>
-                  <td>{element.is_revalidation ? "Yes" : "No"}</td>
+                  <td>
+                    {element.position}
+                    {element.is_revalidation && " (Revalidation)"}
+                  </td>
                   <td>
                     {dayjs
                       .unix(element.start_date as number)

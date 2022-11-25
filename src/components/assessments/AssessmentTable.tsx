@@ -65,7 +65,10 @@ const AssessmentTable = (props: Props) => {
         <tr>
           <th colSpan={17} className="px-2 py-2">
             <div className="row justify-sb">
-              <p className="fs-32">{position?.position}</p>
+              <p className="fs-32">
+                {position?.position}
+                {position?.is_revalidation && " (Revalidation)"}
+              </p>
               <Button
                 mode="active"
                 type="button"
