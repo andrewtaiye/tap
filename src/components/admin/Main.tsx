@@ -9,7 +9,7 @@ import Flights from "./Flights";
 import Cats from "./Cats";
 
 const Main = () => {
-  const [selectedButton, setSelectedButton] = useState("");
+  const [selectedButton, setSelectedButton] = useState("users");
   const toggleNavButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedButton(event.currentTarget.name);
   };
