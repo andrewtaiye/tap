@@ -10,7 +10,6 @@ import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
 
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
-import InputField from "../generic/InputField";
 import Button from "../generic/Button";
 
 import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
@@ -399,11 +398,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="assessment no"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "215px" }}
-                  inputWidth={{ width: "250px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="215px"
+                  inputWidth="250px"
                   warning={allValues["assessment no"] ? false : true}
                 />
               </div>
@@ -413,11 +413,12 @@ const Assessment = (props: Props) => {
           <div className="row justify-sb mb-2">
             <InputFieldWithLabelInline
               inputName="instructor"
-              className="px-4 py-1 fs-24"
-              labelWidth={{ width: "164px" }}
-              inputWidth={{ width: "496px" }}
-              type="text"
               register={register}
+              type="text"
+              label={true}
+              className="px-4 py-1 fs-24"
+              labelWidth="164px"
+              inputWidth="496px"
               warning={allValues["instructor"] ? false : true}
             />
 
@@ -426,13 +427,15 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="date"
+                  register={register}
+                  type="date"
+                  label={true}
                   className={`px-4 py-1 fs-24${
                     !allValues["date"] ? " placeholder" : ""
                   }`}
-                  labelWidth={{ width: "215px" }}
-                  inputWidth={{ width: "250px", height: "52px" }}
-                  type="date"
-                  register={register}
+                  labelWidth="215px"
+                  inputWidth="250px"
+                  inputHeight="52px"
                   warning={allValues["date"] ? false : true}
                 />
               </div>
@@ -450,10 +453,10 @@ const Assessment = (props: Props) => {
               <div className="row justify-fs" style={{ width: "250px" }}>
                 <label htmlFor="reval-checkbox" className="visually-hidden" />
                 <input
+                  {...register("simulator")}
                   type="checkbox"
                   id="reval-checkbox"
                   className="modal__position-reval-checkbox"
-                  {...register("simulator")}
                 />
               </div>
             </div>
@@ -462,11 +465,12 @@ const Assessment = (props: Props) => {
             <div className="row">
               <InputFieldWithLabelInline
                 inputName="intensity"
-                className="px-4 py-1 fs-24"
-                labelWidth={{ width: "215px" }}
-                inputWidth={{ width: "250px" }}
-                type="number"
                 register={register}
+                type="number"
+                label={true}
+                className="px-4 py-1 fs-24"
+                labelWidth="215px"
+                inputWidth="250px"
                 warning={allValues["intensity"] ? false : true}
               />
             </div>
@@ -475,41 +479,42 @@ const Assessment = (props: Props) => {
           {/* Objectives Inputs */}
           <InputFieldWithLabelInline
             inputName="objectives"
-            className="px-4 py-1 fs-24 mb-2"
-            labelWidth={{ width: "164px" }}
-            inputWidth={{ flex: "1 1 auto" }}
-            type="text"
             register={register}
+            type="text"
+            label={true}
+            className="px-4 py-1 fs-24 mb-2"
+            labelWidth="164px"
             warning={allValues["objectives"] ? false : true}
           />
-          <div className="row justify-fe mb-2">
-            <InputField
-              className="px-4 py-1 fs-24"
-              inputName="objective2"
-              inputWidth={{ width: "calc(100% - 164px)" }}
-              register={register}
-              type="text"
-            />
-          </div>
-          <div className="row justify-fe mb-2">
-            <InputField
-              className="px-4 py-1 fs-24"
-              inputName="objective3"
-              inputWidth={{ width: "calc(100% - 164px)" }}
-              register={register}
-              type="text"
-            />
-          </div>
+          <InputFieldWithLabelInline
+            inputName="objective2"
+            register={register}
+            type="text"
+            label={true}
+            labelText=" "
+            className="px-4 py-1 fs-24 mb-2"
+            labelWidth="164px"
+          />
+          <InputFieldWithLabelInline
+            inputName="objective3"
+            register={register}
+            type="text"
+            label={true}
+            labelText=" "
+            className="px-4 py-1 fs-24 mb-2"
+            labelWidth="164px"
+          />
 
           {/* Grades Inputs */}
           <div className="row justify-sb mb-2">
             <InputFieldWithLabelInline
               inputName="a"
-              className="px-4 py-1 fs-24"
-              labelWidth={{ width: "164px" }}
-              inputWidth={{ width: "86px" }}
-              type="number"
               register={register}
+              type="number"
+              label={true}
+              className="px-4 py-1 fs-24"
+              labelWidth="164px"
+              inputWidth="86px"
               warning={allValues["a"] ? false : true}
               min={1}
               max={10}
@@ -518,11 +523,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="b"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["b"] ? false : true}
                   min={1}
                   max={10}
@@ -533,11 +539,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="c"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["c"] ? false : true}
                   min={1}
                   max={10}
@@ -548,11 +555,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="d"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["d"] ? false : true}
                   min={1}
                   max={10}
@@ -563,11 +571,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="e"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["e"] ? false : true}
                   min={1}
                   max={10}
@@ -578,11 +587,12 @@ const Assessment = (props: Props) => {
           <div className="row justify-sb mb-2">
             <InputFieldWithLabelInline
               inputName="f"
-              className="px-4 py-1 fs-24"
-              labelWidth={{ width: "164px" }}
-              inputWidth={{ width: "86px" }}
-              type="number"
               register={register}
+              type="number"
+              label={true}
+              className="px-4 py-1 fs-24"
+              labelWidth="164px"
+              inputWidth="86px"
               warning={allValues["f"] ? false : true}
               min={1}
               max={10}
@@ -591,11 +601,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="g"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["g"] ? false : true}
                   min={1}
                   max={10}
@@ -606,11 +617,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="h"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["h"] ? false : true}
                   min={1}
                   max={10}
@@ -621,11 +633,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="i"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["i"] ? false : true}
                   min={1}
                   max={10}
@@ -636,11 +649,12 @@ const Assessment = (props: Props) => {
               <div className="row">
                 <InputFieldWithLabelInline
                   inputName="j"
-                  className="px-4 py-1 fs-24"
-                  labelWidth={{ width: "74px" }}
-                  inputWidth={{ width: "86px" }}
-                  type="number"
                   register={register}
+                  type="number"
+                  label={true}
+                  className="px-4 py-1 fs-24"
+                  labelWidth="74px"
+                  inputWidth="86px"
                   warning={allValues["j"] ? false : true}
                   min={1}
                   max={10}

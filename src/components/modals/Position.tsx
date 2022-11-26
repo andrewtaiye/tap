@@ -272,43 +272,49 @@ const Position = (props: Props) => {
         <div className="row justify-sb gap-64 mb-2 px-4">
           <InputFieldWithLabelInline
             inputName="start date"
+            register={register}
+            type="date"
+            label={true}
             className={`px-4 py-1 fs-24${
               allValues["start date"] === "default" || !allValues["start date"]
                 ? " placeholder"
                 : ""
             }`}
-            labelWidth={{ width: "176px" }}
-            inputWidth={{ width: "278px", height: "52px" }}
-            type="date"
-            register={register}
+            labelWidth="176px"
+            inputWidth="278px"
+            inputHeight="52px"
             warning={allValues["start date"] ? false : true}
           />
           <InputFieldWithLabelInline
             inputName="end date"
+            register={register}
+            type="date"
+            label={true}
             className={`px-4 py-1 fs-24${
               allValues["end date"] === "default" || !allValues["end date"]
                 ? " placeholder"
                 : ""
             }`}
-            labelWidth={{ width: "176px" }}
-            inputWidth={{ width: "278px", height: "52px" }}
-            type="date"
-            register={register}
+            labelWidth="176px"
+            inputWidth="278px"
+            inputHeight="52px"
           />
         </div>
         <div className="row justify-sb gap-64 mb-2 px-4">
           <InputFieldWithLabelInline
             inputName="approval date"
+            register={register}
+            type="date"
+            label={true}
             className={`px-4 py-1 fs-24${
               allValues["approval date"] === "default" ||
               !allValues["approval date"]
                 ? " placeholder"
                 : ""
             }`}
-            labelWidth={{ width: "176px" }}
-            inputWidth={{ width: "278px", height: "52px" }}
-            type="date"
-            register={register}
+            labelWidth="176px"
+            inputWidth="278px"
+            inputHeight="52px"
           />
 
           <div className="row w-100">

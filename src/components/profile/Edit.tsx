@@ -176,11 +176,12 @@ const Edit = (props: Props) => {
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
             inputName="id number"
-            className="px-4 py-1 fs-24"
-            labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px" }}
-            type="text"
             register={register}
+            type="text"
+            label={true}
+            className="px-4 py-1 fs-24"
+            labelWidth="250px"
+            inputWidth="300px"
             warning={allValues["id number"] ? false : true}
           />
         </div>
@@ -189,11 +190,13 @@ const Edit = (props: Props) => {
         <div className="w-100 row justify-fs">
           <InputFieldWithLabelInline
             inputName="date of birth"
-            className="px-4 py-1 fs-24"
-            labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px", height: "52px" }}
-            type="date"
             register={register}
+            type="date"
+            label={true}
+            className="px-4 py-1 fs-24"
+            labelWidth="250px"
+            inputWidth="300px"
+            inputHeight="52px"
             warning={allValues["date of birth"] ? false : true}
           />
         </div>
@@ -202,11 +205,13 @@ const Edit = (props: Props) => {
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
             inputName="date accepted"
-            className="px-4 py-1 fs-24"
-            labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px", height: "52px" }}
-            type="date"
             register={register}
+            type="date"
+            label={true}
+            className="px-4 py-1 fs-24"
+            labelWidth="250px"
+            inputWidth="300px"
+            inputHeight="52px"
             warning={allValues["date accepted"] ? false : true}
           />
         </div>
@@ -215,11 +220,13 @@ const Edit = (props: Props) => {
         <div className="w-100 row justify-fs">
           <InputFieldWithLabelInline
             inputName="reporting date"
-            className="px-4 py-1 fs-24"
-            labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px", height: "52px" }}
-            type="date"
             register={register}
+            type="date"
+            label={true}
+            className="px-4 py-1 fs-24"
+            labelWidth="250px"
+            inputWidth="300px"
+            inputHeight="52px"
             warning={allValues["reporting date"] ? false : true}
           />
         </div>
@@ -316,11 +323,12 @@ const Edit = (props: Props) => {
         <div className="w-100 row justify-fe">
           <InputFieldWithLabelInline
             inputName="password"
-            className="px-4 py-1 fs-24"
-            labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px" }}
-            type="password"
             register={register}
+            type="password"
+            label={true}
+            className="px-4 py-1 fs-24"
+            labelWidth="250px"
+            inputWidth="300px"
             warning={allValues["password"] ? false : true}
           />
         </div>
@@ -329,11 +337,12 @@ const Edit = (props: Props) => {
         <div className="w-100 row justify-fs">
           <InputFieldWithLabelInline
             inputName="confirm password"
-            className="px-4 py-1 fs-24"
-            labelWidth={{ width: "250px" }}
-            inputWidth={{ width: "300px" }}
-            type="password"
             register={register}
+            type="password"
+            label={true}
+            className="px-4 py-1 fs-24"
+            labelWidth="250px"
+            inputWidth="300px"
             warning={allValues["confirm password"] ? false : true}
           />
         </div>
