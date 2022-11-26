@@ -76,14 +76,20 @@ const Overview = () => {
               <div className="fw-600">% Complete</div>
             </div>
             <div className="grid gc-2">
-              {catCTrainees.map((element, index) => {
-                return (
-                  <Fragment key={index}>
-                    <p>{`${element.rank} ${element.full_name}`}</p>
-                    <p>xxx%</p>
-                  </Fragment>
-                );
-              })}
+              {catCTrainees.length === 0 ? (
+                <p style={{ gridColumn: "span 2" }}>No Trainees</p>
+              ) : (
+                <>
+                  {catCTrainees.map((element, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <p>{`${element.rank} ${element.full_name}`}</p>
+                        <p>xxx%</p>
+                      </Fragment>
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
           <div className="col gap-16">
@@ -97,14 +103,20 @@ const Overview = () => {
               <div className="fw-600">% Complete</div>
             </div>
             <div className="grid gc-2">
-              {catBTrainees.map((element, index) => {
-                return (
-                  <Fragment key={index}>
-                    <p>{`${element.rank} ${element.full_name}`}</p>
-                    <p>xxx%</p>
-                  </Fragment>
-                );
-              })}
+              {catBTrainees.length === 0 ? (
+                <p style={{ gridColumn: "span 2" }}>No Trainees</p>
+              ) : (
+                <>
+                  {catBTrainees.map((element, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <p>{`${element.rank} ${element.full_name}`}</p>
+                        <p>xxx%</p>
+                      </Fragment>
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
           <div className="col gap-16">
@@ -118,14 +130,20 @@ const Overview = () => {
               <div className="fw-600">% Complete</div>
             </div>
             <div className="grid gc-2">
-              {catATrainees.map((element, index) => {
-                return (
-                  <Fragment key={index}>
-                    <p>{`${element.rank} ${element.full_name}`}</p>
-                    <p>xxx%</p>
-                  </Fragment>
-                );
-              })}
+              {catATrainees.length === 0 ? (
+                <p style={{ gridColumn: "span 2" }}>No Trainees</p>
+              ) : (
+                <>
+                  {catATrainees.map((element, index) => {
+                    return (
+                      <Fragment key={index}>
+                        <p>{`${element.rank} ${element.full_name}`}</p>
+                        <p>xxx%</p>
+                      </Fragment>
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </div>
