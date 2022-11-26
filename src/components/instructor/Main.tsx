@@ -19,11 +19,10 @@ const Main = () => {
           toggleNavButton={toggleNavButton}
         />
       </div>
-      <div className="section__container-light">
-        {selectedButton === "overview" && <Overview />}
-        {selectedButton === "trainees" && <Trainees />}
-        {selectedButton === "positions" && <Positions />}
-      </div>
+
+      {selectedButton === "overview" && <Overview />}
+      {selectedButton === "trainees" && <Trainees />}
+      {selectedButton === "positions" && <Positions />}
     </>
   );
 };
