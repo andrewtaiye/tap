@@ -28,7 +28,6 @@ const Overview = () => {
       const res = await fetchCall(url, accessToken.current);
 
       const trainees = res.data.trainees;
-      console.log(trainees);
 
       const catC = [];
       const catB = [];
