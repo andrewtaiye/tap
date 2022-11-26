@@ -57,6 +57,10 @@ a {
   padding-block: 64px;
 }
 
+.instructor__overview__container {
+  width: 1366px;
+}
+
 /* ======================= */
 /*       Components        */
 /* ======================= */

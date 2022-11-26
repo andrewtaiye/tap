@@ -53,78 +53,80 @@ const Overview = () => {
   }, []);
 
   return (
-    <div className="section__container-light">
-      <div className="col mb-4">
-        <p className="bebas fs-48">Instructor Dashboard</p>
-        <p className="fs-24 fw-600">
-          Current Number of Trainees:{" "}
-          <span className="fw-400">
-            {catCTrainees.length + catBTrainees.length + catATrainees.length}
-          </span>
-        </p>
-      </div>
-      <div className="grid gc-3 px-8 gap-32 fs-24">
-        <div className="col gap-16">
-          <p className="fw-600">
-            CAT C Upgrades:{" "}
-            <span className="fw-400">{catCTrainees.length}</span>
+    <div className="row section__container-light">
+      <div className="instructor__overview__container">
+        <div className="col mb-4">
+          <p className="bebas fs-48">Instructor Dashboard</p>
+          <p className="fs-24 fw-600">
+            Current Number of Trainees:{" "}
+            <span className="fw-400">
+              {catCTrainees.length + catBTrainees.length + catATrainees.length}
+            </span>
           </p>
-          <div>Aggregated Chart</div>
-          <div className="grid gc-2 gap-16">
-            <div className="col fw-600">Trainees</div>
-            <div className="col fw-600">% Complete</div>
-          </div>
-          <div className="grid gc-2">
-            {catCTrainees.map((element, index) => {
-              return (
-                <Fragment key={index}>
-                  <p>{`${element.rank} ${element.full_name}`}</p>
-                  <p>xxx%</p>
-                </Fragment>
-              );
-            })}
-          </div>
         </div>
-        <div className="col gap-16">
-          <p className="fw-600">
-            CAT B Upgrades:{" "}
-            <span className="fw-400">{catBTrainees.length}</span>
-          </p>
-          <div>Aggregated Chart</div>
-          <div className="grid gc-2 gap-16">
-            <div className="col fw-600">Trainees</div>
-            <div className="col fw-600">% Complete</div>
+        <div className="grid gc-3 px-8 gap-32 fs-24">
+          <div className="col gap-16">
+            <p className="fw-600">
+              CAT C Upgrades:{" "}
+              <span className="fw-400">{catCTrainees.length}</span>
+            </p>
+            <div>Aggregated Chart</div>
+            <div className="grid gc-2 gap-16">
+              <div className="fw-600">Trainees</div>
+              <div className="fw-600">% Complete</div>
+            </div>
+            <div className="grid gc-2">
+              {catCTrainees.map((element, index) => {
+                return (
+                  <Fragment key={index}>
+                    <p>{`${element.rank} ${element.full_name}`}</p>
+                    <p>xxx%</p>
+                  </Fragment>
+                );
+              })}
+            </div>
           </div>
-          <div className="grid gc-2">
-            {catBTrainees.map((element, index) => {
-              return (
-                <Fragment key={index}>
-                  <p>{`${element.rank} ${element.full_name}`}</p>
-                  <p>xxx%</p>
-                </Fragment>
-              );
-            })}
+          <div className="col gap-16">
+            <p className="fw-600">
+              CAT B Upgrades:{" "}
+              <span className="fw-400">{catBTrainees.length}</span>
+            </p>
+            <div>Aggregated Chart</div>
+            <div className="grid gc-2 gap-16">
+              <div className="fw-600">Trainees</div>
+              <div className="fw-600">% Complete</div>
+            </div>
+            <div className="grid gc-2">
+              {catBTrainees.map((element, index) => {
+                return (
+                  <Fragment key={index}>
+                    <p>{`${element.rank} ${element.full_name}`}</p>
+                    <p>xxx%</p>
+                  </Fragment>
+                );
+              })}
+            </div>
           </div>
-        </div>
-        <div className="col gap-16">
-          <p className="fw-600">
-            CAT A Upgrades:{" "}
-            <span className="fw-400">{catATrainees.length}</span>
-          </p>
-          <div>Aggregated Chart</div>
-          <div className="grid gc-2 gap-16">
-            <div className="col fw-600">Trainees</div>
-            <div className="col fw-600">% Complete</div>
-          </div>
-          <div className="grid gc-2">
-            {catATrainees.map((element, index) => {
-              return (
-                <Fragment key={index}>
-                  <p>{`${element.rank} ${element.full_name}`}</p>
-                  <p>xxx%</p>
-                </Fragment>
-              );
-            })}
+          <div className="col gap-16">
+            <p className="fw-600">
+              CAT A Upgrades:{" "}
+              <span className="fw-400">{catATrainees.length}</span>
+            </p>
+            <div>Aggregated Chart</div>
+            <div className="grid gc-2 gap-16">
+              <div className="fw-600">Trainees</div>
+              <div className="fw-600">% Complete</div>
+            </div>
+            <div className="grid gc-2">
+              {catATrainees.map((element, index) => {
+                return (
+                  <Fragment key={index}>
+                    <p>{`${element.rank} ${element.full_name}`}</p>
+                    <p>xxx%</p>
+                  </Fragment>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
