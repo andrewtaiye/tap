@@ -22,7 +22,7 @@ const Main = () => {
       </div>
 
       {selectedButton === "overview" && <Overview />}
-      {selectedButton === "trainees" && <Personnel />}
+      {selectedButton === "personnel" && <Personnel />}
       {selectedButton === "positions" && <Positions />}
     </>
   );
