@@ -44,6 +44,14 @@
   justify-content: space-around !important;
 }
 
+.align-fs {
+  align-items: flex-start;
+}
+
+.align-fe {
+  align-items: flex-end;
+}
+
 .alignSelf-end {
   align-self: flex-end;
 }
