@@ -26,12 +26,12 @@ const NavBar = (props: Props) => {
           mode="nav"
           type="button"
           className={`fs-24${
-            props.selectedButton === "trainees" ? " selected" : ""
+            props.selectedButton === "personnel" ? " selected" : ""
           }`}
           onClick={props.toggleNavButton}
-          name="trainees"
+          name="personnel"
         >
-          Trainees
+          Personnel
         </Button>
         <Button
           mode="nav"
