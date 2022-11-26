@@ -61,6 +61,10 @@ a {
   width: 1366px;
 }
 
+.instructor__personnel-position-container {
+  width: 1366px;
+}
+
 /* ======================= */
 /*       Components        */
 /* ======================= */
@@ -413,4 +417,10 @@ td {
 
 .table__assessments {
   width: max(100%, 1153px);
+}
+
+/* ------- Scenario Checklist ------- */
+
+.scenario-checklist__label {
+  width: 100px;
 }
