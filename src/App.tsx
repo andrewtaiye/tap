@@ -8,7 +8,7 @@ import "./styles/utility.css";
 
 import GlobalVariables, {
   UserProfile,
-  UserPositions,
+  UserPosition,
 } from "./context/GlobalVariables";
 import { PositionAssessment } from "./context/GlobalVariables";
 import { fetchCall } from "./components/generic/utility";
@@ -35,7 +35,7 @@ const App = () => {
   const [userId, setUserId] = useState("");
   const [hasProfile, setHasProfile] = useState(false);
   const [userProfile, setUserProfile] = useState<UserProfile>({});
-  const [userPositions, setUserPositions] = useState<UserPositions[]>([]);
+  const [userPositions, setUserPositions] = useState<UserPosition[]>([]);
   const [positionAssessments, setPositionAssessments] = useState<
     PositionAssessment[]
   >([]);

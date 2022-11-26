@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 
-import GlobalVariables, { UserPositions } from "../../context/GlobalVariables";
+import GlobalVariables, { UserPosition } from "../../context/GlobalVariables";
 import { PositionAssessment } from "../../context/GlobalVariables";
 import { fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
@@ -40,7 +40,7 @@ const Main = (props: Props) => {
 
       if (!res.data) return;
 
-      res.data.positions.sort((a: UserPositions, b: UserPositions) => {
+      res.data.positions.sort((a: UserPosition, b: UserPosition) => {
         if (a.position! < b.position!) {
           return -1;
         }

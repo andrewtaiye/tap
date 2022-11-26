@@ -4,14 +4,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import dayjs from "dayjs";
 
 import { fetchCall } from "../generic/utility";
-import GlobalVariables, { UserPositions } from "../../context/GlobalVariables";
+import GlobalVariables, { UserPosition } from "../../context/GlobalVariables";
 import { ModalState } from "../generic/Modal";
 
 import InputFieldWithLabelInline from "../generic/InputFieldWithLabelInline";
 import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 import Button from "../generic/Button";
 
-interface Data extends UserPositions {
+interface Data extends UserPosition {
   index?: number;
 }
 
@@ -107,7 +107,7 @@ const Position = (props: Props) => {
         // Position Create API Call
         const url =
           process.env.REACT_APP_API_ENDPOINT + `user_position/create/${userId}`;
-        const body: UserPositions = {
+        const body: UserPosition = {
           position: data["position"],
           start_date: dayjs(data["start date"]).unix(),
           end_date: dayjs(data["end date"]).unix(),
@@ -134,7 +134,7 @@ const Position = (props: Props) => {
         body.user_id = userId;
         body.is_instructor = false;
 
-        setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
+        setUserPositions?.((prevState: UserPosition[]): UserPosition[] => {
           const array = [...prevState, body];
           array.sort((a, b) => {
             if (a.start_date! < b.start_date!) {
@@ -157,7 +157,7 @@ const Position = (props: Props) => {
         const url =
           process.env.REACT_APP_API_ENDPOINT +
           `user_position/update/${props.data?.id}`;
-        const body: UserPositions = {
+        const body: UserPosition = {
           user_id: userId,
           position: data["position"],
           start_date: dayjs(data["start date"]).unix(),
@@ -180,7 +180,7 @@ const Position = (props: Props) => {
         body.id = props.data?.id;
         body.is_instructor = props.data?.is_instructor;
 
-        setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
+        setUserPositions?.((prevState: UserPosition[]): UserPosition[] => {
           const array = [...prevState];
           if (typeof props.data?.index === "number") {
             array.splice(props.data?.index, 1, body);
@@ -212,7 +212,7 @@ const Position = (props: Props) => {
         console.error(res);
       }
 
-      setUserPositions?.((prevState: UserPositions[]): UserPositions[] => {
+      setUserPositions?.((prevState: UserPosition[]): UserPosition[] => {
         const array = [...prevState];
         if (typeof props.data?.index === "number") {
           array.splice(props.data?.index, 1);

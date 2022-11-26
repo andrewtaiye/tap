@@ -13,7 +13,7 @@ export interface UserProfile {
   cat?: string;
 }
 
-export interface UserPositions {
+export interface UserPosition {
   id?: string;
   user_id?: string;
   position?: string;
@@ -56,7 +56,7 @@ export interface GlobalVariableType {
   userId?: string;
   hasProfile?: boolean;
   userProfile?: UserProfile;
-  userPositions?: UserPositions[];
+  userPositions?: UserPosition[];
   positionAssessments?: PositionAssessment[];
   isInstructor?: boolean;
   isAdmin?: boolean;
@@ -70,7 +70,7 @@ export interface GlobalVariableType {
     callback: UserProfile | ((object: UserProfile) => UserProfile)
   ) => void;
   setUserPositions?: (
-    callback: UserPositions[] | ((array: UserPositions[]) => UserPositions[])
+    callback: UserPosition[] | ((array: UserPosition[]) => UserPosition[])
   ) => void;
   setPositionAssessments?: (
     callback:
