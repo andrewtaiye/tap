@@ -101,6 +101,46 @@
   gap: 64px;
 }
 
+.c-gap-8 {
+  column-gap: 8px;
+}
+
+.c-gap-16 {
+  column-gap: 16px;
+}
+
+.c-gap-32 {
+  column-gap: 32px;
+}
+
+.c-gap-48 {
+  column-gap: 48px;
+}
+
+.c-gap-64 {
+  column-gap: 64px;
+}
+
+.r-gap-8 {
+  row-gap: 8px;
+}
+
+.r-gap-16 {
+  row-gap: 16px;
+}
+
+.r-gap-32 {
+  row-gap: 32px;
+}
+
+.r-gap-48 {
+  row-gap: 48px;
+}
+
+.r-gap-64 {
+  row-gap: 64px;
+}
+
 .mt-1 {
   margin-top: 8px !important;
 }
