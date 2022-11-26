@@ -22,6 +22,7 @@ export interface UserPositions {
   approval_date?: number;
   is_revalidation?: boolean;
   is_instructor?: boolean;
+  cat_upgrade?: string;
 }
 
 export interface PositionAssessment {

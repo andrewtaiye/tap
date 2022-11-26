@@ -31,6 +31,7 @@ const Position = (props: Props) => {
     "end date"?: string;
     "approval date"?: string;
     revalidation: boolean;
+    "cat upgrade"?: string;
   }
 
   let defaultValues = {};
@@ -47,6 +48,7 @@ const Position = (props: Props) => {
         ? dayjs.unix(props.data?.approval_date as number).format("YYYY-MM-DD")
         : null,
       revalidation: props.data?.is_revalidation,
+      "cat upgrade": props.data?.cat_upgrade,
     };
   }
 
@@ -111,6 +113,10 @@ const Position = (props: Props) => {
           end_date: dayjs(data["end date"]).unix(),
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
+          cat_upgrade:
+            data["cat upgrade"] === "default" || data["cat upgrade"] === "na"
+              ? ""
+              : data["cat upgrade"],
         };
         let res = await fetchCall(url, accessToken.current, "PUT", body);
 
@@ -226,50 +232,53 @@ const Position = (props: Props) => {
         {props.subtype === "edit" ? "Edit Position" : "Add New Position"}
       </p>
       <form className="modal__position-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="row mb-2 px-4">
-          <div
-            className="row justify-fe gap-8 pr-4 py-1"
-            style={{ textAlign: "right", width: "176px" }}
-          >
-            <p className="fs-24 fw-600">Position</p>
-
-            {(allValues["position"] === "default" ||
-              !allValues["position"]) && (
-              <Warning
-                className="error"
-                style={{ width: "20px", height: "20px" }}
-              />
-            )}
-          </div>
-          <span style={{ display: "inline-block", flex: "1 1 auto" }}>
-            <select
-              className={`fs-24 px-4 py-1${
-                allValues["position"] === "default" || !allValues["position"]
-                  ? " placeholder"
-                  : ""
-              }`}
-              style={{
-                width: "100%",
-                textAlign: "left",
-                appearance: "none",
-              }}
-              {...register("position")}
-              defaultValue="default"
+        <div className="grid gc-2 c-gap-32 r-gap-16 px-4 mb-2">
+          {/* Position Input */}
+          <div className="row">
+            <div
+              className="row justify-fe gap-8 pr-4 py-1"
+              style={{ textAlign: "right", width: "176px" }}
             >
-              <option value="default" disabled>
-                - Select Position -
-              </option>
-              {positions?.map((element, index) => {
-                return (
-                  <option key={index} value={element}>
-                    {element}
-                  </option>
-                );
-              })}
-            </select>
-          </span>
-        </div>
-        <div className="row justify-sb gap-64 mb-2 px-4">
+              <p className="fs-24 fw-600">Position</p>
+
+              {(allValues["position"] === "default" ||
+                !allValues["position"]) && (
+                <Warning
+                  className="error"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              )}
+            </div>
+            <span style={{ display: "inline-block", flex: 1 }}>
+              <select
+                className={`fs-24 px-4 py-1${
+                  allValues["position"] === "default" || !allValues["position"]
+                    ? " placeholder"
+                    : ""
+                }`}
+                style={{
+                  width: "100%",
+                  textAlign: "left",
+                  appearance: "none",
+                }}
+                {...register("position")}
+                defaultValue="default"
+              >
+                <option value="default" disabled>
+                  - Select Position -
+                </option>
+                {positions?.map((element, index) => {
+                  return (
+                    <option key={index} value={element}>
+                      {element}
+                    </option>
+                  );
+                })}
+              </select>
+            </span>
+          </div>
+
+          {/* Start Date Input */}
           <InputFieldWithLabelInline
             inputName="start date"
             register={register}
@@ -281,10 +290,11 @@ const Position = (props: Props) => {
                 : ""
             }`}
             labelWidth="176px"
-            inputWidth="278px"
             inputHeight="52px"
             warning={allValues["start date"] ? false : true}
           />
+
+          {/* End Date Input */}
           <InputFieldWithLabelInline
             inputName="end date"
             register={register}
@@ -299,8 +309,8 @@ const Position = (props: Props) => {
             inputWidth="278px"
             inputHeight="52px"
           />
-        </div>
-        <div className="row justify-sb gap-64 mb-2 px-4">
+
+          {/* Approval Date Input */}
           <InputFieldWithLabelInline
             inputName="approval date"
             register={register}
@@ -317,6 +327,7 @@ const Position = (props: Props) => {
             inputHeight="52px"
           />
 
+          {/* Revalidation Input */}
           <div className="row w-100">
             <p
               className="fs-24 fw-600 py-1 pr-4"
@@ -334,7 +345,46 @@ const Position = (props: Props) => {
               />
             </div>
           </div>
+
+          {/* CAT Upgrade Input */}
+          <div className="row">
+            <div
+              className="row justify-fe gap-8 pr-4 py-1"
+              style={{ textAlign: "right", width: "176px" }}
+            >
+              <p className="fs-24 fw-600">CAT Upgrade</p>
+            </div>
+            <span style={{ display: "inline-block", flex: 1 }}>
+              <select
+                className={`fs-24 px-4 py-1${
+                  allValues["cat upgrade"] === "default" ||
+                  !allValues["cat upgrade"]
+                    ? " placeholder"
+                    : ""
+                }`}
+                style={{
+                  width: "100%",
+                  textAlign: "left",
+                  appearance: "none",
+                }}
+                {...register("cat upgrade")}
+                defaultValue="default"
+              >
+                <option value="default" disabled>
+                  - Select CAT -
+                </option>
+                <option value="na">N.A.</option>
+                <option value="CNX">CNX</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+              </select>
+            </span>
+          </div>
+
+          {/* End of Grid */}
         </div>
+
         <div className="row justify-sb px-4">
           <p className="error fs-24" style={{ paddingLeft: "176px" }}>
             {errorMessage ? `Error: ${errorMessage}` : null}
