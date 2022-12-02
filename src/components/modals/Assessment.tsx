@@ -20,8 +20,13 @@ interface Props {
   data?: any;
 }
 
+interface ScenarioCount {
+  scenario_number: number;
+}
+
 const Assessment = (props: Props) => {
   const { accessToken, setPositionAssessments } = useContext(GlobalVariables);
+  const [scenarioCount, setScenarioCount] = useState<ScenarioCount[]>([]);
 
   interface PositionInputs {
     position: string;
@@ -45,6 +50,7 @@ const Assessment = (props: Props) => {
     safety: string;
     simulator: boolean;
     remarks: string;
+    [key: `scenario${number}`]: boolean;
   }
 
   let defaultValues = {};
@@ -82,8 +88,24 @@ const Assessment = (props: Props) => {
     defaultValues,
   });
   const allValues = watch();
+  console.log(allValues);
 
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const url =
+        process.env.REACT_APP_API_ENDPOINT +
+        `assessment/get/scenarios/${props.data.position}`;
+      let res = await fetchCall(url, accessToken.current);
+
+      if (!res.data) {
+        return;
+      }
+
+      setScenarioCount(res.data.scenario_count);
+    })();
+  }, []);
 
   useEffect(() => {
     if (
@@ -456,7 +478,7 @@ const Assessment = (props: Props) => {
                   {...register("simulator")}
                   type="checkbox"
                   id="reval-checkbox"
-                  className="modal__position-reval-checkbox"
+                  className="input__radio-checkbox"
                 />
               </div>
             </div>
@@ -664,46 +686,44 @@ const Assessment = (props: Props) => {
           </div>
 
           {/* Safety Input */}
-          <div className="row justify-sb mb-2">
-            <div className="row">
-              <div
-                className="row justify-fe gap-8 pr-4 py-1"
-                style={{ textAlign: "right", width: "164px" }}
-              >
-                <p className="fs-24 fw-600">Safety</p>
+          <div className="w-100 row justify-fs mb-2">
+            <div
+              className="row justify-fe gap-8 pr-4 py-1"
+              style={{ textAlign: "right", width: "164px" }}
+            >
+              <p className="fs-24 fw-600">Safety</p>
 
-                {!allValues["safety"] && (
-                  <Warning
-                    className="error"
-                    style={{ width: "20px", height: "20px" }}
-                  />
-                )}
-              </div>
+              {!allValues["safety"] && (
+                <Warning
+                  className="error"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              )}
+            </div>
 
-              <div className="row justify-fs gap-16 pr-4">
-                <input
-                  className="modal__position-reval-checkbox"
-                  type="radio"
-                  id="safety-radio-pass"
-                  value="pass"
-                  {...register("safety")}
-                />
-                <label className="fs-24" htmlFor="safety-radio-pass">
-                  Pass
-                </label>
-              </div>
-              <div className="row justify-fs gap-16">
-                <input
-                  className="modal__position-reval-checkbox"
-                  type="radio"
-                  id="safety-radio-fail"
-                  value="fail"
-                  {...register("safety")}
-                />
-                <label className="fs-24" htmlFor="safety-radio-fail">
-                  Fail
-                </label>
-              </div>
+            <div className="row justify-fs gap-16 pr-4">
+              <input
+                className="input__radio-checkbox"
+                type="radio"
+                id="safety-radio-pass"
+                value="pass"
+                {...register("safety")}
+              />
+              <label className="fs-24" htmlFor="safety-radio-pass">
+                Pass
+              </label>
+            </div>
+            <div className="row justify-fs gap-16">
+              <input
+                className="input__radio-checkbox"
+                type="radio"
+                id="safety-radio-fail"
+                value="fail"
+                {...register("safety")}
+              />
+              <label className="fs-24" htmlFor="safety-radio-fail">
+                Fail
+              </label>
             </div>
           </div>
 
@@ -729,6 +749,34 @@ const Assessment = (props: Props) => {
               {...register("remarks")}
             ></textarea>
           </div>
+
+          {/* Scenarios Achieved */}
+          <div className="row mb-2">
+            <div
+              className="row justify-fe gap-8 pr-4 py-1"
+              style={{ textAlign: "right", width: "164px" }}
+            >
+              <p className="fs-24 fw-600">Scenarios</p>
+            </div>
+            <div className="flex grid gc-10 gap-16">
+              {scenarioCount.map((element, index) => {
+                return (
+                  <div className="row" key={index}>
+                    <label className="row input__assessment-modal__scenario-checkbox">
+                      <span>{element.scenario_number}</span>
+                      <input
+                        style={{ display: "none" }}
+                        type="checkbox"
+                        {...register(`scenario${element.scenario_number}`)}
+                      />
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Error Message and Submit / Update & Delete Buttons */}
           <div className="row justify-sb">
             <p className="error fs-24" style={{ paddingLeft: "164px" }}>
               {errorMessage ? `Error: ${errorMessage}` : null}

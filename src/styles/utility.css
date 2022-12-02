@@ -85,6 +85,10 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+.gc-10 {
+  grid-template-columns: repeat(10, 1fr);
+}
+
 .gc-s-2 {
   grid-column: span 2;
 }

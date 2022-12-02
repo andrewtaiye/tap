@@ -344,7 +344,7 @@ const Position = (props: Props) => {
               <input
                 type="checkbox"
                 id="reval-checkbox"
-                className="modal__position-reval-checkbox"
+                className="input__radio-checkbox"
                 {...register("revalidation")}
               />
             </div>

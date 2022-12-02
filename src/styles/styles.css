@@ -80,7 +80,8 @@ a {
 }
 
 .visually-hidden {
-  display: none;
+  visibility: hidden;
+  appearance: none;
 }
 
 .placeholder {
@@ -264,6 +265,36 @@ textarea {
   background-color: rgb(var(--grey));
 }
 
+.input__radio-checkbox {
+  appearance: none;
+  height: 17px;
+  width: 17px;
+  outline: 1px solid rgb(var(--black));
+  outline-offset: 3px;
+  margin-left: 3px;
+  border-radius: 50%;
+}
+
+.input__radio-checkbox:checked {
+  background-color: rgb(var(--grey));
+}
+
+.input__assessment-modal__scenario-checkbox {
+  appearance: none;
+  height: 24px;
+  width: 24px;
+  border: 1px solid rgb(var(--black));
+  border-radius: 50%;
+  user-select: none;
+}
+
+.input__assessment-modal__scenario-checkbox:has(input:checked) {
+  background-color: rgb(var(--lightGrey));
+  border: 1px solid rgb(var(--lightGrey));
+  outline: 1px solid rgb(var(--black));
+  outline-offset: 5px;
+}
+
 /* ------- Header ------- */
 
 .header {
@@ -343,20 +374,6 @@ textarea {
 .modal__position-form {
   width: 100%;
   display: inline-block;
-}
-
-.modal__position-reval-checkbox {
-  appearance: none;
-  height: 17px;
-  width: 17px;
-  outline: 1px solid rgb(var(--black));
-  outline-offset: 3px;
-  margin-left: 3px;
-  border-radius: 50%;
-}
-
-.modal__position-reval-checkbox:checked {
-  background-color: rgb(var(--grey));
 }
 
 .modal__assessments-container {
