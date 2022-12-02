@@ -39,7 +39,7 @@ const Positions = () => {
     try {
       if (addNew) {
         const url = process.env.REACT_APP_API_ENDPOINT + `admin/put/position`;
-        const body = { position: data.position };
+        const body = { position: data.position.toUpperCase() };
         let res = await fetchCall(url, accessToken.current, "PUT", body);
 
         if (res.status === "authErr") {
@@ -72,7 +72,7 @@ const Positions = () => {
         process.env.REACT_APP_API_ENDPOINT +
         `admin/patch/positions/${isEdit.position}`;
       const body = {
-        newPosition: data.position,
+        newPosition: data.position.toUpperCase(),
       };
       let res = await fetchCall(url, accessToken.current, "PATCH", body);
 

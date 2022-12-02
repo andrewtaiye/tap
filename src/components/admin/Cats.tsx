@@ -39,7 +39,7 @@ const Cats = () => {
     try {
       if (addNew) {
         const url = process.env.REACT_APP_API_ENDPOINT + `admin/put/cat`;
-        const body = { cat: data.cat };
+        const body = { cat: data.cat.toUpperCase() };
         let res = await fetchCall(url, accessToken.current, "PUT", body);
 
         if (res.status === "authErr") {
@@ -71,7 +71,7 @@ const Cats = () => {
       const url =
         process.env.REACT_APP_API_ENDPOINT + `admin/patch/cats/${isEdit.cat}`;
       const body = {
-        newCat: data.cat,
+        newCat: data.cat.toUpperCase(),
       };
       let res = await fetchCall(url, accessToken.current, "PATCH", body);
 

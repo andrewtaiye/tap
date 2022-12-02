@@ -87,8 +87,8 @@ const Users = () => {
         `admin/patch/users/${isEdit.user.id}`;
       const body = {
         rank: data.rank,
-        full_name: data.full_name,
-        username: data.username,
+        full_name: data.full_name.toLowerCase(),
+        username: data.username.toLowerCase(),
         password: data.password,
         is_admin: data.is_admin,
       };

@@ -246,7 +246,7 @@ const Assessment = (props: Props) => {
         const body: PositionAssessment = {
           user_position_id: props.data.user_position_id,
           assessment_number: data["assessment no"],
-          instructor: data["instructor"],
+          instructor: data["instructor"].toLowerCase(),
           date: dayjs(data["date"]).unix(),
           intensity: data["intensity"],
           objective1: data["objectives"],

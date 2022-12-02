@@ -39,7 +39,7 @@ const Ranks = () => {
     try {
       if (addNew) {
         const url = process.env.REACT_APP_API_ENDPOINT + `admin/put/rank`;
-        const body = { rank: data.rank };
+        const body = { rank: data.rank.toUpperCase() };
         let res = await fetchCall(url, accessToken.current, "PUT", body);
 
         if (res.status === "authErr") {
@@ -71,7 +71,7 @@ const Ranks = () => {
       const url =
         process.env.REACT_APP_API_ENDPOINT + `admin/patch/ranks/${isEdit.rank}`;
       const body = {
-        newRank: data.rank,
+        newRank: data.rank.toUpperCase(),
       };
       let res = await fetchCall(url, accessToken.current, "PATCH", body);
 

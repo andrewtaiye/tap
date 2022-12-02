@@ -39,7 +39,7 @@ const Flights = () => {
     try {
       if (addNew) {
         const url = process.env.REACT_APP_API_ENDPOINT + `admin/put/flight`;
-        const body = { flight: data.flight };
+        const body = { flight: data.flight.toUpperCase() };
         let res = await fetchCall(url, accessToken.current, "PUT", body);
 
         if (res.status === "authErr") {
@@ -72,7 +72,7 @@ const Flights = () => {
         process.env.REACT_APP_API_ENDPOINT +
         `admin/patch/flights/${isEdit.flight}`;
       const body = {
-        newFlight: data.flight,
+        newFlight: data.flight.toUpperCase(),
       };
       let res = await fetchCall(url, accessToken.current, "PATCH", body);
 

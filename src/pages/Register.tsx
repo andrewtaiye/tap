@@ -57,7 +57,7 @@ const Register = () => {
       // User Create API Call
       const url = process.env.REACT_APP_API_ENDPOINT + `user/create`;
       const body = {
-        username: data["username"],
+        username: data["username"].toLowerCase(),
         password: data["password"],
         confirm_password: data["confirm password"],
       };

@@ -76,9 +76,9 @@ const Create = () => {
       const body = {
         userId: userId,
         rank: data["rank"],
-        full_name: data["full name"],
+        full_name: data["full name"].toLowerCase(),
         date_of_birth: dayjs(data["date of birth"]).unix(),
-        id_number: data["identification number"],
+        id_number: data["identification number"].toLowerCase(),
         enlistmentDate: dayjs(data["date accepted"]).unix(),
         postInDate: dayjs(data["reporting date"]).unix(),
         flight: data["flight"],

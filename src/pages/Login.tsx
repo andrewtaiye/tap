@@ -34,7 +34,7 @@ const Login = () => {
       // User Login API Call
       let url = process.env.REACT_APP_API_ENDPOINT + `user/login`;
       let body = {
-        username: data["username"],
+        username: data["username"].toLowerCase(),
         password: data["password"],
       };
       let res = await fetchCall(url, "", "POST", body);
