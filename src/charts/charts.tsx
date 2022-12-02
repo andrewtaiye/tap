@@ -49,9 +49,9 @@ export function LineChart(
   const yScale: any = yType(yDomain, yRange);
   const xAxis: any = d3
     .axisBottom(xScale)
-    .ticks(data.length - 1)
+    .ticks(Math.min(data.length - 1, 20))
     .tickSizeOuter(0);
-  const yAxis: any = d3.axisLeft(yScale).ticks(height / 40, yFormat);
+  const yAxis: any = d3.axisLeft(yScale).ticks(10);
 
   // Construct a line generator.
   const line: any = d3
