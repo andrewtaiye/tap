@@ -164,6 +164,10 @@ const Position = (props: Props) => {
           end_date: dayjs(data["end date"]).unix(),
           approval_date: dayjs(data["approval date"]).unix(),
           is_revalidation: data["revalidation"],
+          cat_upgrade:
+            data["cat upgrade"] === "default" || data["cat upgrade"] === "na"
+              ? ""
+              : data["cat upgrade"],
         };
         let res = await fetchCall(url, accessToken.current, "PATCH", body);
 
