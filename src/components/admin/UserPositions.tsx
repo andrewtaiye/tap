@@ -4,8 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import dayjs from "dayjs";
 
 import GlobalVariables from "../../context/GlobalVariables";
+import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
+
 import Button from "../generic/Button";
-import { fetchCall } from "../generic/utility";
 
 interface UserPosition {
   approval_date: number;
@@ -298,7 +299,7 @@ const Row = (props: Props) => {
     <tr>
       <td>{props.index + 1}</td>
       <td>{props.userPosition.rank}</td>
-      <td>{props.userPosition.full_name}</td>
+      <td>{capitaliseFirstLetter(props.userPosition.full_name)}</td>
 
       {props.isEdit.index === props.index ? (
         <td>

@@ -4,8 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import jwt_decode from "jwt-decode";
 
 import GlobalVariables from "../../context/GlobalVariables";
+import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
+
 import Button from "../generic/Button";
-import { fetchCall } from "../generic/utility";
 
 interface User {
   full_name: string;
@@ -263,7 +264,7 @@ const Row = (props: Props) => {
           <input type="text" {...props.register("full_name")} />
         </td>
       ) : (
-        <td>{props.user.full_name}</td>
+        <td>{capitaliseFirstLetter(props.user.full_name)}</td>
       )}
 
       {props.isEdit.index === props.index ? (

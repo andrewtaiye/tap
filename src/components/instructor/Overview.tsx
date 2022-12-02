@@ -2,7 +2,7 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 
 import GlobalVariables from "../../context/GlobalVariables";
-import { fetchCall } from "../generic/utility";
+import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
 
 interface TraineeObject {
   cat_upgrade: string;
@@ -91,7 +91,9 @@ const Overview = () => {
                   {catCTrainees.map((element, index) => {
                     return (
                       <Fragment key={index}>
-                        <p>{`${element.rank} ${element.full_name}`}</p>
+                        <p>{`${element.rank} ${capitaliseFirstLetter(
+                          element.full_name
+                        )}`}</p>
                         <p>xxx%</p>
                       </Fragment>
                     );
@@ -127,7 +129,9 @@ const Overview = () => {
                   {catBTrainees.map((element, index) => {
                     return (
                       <Fragment key={index}>
-                        <p>{`${element.rank} ${element.full_name}`}</p>
+                        <p>{`${element.rank} ${capitaliseFirstLetter(
+                          element.full_name
+                        )}`}</p>
                         <p>xxx%</p>
                       </Fragment>
                     );
@@ -163,7 +167,9 @@ const Overview = () => {
                   {catATrainees.map((element, index) => {
                     return (
                       <Fragment key={index}>
-                        <p>{`${element.rank} ${element.full_name}`}</p>
+                        <p>{`${element.rank} ${capitaliseFirstLetter(
+                          element.full_name
+                        )}`}</p>
                         <p>xxx%</p>
                       </Fragment>
                     );
