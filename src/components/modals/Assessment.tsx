@@ -359,6 +359,7 @@ const Assessment = (props: Props) => {
 
       if (res.status !== "ok") {
         console.error(res);
+        return;
       }
 
       setPositionAssessments?.((prevState) => {
