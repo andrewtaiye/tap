@@ -49,6 +49,9 @@ export interface PositionAssessment {
   grade?: number;
   remarks: string;
   is_simulator: boolean;
+  scenarios: {
+    [key: `scenario${number}`]: boolean | string;
+  };
 }
 
 export interface GlobalVariableType {

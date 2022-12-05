@@ -20,13 +20,15 @@ interface Props {
   data?: any;
 }
 
-interface ScenarioCount {
+interface Scenarios {
   scenario_number: number;
+  id: string;
 }
 
 const Assessment = (props: Props) => {
-  const { accessToken, setPositionAssessments } = useContext(GlobalVariables);
-  const [scenarioCount, setScenarioCount] = useState<ScenarioCount[]>([]);
+  const { accessToken, positionAssessments, setPositionAssessments } =
+    useContext(GlobalVariables);
+  const [scenarios, setScenarios] = useState<Scenarios[]>([]);
 
   interface PositionInputs {
     position: string;
@@ -50,7 +52,9 @@ const Assessment = (props: Props) => {
     safety: string;
     simulator: boolean;
     remarks: string;
-    [key: `scenario${number}`]: boolean;
+    scenarios: {
+      [key: `scenario${number}`]: boolean | string;
+    };
   }
 
   let defaultValues = {};
@@ -77,10 +81,12 @@ const Assessment = (props: Props) => {
       safety: props.data.safety ? "pass" : "fail",
       simulator: props.data.is_simulator,
       remarks: props.data.remarks,
+      scenarios: props.data.scenarios,
     };
   } else if (props.subtype === "add") {
     defaultValues = {
       position: props.data.position,
+      "assessment no": positionAssessments!.length + 1,
     };
   }
 
@@ -88,7 +94,6 @@ const Assessment = (props: Props) => {
     defaultValues,
   });
   const allValues = watch();
-  console.log(allValues);
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -103,7 +108,8 @@ const Assessment = (props: Props) => {
         return;
       }
 
-      setScenarioCount(res.data.scenario_count);
+      console.log(res.data.scenarios);
+      setScenarios(res.data.scenarios);
     })();
   }, []);
 
@@ -215,6 +221,7 @@ const Assessment = (props: Props) => {
           safety: data["safety"] === "pass",
           is_simulator: data["simulator"],
           remarks: data["remarks"],
+          scenarios: data["scenarios"],
         };
         let res = await fetchCall(url, accessToken.current, "PUT", body);
 
@@ -287,6 +294,7 @@ const Assessment = (props: Props) => {
           safety: data["safety"] === "pass",
           is_simulator: data["simulator"],
           remarks: data["remarks"],
+          scenarios: data["scenarios"],
         };
         let res = await fetchCall(url, accessToken.current, "PATCH", body);
 
@@ -759,7 +767,7 @@ const Assessment = (props: Props) => {
               <p className="fs-24 fw-600">Scenarios</p>
             </div>
             <div className="flex grid gc-10 gap-16">
-              {scenarioCount.map((element, index) => {
+              {scenarios.map((element, index) => {
                 return (
                   <div className="row" key={index}>
                     <label className="row input__assessment-modal__scenario-checkbox">
@@ -767,7 +775,10 @@ const Assessment = (props: Props) => {
                       <input
                         style={{ display: "none" }}
                         type="checkbox"
-                        {...register(`scenario${element.scenario_number}`)}
+                        value={element.id}
+                        {...register(
+                          `scenarios.scenario${element.scenario_number}`
+                        )}
                       />
                     </label>
                   </div>
