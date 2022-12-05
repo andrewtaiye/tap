@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import dayjs from "dayjs";
 
@@ -33,6 +33,9 @@ const Assessment = (props: Props) => {
   const { accessToken, positionAssessments, setPositionAssessments } =
     useContext(GlobalVariables);
   const [scenarios, setScenarios] = useState<Scenarios[]>([]);
+  const [assessmentScenarios, setAssessmentScenarios] =
+    useState<AssessmentScenarios>({});
+  const resetTrigger = useRef<string | undefined>();
 
   interface PositionInputs {
     position: string;
@@ -83,7 +86,7 @@ const Assessment = (props: Props) => {
       safety: props.data.safety ? "pass" : "fail",
       simulator: props.data.is_simulator,
       remarks: props.data.remarks,
-      scenarios: props.data.scenarios,
+      scenarios: assessmentScenarios,
     };
   } else if (props.subtype === "add") {
     defaultValues = {
@@ -92,7 +95,7 @@ const Assessment = (props: Props) => {
     };
   }
 
-  const { register, handleSubmit, watch } = useForm<PositionInputs>({
+  const { register, handleSubmit, watch, reset } = useForm<PositionInputs>({
     defaultValues,
   });
   const allValues = watch();
@@ -106,14 +109,40 @@ const Assessment = (props: Props) => {
         `assessment/get/scenarios/${props.data.position}`;
       let res = await fetchCall(url, accessToken.current);
 
-      if (!res.data) {
+      if (res.status !== "ok") {
+        console.error(res.message);
         return;
       }
 
-      console.log(res.data.scenarios);
       setScenarios(res.data.scenarios);
     })();
+
+    (async () => {
+      const url =
+        process.env.REACT_APP_API_ENDPOINT +
+        `assessment/get/assessment_scenarios/${props.data.position}/${props.data.id}`;
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status !== "ok") {
+        console.error(res.message);
+        return;
+      }
+
+      const fetchedScenarios: AssessmentScenarios = {};
+
+      for (const scenario of res.data.assessment_scenarios) {
+        fetchedScenarios[`scenario${scenario.scenario_number}`] =
+          scenario.scenario_id;
+      }
+
+      resetTrigger.current = JSON.stringify(fetchedScenarios);
+      setAssessmentScenarios(fetchedScenarios);
+    })();
   }, []);
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [resetTrigger.current]);
 
   useEffect(() => {
     if (
