@@ -25,6 +25,10 @@ interface Scenarios {
   id: string;
 }
 
+interface AssessmentScenarios {
+  [key: `scenario${number}`]: boolean | string;
+}
+
 const Assessment = (props: Props) => {
   const { accessToken, positionAssessments, setPositionAssessments } =
     useContext(GlobalVariables);
@@ -52,9 +56,7 @@ const Assessment = (props: Props) => {
     safety: string;
     simulator: boolean;
     remarks: string;
-    scenarios: {
-      [key: `scenario${number}`]: boolean | string;
-    };
+    scenarios: AssessmentScenarios;
   }
 
   let defaultValues = {};
@@ -199,7 +201,7 @@ const Assessment = (props: Props) => {
         // Assessment Create API Call
         const url =
           process.env.REACT_APP_API_ENDPOINT +
-          `assessment/create/${props.data.positionId}`;
+          `assessment/create/${props.data.user_position_id}`;
         const body: PositionAssessment = {
           assessment_number: data["assessment no"],
           instructor: data["instructor"],
@@ -236,7 +238,7 @@ const Assessment = (props: Props) => {
         }
 
         body.id = res.data.assessment.id;
-        body.user_position_id = props.data.positionId;
+        body.user_position_id = props.data.user_position_id;
         body.grade = res.data.assessment.grade;
 
         setPositionAssessments?.((prevState) => {

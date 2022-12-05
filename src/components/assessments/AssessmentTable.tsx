@@ -22,7 +22,7 @@ const AssessmentTable = (props: Props) => {
     const modal = {
       type: "assessment",
       subtype: "add",
-      data: { position: position?.position, positionId: position?.id },
+      data: { position: position?.position, user_position_id: position?.id },
     };
     props.setModal(modal);
   };

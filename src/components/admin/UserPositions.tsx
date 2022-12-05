@@ -165,11 +165,11 @@ const UserPositions = () => {
     }
   };
 
-  const onDelete = async (positionId: string, index: number) => {
+  const onDelete = async (user_position_id: string, index: number) => {
     try {
       const url =
         process.env.REACT_APP_API_ENDPOINT +
-        `admin/delete/user_positions/${positionId}`;
+        `admin/delete/user_positions/${user_position_id}`;
       let res = await fetchCall(url, accessToken.current, "DELETE");
 
       if (res.status === "authErr") {
@@ -265,7 +265,7 @@ interface Props {
   register: any;
   isEdit: EditState;
   setIsEdit: (state: EditState) => void;
-  onDelete: (positionId: string, index: number) => void;
+  onDelete: (user_position_id: string, index: number) => void;
 }
 
 const Row = (props: Props) => {
