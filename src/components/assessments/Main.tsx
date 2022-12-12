@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import GlobalVariables, { UserPosition } from "../../context/GlobalVariables";
-import { PositionAssessment } from "../../context/GlobalVariables";
 import { fetchCall } from "../generic/utility";
 import { ModalState } from "../generic/Modal";
 
@@ -14,10 +13,37 @@ interface Props {
   setPositionModal: (state: ModalState) => void;
 }
 
+export interface Scenario {
+  scenario_number: number;
+  requirement: number;
+  fulfilled: number;
+  live_requirement: number;
+  live_fulfilled: number;
+}
+
+export interface ScenarioCount {
+  required: number;
+  fulfilled: number;
+}
+
 const Main = (props: Props) => {
-  const { accessToken, userId, setUserPositions, setPositionAssessments } =
-    useContext(GlobalVariables);
+  const {
+    accessToken,
+    userId,
+    positionAssessments,
+    setUserPositions,
+    setPositionAssessments,
+  } = useContext(GlobalVariables);
   const [selectedPosition, setSelectedPosition] = useState<string>("");
+  const [beginnerScenarios, setBeginnerScenarios] = useState<Scenario[]>([]);
+  const [intermediateScenarios, setIntermediateScenarios] = useState<
+    Scenario[]
+  >([]);
+  const [advancedScenarios, setAdvancedScenarios] = useState<Scenario[]>([]);
+  const [scenarioCompletion, setScenarioCompletion] = useState<ScenarioCount>({
+    required: 0,
+    fulfilled: 0,
+  });
 
   useEffect(() => {
     if (!userId) return;
@@ -78,41 +104,29 @@ const Main = (props: Props) => {
         return;
       }
 
-      res.data.assessments.sort(
-        (a: PositionAssessment, b: PositionAssessment) => {
-          if (a.date < b.date) {
-            return -1;
-          }
-
-          if (a.date > b.date) {
-            return 1;
-          }
-
-          if (a.assessment_number < b.assessment_number) {
-            return -1;
-          }
-
-          if (a.assessment_number > b.assessment_number) {
-            return 1;
-          }
-
-          return 0;
-        }
-      );
-
       setPositionAssessments?.(res.data.assessments);
+      setBeginnerScenarios(res.data.scenarios.beginner);
+      setIntermediateScenarios(res.data.scenarios.intermediate);
+      setAdvancedScenarios(res.data.scenarios.advanced);
+      setScenarioCompletion(res.data.count);
     })();
-  }, [selectedPosition]);
+  }, [selectedPosition, JSON.stringify(positionAssessments)]);
 
   return (
     <>
-      <div className="row section__container-light">
-        <div className="container">
+      <div className="row section__container-light fs-24">
+        <div className="assessments__summary-container">
           <p className="bebas fs-48 mb-2">Assessments</p>
           <Summary
             selectedPosition={selectedPosition}
             setSelectedPosition={setSelectedPosition}
             setModal={props.setPositionModal}
+            scenarios={{
+              beginnerScenarios,
+              intermediateScenarios,
+              advancedScenarios,
+            }}
+            scenarioCompletion={scenarioCompletion}
           />
         </div>
       </div>

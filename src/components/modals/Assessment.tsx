@@ -118,6 +118,8 @@ const Assessment = (props: Props) => {
     })();
 
     (async () => {
+      if (props.subtype === "add") return;
+
       const url =
         process.env.REACT_APP_API_ENDPOINT +
         `assessment/get/assessment_scenarios/${props.data.position}/${props.data.id}`;
@@ -380,7 +382,7 @@ const Assessment = (props: Props) => {
       // Assessment Delete API Call
       const url =
         process.env.REACT_APP_API_ENDPOINT +
-        `assessment/delete/${props.data.id}`;
+        `assessment/delete/${props.data.user_position_id}/${props.data.id}`;
       let res = await fetchCall(url, accessToken.current, "DELETE");
 
       if (res.status === "authErr") {

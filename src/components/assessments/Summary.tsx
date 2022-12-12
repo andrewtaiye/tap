@@ -4,13 +4,21 @@ import React, { useContext, useEffect, useRef } from "react";
 import GlobalVariables from "../../context/GlobalVariables";
 import { LineChart } from "../../charts/charts";
 import { ModalState } from "../generic/Modal";
+import { Scenario, ScenarioCount } from "./Main";
 
 import Button from "../generic/Button";
+import ScenarioRow from "../generic/ScenarioRow";
 
 interface Props {
   selectedPosition: string;
   setSelectedPosition: (position: string) => void;
   setModal: (state: ModalState) => void;
+  scenarios: {
+    beginnerScenarios: Scenario[];
+    intermediateScenarios: Scenario[];
+    advancedScenarios: Scenario[];
+  };
+  scenarioCompletion: ScenarioCount;
 }
 
 const Summary = (props: Props) => {
@@ -80,15 +88,64 @@ const Summary = (props: Props) => {
         </Button>
       </div>
       {props.selectedPosition && (
-        <div
-          className="row mt-2"
-          style={{
-            width: "700px",
-            height: "400px",
-            marginInline: "auto",
-          }}
-        >
-          <svg ref={lineChart}></svg>
+        <div className="instructor__personnel-position-container">
+          <div className="col gap-32">
+            <div
+              className="row mt-2"
+              style={{
+                width: "700px",
+                height: "400px",
+                marginInline: "auto",
+              }}
+            >
+              <svg ref={lineChart}></svg>
+            </div>
+            <div className="w-100 col gap-16">
+              <p className="fw-600">
+                Scenario Completion:{" "}
+                <span className="fw-400">
+                  {Math.round(
+                    (props.scenarioCompletion.fulfilled /
+                      props.scenarioCompletion.required) *
+                      100
+                  )}
+                  %
+                </span>
+              </p>
+              {props.scenarios.beginnerScenarios.length > 0 && (
+                <div className="w-100 col align-fs justify-fs px-8 gap-8">
+                  <p className="fw-600">Beginner</p>
+                  <div className="grid gc-3">
+                    {props.scenarios.beginnerScenarios.map((element, index) => {
+                      return <ScenarioRow key={index} {...element} />;
+                    })}
+                  </div>
+                </div>
+              )}
+              {props.scenarios.intermediateScenarios.length > 0 && (
+                <div className="w-100 col align-fs justify-fs px-8 gap-8">
+                  <p className="fw-600">Intermediate</p>
+                  <div className="grid gc-3">
+                    {props.scenarios.intermediateScenarios.map(
+                      (element, index) => {
+                        return <ScenarioRow key={index} {...element} />;
+                      }
+                    )}
+                  </div>
+                </div>
+              )}
+              {props.scenarios.advancedScenarios.length > 0 && (
+                <div className="w-100 col align-fs justify-fs px-8 gap-8">
+                  <p className="fw-600">Advanced</p>
+                  <div className="grid gc-3">
+                    {props.scenarios.advancedScenarios.map((element, index) => {
+                      return <ScenarioRow key={index} {...element} />;
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </>
