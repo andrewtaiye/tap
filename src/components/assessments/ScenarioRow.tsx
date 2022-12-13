@@ -6,7 +6,7 @@ interface Props extends Scenario {}
 
 const ScenarioRow = (props: Props) => {
   const Checkboxes = () => {
-    let counter = props.fulfilled;
+    let counter = Math.max(props.fulfilled, props.live_fulfilled);
     const array = [];
     for (let i = 0; i < props.requirement; i++) {
       const element = {
@@ -15,19 +15,19 @@ const ScenarioRow = (props: Props) => {
         checked: false,
       };
 
+      if (props.scenario_number === 4) {
+        console.log(i, props);
+      }
+
       if (i < props.live_requirement) {
         element.live = true;
-        if (i < props.live_fulfilled) {
-          element.checked = true;
-        }
-      } else {
-        if (
-          (props.live_requirement === 0 && counter > 0) ||
-          counter - props.live_fulfilled > 0
-        ) {
-          element.checked = true;
-          counter -= 1;
-        }
+      }
+      if (i < props.live_fulfilled) {
+        element.checked = true;
+      }
+      if (i >= props.live_requirement && counter - props.live_fulfilled > 0) {
+        element.checked = true;
+        counter -= 1;
       }
       array.push(element);
     }
