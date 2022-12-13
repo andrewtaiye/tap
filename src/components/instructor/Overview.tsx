@@ -13,6 +13,7 @@ interface TraineeObject {
   start_date: number;
   user_id: string;
   user_position_id: string;
+  percentage: number;
 }
 
 const Overview = () => {
@@ -94,7 +95,7 @@ const Overview = () => {
                         <p>{`${element.rank} ${capitaliseFirstLetter(
                           element.full_name
                         )}`}</p>
-                        <p>xxx%</p>
+                        <p>{element.percentage}%</p>
                       </Fragment>
                     );
                   })}
@@ -132,7 +133,7 @@ const Overview = () => {
                         <p>{`${element.rank} ${capitaliseFirstLetter(
                           element.full_name
                         )}`}</p>
-                        <p>xxx%</p>
+                        <p>{element.percentage}%</p>
                       </Fragment>
                     );
                   })}
@@ -170,7 +171,7 @@ const Overview = () => {
                         <p>{`${element.rank} ${capitaliseFirstLetter(
                           element.full_name
                         )}`}</p>
-                        <p>xxx%</p>
+                        <p>{element.percentage}%</p>
                       </Fragment>
                     );
                   })}
