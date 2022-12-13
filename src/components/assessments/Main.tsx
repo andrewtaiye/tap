@@ -22,7 +22,7 @@ export interface Scenario {
 }
 
 export interface ScenarioCount {
-  required: number;
+  requirement: number;
   fulfilled: number;
 }
 
@@ -41,7 +41,7 @@ const Main = (props: Props) => {
   >([]);
   const [advancedScenarios, setAdvancedScenarios] = useState<Scenario[]>([]);
   const [scenarioCompletion, setScenarioCompletion] = useState<ScenarioCount>({
-    required: 0,
+    requirement: 0,
     fulfilled: 0,
   });
 

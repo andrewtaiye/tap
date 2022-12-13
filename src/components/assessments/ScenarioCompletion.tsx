@@ -21,7 +21,7 @@ const ScenarioCompletion = (props: Props) => {
         <span className="fw-400">
           {Math.round(
             (props.scenarioCompletion.fulfilled /
-              props.scenarioCompletion.required) *
+              props.scenarioCompletion.requirement) *
               100
           )}
           %
