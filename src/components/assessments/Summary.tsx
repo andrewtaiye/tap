@@ -7,7 +7,6 @@ import { ModalState } from "../generic/Modal";
 import { Scenario, ScenarioCount } from "./Main";
 
 import Button from "../generic/Button";
-import ScenarioRow from "../generic/ScenarioRow";
 import ScenarioCompletion from "./ScenarioCompletion";
 
 interface Props {
