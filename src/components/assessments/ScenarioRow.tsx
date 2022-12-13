@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Scenario } from "../assessments/Main";
+import { Scenario } from "./Main";
 
 interface Props extends Scenario {}
 

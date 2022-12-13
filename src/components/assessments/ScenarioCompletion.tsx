@@ -2,7 +2,7 @@ import React from "react";
 
 import { Scenario, ScenarioCount } from "./Main";
 
-import ScenarioRow from "../generic/ScenarioRow";
+import ScenarioRow from "./ScenarioRow";
 
 interface Props {
   scenarios: {
