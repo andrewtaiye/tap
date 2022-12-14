@@ -15,10 +15,6 @@ const ScenarioRow = (props: Props) => {
         checked: false,
       };
 
-      if (props.scenario_number === 4) {
-        console.log(i, props);
-      }
-
       if (i < props.live_requirement) {
         element.live = true;
       }
