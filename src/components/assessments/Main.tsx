@@ -60,7 +60,7 @@ const Main = (props: Props) => {
       }
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
         return;
       }
 
@@ -96,7 +96,7 @@ const Main = (props: Props) => {
       }
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
       }
 
       if (!res.data) {

@@ -40,7 +40,7 @@ const Login = () => {
       let res = await fetchCall(url, "", "POST", body);
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
         setErrorMessage(res.message);
         return;
       }

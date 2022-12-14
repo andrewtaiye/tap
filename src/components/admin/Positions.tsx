@@ -48,7 +48,7 @@ const Positions = () => {
         }
 
         if (res.status !== "ok") {
-          console.error(res);
+          console.error(res.message);
           return;
         }
 
@@ -82,7 +82,7 @@ const Positions = () => {
       }
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
         return;
       }
 
@@ -119,7 +119,7 @@ const Positions = () => {
       }
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
         return;
       }
 

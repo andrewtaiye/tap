@@ -26,7 +26,17 @@ const Overview = () => {
     (async () => {
       const url =
         process.env.REACT_APP_API_ENDPOINT + `instructor/get/trainees`;
-      const res = await fetchCall(url, accessToken.current);
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
+
+      if (res.status !== "ok") {
+        console.error(res.message);
+        return;
+      }
 
       const trainees = res.data.trainees;
 

@@ -64,7 +64,7 @@ const Register = () => {
       const res = await fetchCall(url, "", "PUT", body);
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
         setErrorMessage(res.message);
         return;
       }

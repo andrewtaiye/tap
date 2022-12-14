@@ -92,7 +92,7 @@ const Create = () => {
       }
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
       }
       setErrorMessage("");
       setHasProfile?.(true);

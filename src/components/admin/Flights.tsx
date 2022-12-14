@@ -48,7 +48,7 @@ const Flights = () => {
         }
 
         if (res.status !== "ok") {
-          console.error(res);
+          console.error(res.message);
           return;
         }
 
@@ -82,7 +82,7 @@ const Flights = () => {
       }
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
         return;
       }
 
@@ -118,7 +118,7 @@ const Flights = () => {
       }
 
       if (res.status !== "ok") {
-        console.error(res);
+        console.error(res.message);
         return;
       }
 
