@@ -80,7 +80,7 @@ const Overview = () => {
               CAT C Upgrades:{" "}
               <span className="fw-400">{catCTrainees.length}</span>
             </p>
-            <div
+            {/* <div
               className="row"
               style={{
                 aspectRatio: "16 / 9",
@@ -89,7 +89,7 @@ const Overview = () => {
               }}
             >
               Aggregated Chart
-            </div>
+            </div> */}
             <div className="grid gc-2 gap-16">
               <div className="fw-600">Trainees</div>
               <div className="fw-600">% Complete</div>
@@ -118,7 +118,7 @@ const Overview = () => {
               CAT B Upgrades:{" "}
               <span className="fw-400">{catBTrainees.length}</span>
             </p>
-            <div
+            {/* <div
               className="row"
               style={{
                 aspectRatio: "16 / 9",
@@ -127,7 +127,7 @@ const Overview = () => {
               }}
             >
               Aggregated Chart
-            </div>
+            </div> */}
             <div className="grid gc-2 gap-16">
               <div className="fw-600">Trainees</div>
               <div className="fw-600">% Complete</div>
@@ -156,7 +156,7 @@ const Overview = () => {
               CAT A Upgrades:{" "}
               <span className="fw-400">{catATrainees.length}</span>
             </p>
-            <div
+            {/* <div
               className="row"
               style={{
                 aspectRatio: "16 / 9",
@@ -165,7 +165,7 @@ const Overview = () => {
               }}
             >
               Aggregated Chart
-            </div>
+            </div> */}
             <div className="grid gc-2 gap-16">
               <div className="fw-600">Trainees</div>
               <div className="fw-600">% Complete</div>
