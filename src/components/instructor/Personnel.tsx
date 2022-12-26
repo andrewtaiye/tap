@@ -300,7 +300,7 @@ const PersonnelPosition = (props: PositionProps) => {
         </div>
 
         {/* Assessment Table */}
-        <div className="row container">
+        <div className="row container fs-16">
           <PositionAssessmentTable
             selectedPosition={props.selectedPosition}
             positionAssessments={props.positionAssessments}
