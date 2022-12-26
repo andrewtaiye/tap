@@ -7,6 +7,7 @@ import GlobalVariables, {
   UserPosition,
 } from "../../context/GlobalVariables";
 import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
+
 import Button from "../generic/Button";
 
 interface PersonnelObject {
