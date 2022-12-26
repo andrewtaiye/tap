@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from "react";
 import dayjs from "dayjs";
 
-import {
+import GlobalVariables, {
   PositionAssessment,
   UserPosition,
 } from "../../context/GlobalVariables";
-import { capitaliseFirstLetter } from "../generic/utility";
+import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
+import Button from "../generic/Button";
 
 interface PersonnelObject {
   user_id: string;
+  rank: string;
+  full_name: string;
+  cat: string;
+  flight: string;
 }
 
 interface SelectorProps {
   personnel: PersonnelObject[];
+  setSelectedPersonnel: (object: PersonnelObject) => void;
+  setSelectedPosition: (positionId: string) => void;
 }
 
 interface SummaryProps {
+  selectedPersonnel: PersonnelObject;
   personnelPositions: UserPosition[];
+  setSelectedPosition: (positionId: string) => void;
+}
+
+interface PositionTableProps {
+  personnelPositions: UserPosition[];
+  setSelectedPosition: (positionId: string) => void;
 }
 
 interface PositionProps {
@@ -24,22 +39,94 @@ interface PositionProps {
 }
 
 const Personnel = () => {
+  const { accessToken } = useContext(GlobalVariables);
   const [personnel, setPersonnel] = useState<PersonnelObject[]>([]);
-  const [selectedPersonnel, setSelectedPersonnel] = useState("");
+  const [selectedPersonnel, setSelectedPersonnel] = useState({
+    user_id: "",
+    rank: "",
+    full_name: "",
+    cat: "",
+    flight: "",
+  });
   // prettier-ignore
   const [personnelPositions, setPersonnelPositions] = useState<UserPosition[]>([]);
   const [selectedPosition, setSelectedPosition] = useState("");
 
+  useEffect(() => {
+    (async () => {
+      const url =
+        process.env.REACT_APP_API_ENDPOINT + `instructor/get/personnel`;
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
+
+      if (res.status !== "ok") {
+        console.error(res.message);
+        return;
+      }
+
+      setPersonnel(res.data.personnel);
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedPersonnel.user_id) return;
+
+    (async () => {
+      const url =
+        process.env.REACT_APP_API_ENDPOINT +
+        `user_position/get/${selectedPersonnel.user_id}`;
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
+
+      if (res.status !== "ok") {
+        console.error(res.message);
+        return;
+      }
+
+      setPersonnelPositions(res.data.positions);
+    })();
+  }, [selectedPersonnel.user_id]);
+
   return (
     <>
-      <PersonnelSelector personnel={personnel} />
-      <PersonnelSummary personnelPositions={personnelPositions} />
-      <PersonnelPosition selectedPosition={selectedPosition} />
+      <PersonnelSelector
+        personnel={personnel}
+        setSelectedPersonnel={setSelectedPersonnel}
+        setSelectedPosition={setSelectedPosition}
+      />
+      {selectedPersonnel.full_name && (
+        <PersonnelSummary
+          selectedPersonnel={selectedPersonnel}
+          personnelPositions={personnelPositions}
+          setSelectedPosition={setSelectedPosition}
+        />
+      )}
+      {selectedPosition && (
+        <PersonnelPosition selectedPosition={selectedPosition} />
+      )}
     </>
   );
 };
 
 const PersonnelSelector = (props: SelectorProps) => {
+  const handlePersonnelChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const selection = props.personnel.find(
+      (element) => element.user_id === event.target.value
+    );
+    props.setSelectedPersonnel(selection as PersonnelObject);
+    props.setSelectedPosition("");
+  };
+
   return (
     <div className="section__container-light fs-24">
       <div className="col gap-16">
@@ -53,15 +140,15 @@ const PersonnelSelector = (props: SelectorProps) => {
             appearance: "none",
           }}
           defaultValue="default"
-          onChange={() => {}}
+          onChange={handlePersonnelChange}
         >
           <option value="default" disabled>
             - Select Personnel -
           </option>
           {props.personnel?.map((element, index) => {
             return (
-              <option value={""} key={index}>
-                {""}
+              <option value={element.user_id} key={index}>
+                {element.rank} {capitaliseFirstLetter(element.full_name)}
               </option>
             );
           })}
@@ -74,14 +161,17 @@ const PersonnelSelector = (props: SelectorProps) => {
 const PersonnelSummary = (props: SummaryProps) => {
   return (
     <div className="section__container-dark col gap-32 fs-24">
-      <p className="bebas fs-32">Rank and Name</p>
+      <p className="bebas fs-32">
+        {props.selectedPersonnel.rank}{" "}
+        {capitaliseFirstLetter(props.selectedPersonnel.full_name)}
+      </p>
       <div className="w-100 col gap-16">
         <div className="w-100 row gap-64">
           <div className="row w-100 justify-fe">
             <p className="fw-600">Flight</p>
           </div>
           <div className="row w-100 justify-fs">
-            <p>flight</p>
+            <p>{capitaliseFirstLetter(props.selectedPersonnel.flight)}</p>
           </div>
         </div>
         <div className="w-100 row gap-64">
@@ -89,11 +179,14 @@ const PersonnelSummary = (props: SummaryProps) => {
             <p className="fw-600">Ops CAT</p>
           </div>
           <div className="row w-100 justify-fs">
-            <p>cat</p>
+            <p>{props.selectedPersonnel.cat}</p>
           </div>
         </div>
       </div>
-      <PersonnelPositionTable personnelPositions={props.personnelPositions} />
+      <PersonnelPositionTable
+        personnelPositions={props.personnelPositions}
+        setSelectedPosition={props.setSelectedPosition}
+      />
     </div>
   );
 };
@@ -317,15 +410,20 @@ const PersonnelPosition = (props: PositionProps) => {
   );
 };
 
-const PersonnelPositionTable = (props: SummaryProps) => {
+const PersonnelPositionTable = (props: PositionTableProps) => {
+  const handleButtonClick = (positionId: string) => {
+    props.setSelectedPosition(positionId);
+  };
+
   return (
     <table className="table__positions">
       <colgroup>
         <col style={{ width: "9.091%" }} />
-        <col style={{ width: "36.363%" }} />
+        <col style={{ width: "27.272%" }} />
         <col style={{ width: "18.182%" }} />
         <col style={{ width: "18.182%" }} />
         <col style={{ width: "18.182%" }} />
+        <col style={{ width: "9.091%" }} />
       </colgroup>
       <thead>
         <tr>
@@ -351,6 +449,7 @@ const PersonnelPositionTable = (props: SummaryProps) => {
               <th>Start Date</th>
               <th>End Date</th>
               <th>Approval Date</th>
+              <th>View</th>
             </tr>
             {props.personnelPositions?.map((element, index) => {
               return (
@@ -378,6 +477,19 @@ const PersonnelPositionTable = (props: SummaryProps) => {
                           .unix(element.approval_date as number)
                           .format("YYYY.MM.DD")
                       : "-"}
+                  </td>
+                  <td>
+                    <div className="row">
+                      <Button
+                        mode="active"
+                        type="button"
+                        className="fs-16"
+                        name="save"
+                        onClick={handleButtonClick}
+                      >
+                        View
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               );
