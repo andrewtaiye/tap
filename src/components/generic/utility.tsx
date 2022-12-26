@@ -1,3 +1,12 @@
+interface fetchOptions {
+  method: string;
+  body: string | null;
+  headers: {
+    "Content-Type": string;
+    Authorization?: string;
+  };
+}
+
 export const capitaliseFirstLetter = (string?: string): string => {
   if (!string || string === " ") return "";
   const words: string[] = string?.split(/ |-/);
@@ -16,14 +25,18 @@ export const fetchCall = async (
   method: string = "GET",
   body: any = null
 ) => {
-  const res = await fetch(url, {
+  const options: fetchOptions = {
     method: method,
     body: body === null ? null : JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + header,
     },
-  });
+  };
+
+  if (header) {
+    options.headers.Authorization = "Bearer " + header;
+  }
+  const res = await fetch(url, options);
 
   const response = await res.json();
   return response;
