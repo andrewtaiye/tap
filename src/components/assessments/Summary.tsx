@@ -2,9 +2,10 @@
 import React, { useContext, useEffect, useRef } from "react";
 
 import GlobalVariables from "../../context/GlobalVariables";
-import { LineChart } from "../../charts/charts";
 import { ModalState } from "../generic/Modal";
 import { Scenario, ScenarioCount } from "./Main";
+
+import { LineChart } from "../../charts/charts";
 
 import Button from "../generic/Button";
 import ScenarioCompletion from "./ScenarioCompletion";
