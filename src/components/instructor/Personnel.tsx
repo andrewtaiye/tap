@@ -1,14 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 
 import GlobalVariables, {
   PositionAssessment,
   UserPosition,
 } from "../../context/GlobalVariables";
+import { Scenario, ScenarioCount } from "../assessments/Main";
 import { capitaliseFirstLetter, fetchCall } from "../generic/utility";
 
+import { LineChart } from "../../charts/charts";
+
 import Button from "../generic/Button";
+import ScenarioCompletion from "../assessments/ScenarioCompletion";
 
 interface PersonnelObject {
   user_id: string;
@@ -37,6 +41,18 @@ interface PositionTableProps {
 
 interface PositionProps {
   selectedPosition: string;
+  positionAssessments: PositionAssessment[];
+  scenarios: {
+    beginnerScenarios: Scenario[];
+    intermediateScenarios: Scenario[];
+    advancedScenarios: Scenario[];
+  };
+  scenarioCompletion: ScenarioCount;
+}
+
+interface AssessmentTableProps {
+  selectedPosition: string;
+  positionAssessments: PositionAssessment[];
 }
 
 const Personnel = () => {
@@ -52,6 +68,18 @@ const Personnel = () => {
   // prettier-ignore
   const [personnelPositions, setPersonnelPositions] = useState<UserPosition[]>([]);
   const [selectedPosition, setSelectedPosition] = useState("");
+  const [beginnerScenarios, setBeginnerScenarios] = useState<Scenario[]>([]);
+  const [intermediateScenarios, setIntermediateScenarios] = useState<
+    Scenario[]
+  >([]);
+  const [advancedScenarios, setAdvancedScenarios] = useState<Scenario[]>([]);
+  const [scenarioCompletion, setScenarioCompletion] = useState<ScenarioCount>({
+    requirement: 0,
+    fulfilled: 0,
+  });
+  const [positionAssessments, setPositionAssessments] = useState<
+    PositionAssessment[]
+  >([]);
 
   useEffect(() => {
     (async () => {
@@ -96,6 +124,38 @@ const Personnel = () => {
     })();
   }, [selectedPersonnel.user_id]);
 
+  useEffect(() => {
+    if (!selectedPosition) return;
+
+    (async () => {
+      // Assessment Get API Call
+      const url =
+        process.env.REACT_APP_API_ENDPOINT +
+        `assessment/get/${selectedPosition}`;
+      let res = await fetchCall(url, accessToken.current);
+
+      if (res.status === "authErr") {
+        res = await fetchCall(url, localStorage.refreshToken);
+        accessToken.current = res.data.access;
+      }
+
+      if (res.status !== "ok") {
+        console.error(res.message);
+      }
+
+      if (!res.data) {
+        setPositionAssessments?.([]);
+        return;
+      }
+
+      setPositionAssessments?.(res.data.assessments);
+      setBeginnerScenarios(res.data.scenarios.beginner);
+      setIntermediateScenarios(res.data.scenarios.intermediate);
+      setAdvancedScenarios(res.data.scenarios.advanced);
+      setScenarioCompletion(res.data.count);
+    })();
+  }, [selectedPosition]);
+
   return (
     <>
       <PersonnelSelector
@@ -111,7 +171,16 @@ const Personnel = () => {
         />
       )}
       {selectedPosition && (
-        <PersonnelPosition selectedPosition={selectedPosition} />
+        <PersonnelPosition
+          selectedPosition={selectedPosition}
+          positionAssessments={positionAssessments}
+          scenarios={{
+            beginnerScenarios,
+            intermediateScenarios,
+            advancedScenarios,
+          }}
+          scenarioCompletion={scenarioCompletion}
+        />
       )}
     </>
   );
@@ -193,218 +262,49 @@ const PersonnelSummary = (props: SummaryProps) => {
 };
 
 const PersonnelPosition = (props: PositionProps) => {
+  const lineChart: any = useRef();
+
+  useEffect(() => {
+    LineChart(props.positionAssessments, lineChart.current, {
+      x: (d: any) => d.assessment_number,
+      y: (d: any) => d.grade,
+      yLabel: "Grade",
+      yDomain: [0, 100],
+      width: 700,
+      height: 400,
+      color: "steelblue",
+    });
+  }, [props.positionAssessments]);
+
   return (
     <div className="row section__container-light fs-24">
-      <div className="instructor__personnel-position-container">
-        <div className="col gap-32">
-          {/* Title */}
-          <p className="bebas fs-32">Position Details</p>
+      <div className="col gap-32">
+        {/* Title */}
+        <p className="bebas fs-32">Position Details</p>
 
-          {/* Chart */}
-          <div className="row">
-            <svg></svg>
-          </div>
+        {/* Chart */}
+        <div className="row">
+          <svg ref={lineChart}></svg>
+        </div>
 
-          {/* Scenario Checklist */}
-          <div className="w-100 col gap-16">
-            <p className="fw-600">
-              Scenario Completion: <span className="fw-400">xx%</span>
-            </p>
-            <div className="w-100 col align-fs justify-fs px-8 gap-8">
-              <p className="fw-600">Beginner</p>
-              <div className="grid gc-3">
-                <div className="row">
-                  <p className="scenario-checklist__label">1.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">2.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">3.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">4.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">5.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-100 col align-fs justify-fs px-8 gap-8">
-              <p className="fw-600">Intermediate</p>
-              <div className="grid gc-3">
-                <div className="row">
-                  <p className="scenario-checklist__label">6.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">7.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">8.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">9.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-100 col align-fs justify-fs px-8 gap-8">
-              <p className="fw-600">Advanced</p>
-              <div className="grid gc-3">
-                <div className="row">
-                  <p className="scenario-checklist__label">10.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="row">
-                  <p className="scenario-checklist__label">11.</p>
-                  <div className="flex row justify-sa">
-                    <svg width="20" height="20" fill="rgb(var(--lightGrey))">
-                      <path d="m 0 0 h 20 v 20 h -20 v -20" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Scenario Checklist */}
+        <div className="instructor__personnel-position-container">
+          <ScenarioCompletion
+            scenarios={{
+              beginnerScenarios: props.scenarios.beginnerScenarios,
+              intermediateScenarios: props.scenarios.intermediateScenarios,
+              advancedScenarios: props.scenarios.advancedScenarios,
+            }}
+            scenarioCompletion={props.scenarioCompletion}
+          />
+        </div>
 
-          {/* Assessment Table */}
-          <div className="row container">
-            <PositionAssessmentTable
-              selectedPosition={props.selectedPosition}
-            />
-          </div>
+        {/* Assessment Table */}
+        <div className="row container">
+          <PositionAssessmentTable
+            selectedPosition={props.selectedPosition}
+            positionAssessments={props.positionAssessments}
+          />
         </div>
       </div>
     </div>
@@ -486,7 +386,9 @@ const PersonnelPositionTable = (props: PositionTableProps) => {
                         type="button"
                         className="fs-16"
                         name="save"
-                        onClick={handleButtonClick}
+                        onClick={() => {
+                          handleButtonClick(element.id as string);
+                        }}
                       >
                         View
                       </Button>
@@ -502,10 +404,7 @@ const PersonnelPositionTable = (props: PositionTableProps) => {
   );
 };
 
-const PositionAssessmentTable = (props: PositionProps) => {
-  // prettier-ignore
-  const [positionAssessments, setPositionAssessments] = useState<PositionAssessment[]>([]);
-
+const PositionAssessmentTable = (props: AssessmentTableProps) => {
   return (
     <table className="table__assessments">
       <colgroup>
@@ -534,7 +433,7 @@ const PositionAssessmentTable = (props: PositionProps) => {
         </tr>
       </thead>
       <tbody>
-        {positionAssessments?.length === 0 ? (
+        {props.positionAssessments?.length === 0 ? (
           <>
             <tr>
               <th colSpan={16}>
@@ -562,7 +461,7 @@ const PositionAssessmentTable = (props: PositionProps) => {
               <th>Grade</th>
               <th>Remarks</th>
             </tr>
-            {positionAssessments?.map((element, index) => {
+            {props.positionAssessments?.map((element, index) => {
               return (
                 <tr key={element.id}>
                   <td>{index + 1}</td>
